@@ -1,0 +1,55 @@
+.profile-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid red;
+  height: 85vh;
+  width: 100%;
+}
+
+.profile-card .card {
+
+  border-radius: 1rem;
+  box-shadow: none;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border: 5px solid green;
+  object-fit: cover;
+}
+
+.profile-card .card::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 64%;
+  bottom: 0;
+  z-index: 1;
+  background: linear-gradient(to top, #000, rgba(0, 0, 0, 0));
+}
+
+.profile-card .card .profile-img {
+    height: 100%;
+    width: 100%;
+}
+
+.profile-card .card .content {
+  position: absolute;
+  z-index: 2;
+  bottom: 50px;
+  width: 100%;
+  color: #ffffff;
+}
+
+.profile-card .card .buttons {
+  position: absolute;
+  z-index: 2;
+  bottom: 10px;
+  width: 100%;
+  color: #ffffff;
+}
+
+.drawer {
+  width: 100px !important;
+}
