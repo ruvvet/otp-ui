@@ -36,6 +36,7 @@ export default function ProfileCard({
   };
 
   return (
+
     <TinderCard
       className="profile-card"
       id="profile-card"
@@ -113,5 +114,6 @@ export default function ProfileCard({
         </Grid>
       </Card>
     </TinderCard>
+    
   );
 }

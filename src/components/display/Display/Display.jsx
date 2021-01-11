@@ -1,5 +1,5 @@
 import { Container, Grid } from '@material-ui/core';
-import { React, useState } from 'react';
+import { createRef, React, useMemo, useState } from 'react';
 import Card from '../ProfileCard';
 import './display.css';
 
@@ -25,33 +25,54 @@ const pretendProfiles = [
 
 export default function Display() {
   const removed = [];
+  let profiles = pretendProfiles;
 
-  const [profile, setProfile] = useState(pretendProfiles[0]);
+  const [profile, setProfile] = useState(pretendProfiles);
   const [swipeDirection, setSwipeDirection] = useState();
 
-  const swiped = (direction, profile) => {
+  const childRefs = useMemo(
+    () =>
+      Array(pretendProfiles.length)
+        .fill(0)
+        .map((i) => createRef()),
+    []
+  );
+
+  const swiped = (direction, id) => {
     console.log('removing: ' + profile.name);
     setSwipeDirection(direction);
-    removed.push(profile);
+    removed.push(profile.id);
   };
 
-  const outOfFrame = (profile) => {
+  const outOfFrame = (id) => {
     console.log(profile.name, ' out of frame, removed from list');
-    pretendProfiles.shift();
-    setProfile(pretendProfiles[0]);
-
+    profiles = profiles.filter((profile) => profile.id !== id);
+    setProfile(profiles);
   };
 
   const swipeButton = (direction) => {
-    console.log('button - removing: ', profile.name);
-    setSwipeDirection(direction);
-    pretendProfiles.shift();
-    setProfile(pretendProfiles[0]);
-    removed.push(profile);
+    const remaining = profile.filter((pro) => !removed.includes(pro.id));
+    if (remaining.length) {
+      const toRemove = remaining[remaining.length - 1].id;
+      const index = pretendProfiles.map((pro) => pro.id).indexOf(toRemove);
+      removed.push(toRemove);
+      childRefs[index].current.swipeButton(direction);
+    }
   };
 
   const renderCards = () => {
-    return  <Card profile={profile} swiped={swiped} outOfFrame = {outOfFrame} swipeButton={swipeButton}/>
+    return pretendProfiles.map((profile, i) => (
+<div className = "swipe">
+        <Card
+          ref={childRefs[i]}
+          key={i}
+          profile={profile}
+          swiped={swiped}
+          outOfFrame={outOfFrame}
+          swipeButton={swipeButton}
+        />
+</div>
+    ));
   };
 
   return (

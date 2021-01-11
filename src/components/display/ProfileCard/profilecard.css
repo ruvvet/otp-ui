@@ -5,6 +5,8 @@
   border: 5px solid red;
   height: 85vh;
   width: 100%;
+position: relative;
+
 }
 
 .profile-card .card {

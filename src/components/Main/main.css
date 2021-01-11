@@ -1,9 +1,10 @@
 .main-container{
-    /* background: #121212; */
+    background: #121212;
     border: 5px solid black;
     height: 100vh;
     width: 100vw;
     color: rgb(0, 0, 0);
     font-size: 1.5em;
-  
+    color: white;
+
 }
