@@ -1,9 +1,13 @@
 .main-container {
-  background: #5c5c5c;
+  background: #222222;
+
+
+  background-repeat: no-repeat;
+  background-size: cover;
+
   border: 5px solid black;
   height: 100vh;
   width: 100vw;
-  color: rgb(0, 0, 0);
   font-size: 1.5em;
   color: white;
   display: flex;
@@ -11,21 +15,18 @@
   justify-content: space-between;
   align-items: center;
 
+
 }
 
-.main-grid{
-  height: 100vh;
-  width: 100vw;
+.main-grid {
+  height: 100%;
+  width: 100%;
+
 }
 .icon {
   color: white !important;
   font-size: 2rem !important;
-}
-
-.badge {
-}
-
-.main-body {
-  border: 5px solid red;
-
+  height: 40px;
+  width: 40px;
+  color: rgb(211, 189, 200)!important;
 }

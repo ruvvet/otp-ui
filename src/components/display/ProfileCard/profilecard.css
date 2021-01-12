@@ -1,9 +1,10 @@
 .profile-card {
-  border: 5px solid red;
-  height: 900px;
-  width: 500px;
+  height: 80vh;
+  max-height: 900px;
+  width: 80vw;
+  max-width: 500px;
   position: relative;
-  z-index:1;
+  z-index: 1;
 }
 
 .profile-card .card {
@@ -12,7 +13,6 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  border: 5px solid green;
 }
 
 .profile-card .card::after {
@@ -34,7 +34,7 @@
 
 .profile-card .card .content {
   position: absolute;
-z-index:2;
+  z-index: 2;
   bottom: 50px;
   width: 100%;
   color: #ffffff;
@@ -42,13 +42,10 @@ z-index:2;
 
 .profile-card .card .buttons {
   position: absolute;
-  z-index:2;
+  z-index: 2;
   bottom: 10px;
   width: 100%;
   color: #ffffff;
 }
 
-.drawer {
-  width: 100px !important;
-  max-width: 100px !important;
-}
+

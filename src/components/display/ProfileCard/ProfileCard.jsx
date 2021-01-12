@@ -1,21 +1,17 @@
-import {
-  Box,
-  Card,
-  CardMedia,
-  Drawer,
-  Grid,
-  IconButton,
-} from '@material-ui/core';
+import { Box, Card, CardMedia, Grid, IconButton } from '@material-ui/core';
 import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded';
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import UnfoldMoreRoundedIcon from '@material-ui/icons/UnfoldMoreRounded';
 import { forwardRef, React, useState } from 'react';
 import TinderCard from 'react-tinder-card';
+import Slide from '../../effects/Slide';
+import Details from '../Details';
 import './profilecard.css';
 
 export default forwardRef(
   ({ profile, swiped, outOfFrame, swipeButton }, ref) => {
     const [viewDetails, setViewDetails] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     const toggleDetails = (open) => (event) => {
       if (
@@ -38,65 +34,42 @@ export default forwardRef(
         ref={ref}
       >
         <Card className="card">
-
-          <div className = "box-abs"></div>
+          <div className="box-abs"></div>
           <CardMedia
             className="profile-img"
             component="img"
             image={profile.img}
             title="something"
           />
-            <Box py={3} px={2} className="content">
-              <div>{profile.name}, rank</div>
-            </Box>
+          <Box py={3} px={2} className="content">
+            <div>{profile.name}, rank</div>
+          </Box>
 
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              alignItems="center"
-              className="buttons"
-            >
-              <IconButton>
-                <HighlightOffRoundedIcon
-                  className="icon"
-                  style={{ color: '#FFFFFF', fontSize: 40 }}
-                  onClick={() => swipeButton('left')}
-                />
-              </IconButton>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+            className="buttons"
+          >
+            <IconButton>
+              <HighlightOffRoundedIcon
+                className="icon"
+                style={{ color: '#FFFFFF', fontSize: 40 }}
+                onClick={() => swipeButton('left')}
+              />
+            </IconButton>
 
-              <IconButton>
-                <UnfoldMoreRoundedIcon
-                  className="icon"
-                  style={{ color: '#FFFFFF', fontSize: 40 }}
-                  onClick={toggleDetails(true)}
-                />
+            <IconButton>
+              <UnfoldMoreRoundedIcon
+                className="icon"
+                style={{ color: '#FFFFFF', fontSize: 40 }}
+                onClick={() => setIsVisible(!isVisible)}
+              />
 
-              <Drawer
-                anchor={'bottom'}
-                open={viewDetails}
-                onClose={toggleDetails(false)}
-                className="drawer"
-                // PaperProps={{ style: { position: 'absolute' } }}
-                // BackdropProps={{ style: { position: 'absolute' } }}
-                // ModalProps={{
-                //   container: document.getElementById('profile-card'),
-                //   style: { position: 'absolute' },
-                // }}
-              >
-                <div>Role</div>
-                <div>Mains</div>
-                <div>Link to other social media</div>
-                <div>Blurb</div>
-                <div>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Non odio euismod lacinia at quis risus. Bibendum neque egestas
-                  congue quisque egestas diam. Feugiat in ante metus dictum at
-                  tempor. Tellus in metus vulputate eu scelerisque felis
-                  imperdiet. Cursus turpis massa tincidunt dui ut ornare lectus.
-                </div>
-              </Drawer>
+              <Slide isVisible={isVisible}>
+                <Details />
+              </Slide>
             </IconButton>
             <IconButton>
               <CheckCircleOutlineRoundedIcon

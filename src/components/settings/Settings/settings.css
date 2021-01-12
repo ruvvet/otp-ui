@@ -1,0 +1,23 @@
+.settings-container {
+  color: rgb(85, 85, 85);
+  background-color: white;
+  border-radius: 1em;
+}
+
+.settings-container img {
+  height: 30px;
+  width: 30px;
+}
+
+.settings-container .input {
+}
+
+.settings-container .rank-slider {
+  height: 30px;
+  width: 30px;
+}
+
+.settings-container .add-pfp {
+  border: 1px dashed black;
+  margin-top: 5px;
+}

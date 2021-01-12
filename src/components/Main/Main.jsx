@@ -5,7 +5,8 @@ import Footer from '../footer/Footer';
 import Header from '../header/Header';
 import { Switch, Route } from 'react-router-dom';
 import './main.css';
-import Messages from '../chat/Messages/Messages';
+import Messages from '../chat/Messages';
+import Settings from '../settings/Settings';
 
 export default function Main() {
   return (
@@ -16,15 +17,16 @@ export default function Main() {
         justify="space-between"
         alignItems="center"
         className = "main-grid"
+
       >
         <Header />
-        <div className="main-body">
+        <div >
           <Switch>
             <Route path="/messages">
               <Messages />
             </Route>
             <Route path="/settings">
-              <div>Settings component here</div>
+              <Settings />
             </Route>
             <Route path="/">
               <Display />

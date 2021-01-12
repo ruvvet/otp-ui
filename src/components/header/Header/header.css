@@ -1,14 +1,8 @@
-.header-container{
-    padding-top: 10px;
-}
-
-.header-container .icon {
-  padding: 0 10px;
+.header-container {
+  padding: 10px 0 0 0;
 }
 
 .header-container img {
   height: 50px;
   object-fit: contain;
-
 }
-
