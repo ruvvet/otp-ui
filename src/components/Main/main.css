@@ -10,9 +10,13 @@
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: center;
-  
+
 }
 
+.main-grid{
+  height: 100vh;
+  width: 100vw;
+}
 .icon {
   color: white !important;
   font-size: 2rem !important;

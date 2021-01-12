@@ -2,16 +2,14 @@ import {
   Box,
   Card,
   CardMedia,
+  Drawer,
   Grid,
   IconButton,
-  Drawer,
-  Container,
 } from '@material-ui/core';
-
 import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded';
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import UnfoldMoreRoundedIcon from '@material-ui/icons/UnfoldMoreRounded';
-import { React, useState, forwardRef } from 'react';
+import { forwardRef, React, useState } from 'react';
 import TinderCard from 'react-tinder-card';
 import './profilecard.css';
 
@@ -40,38 +38,39 @@ export default forwardRef(
         ref={ref}
       >
         <Card className="card">
+
+          <div className = "box-abs"></div>
           <CardMedia
             className="profile-img"
             component="img"
             image={profile.img}
             title="something"
           />
+            <Box py={3} px={2} className="content">
+              <div>{profile.name}, rank</div>
+            </Box>
 
-          <Box py={3} px={2} className="content">
-            <div>{profile.name}, rank</div>
-          </Box>
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+              className="buttons"
+            >
+              <IconButton>
+                <HighlightOffRoundedIcon
+                  className="icon"
+                  style={{ color: '#FFFFFF', fontSize: 40 }}
+                  onClick={() => swipeButton('left')}
+                />
+              </IconButton>
 
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-            className="buttons"
-          >
-            <IconButton>
-              <HighlightOffRoundedIcon
-                className="icon"
-                style={{ color: '#FFFFFF', fontSize: 40 }}
-                onClick={() => swipeButton('left')}
-              />
-            </IconButton>
-
-            <IconButton>
-              <UnfoldMoreRoundedIcon
-                className="icon"
-                style={{ color: '#FFFFFF', fontSize: 40 }}
-                onClick={toggleDetails(true)}
-              />
+              <IconButton>
+                <UnfoldMoreRoundedIcon
+                  className="icon"
+                  style={{ color: '#FFFFFF', fontSize: 40 }}
+                  onClick={toggleDetails(true)}
+                />
 
               <Drawer
                 anchor={'bottom'}

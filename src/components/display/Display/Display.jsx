@@ -24,50 +24,39 @@ const pretendProfiles = [
 ];
 
 export default function Display() {
-  const removed = [];
-  let profiles = pretendProfiles;
-
-  const [profile, setProfile] = useState(pretendProfiles);
-  const [swipeDirection, setSwipeDirection] = useState();
+  const [profiles, setProfiles] = useState(pretendProfiles);
+  const [index, setIndex] = useState(0);
 
   const childRefs = useMemo(
     () =>
-      Array(pretendProfiles.length)
-        .fill(0)
-        .map((i) => createRef()),
+      // Array(profiles.length)
+      //   .fill(0)
+      //   .map((i) => createRef()),
+      ({ 1: createRef(), 2: createRef(), 3: createRef() }),
     []
   );
 
   const swiped = (direction, id) => {
     console.log('removing: ' + id);
-    setSwipeDirection(direction);
-    removed.push(profile.id);
+    console.log(direction);
+    // make api call to update database
   };
 
   const outOfFrame = (id) => {
     console.log(id, ' out of frame, removed from list');
-    profiles = profiles.filter((profile) => profile.id !== id);
-    console.log(profiles);
-    setProfile(profiles);
+    setIndex(index + 1);
   };
 
-  const swipeButton = (direction) => {
-    const remaining = profile.filter((pro) => !removed.includes(pro.id));
-    console.log('remaining', remaining);
-    if (remaining.length) {
-      const toRemove = remaining[remaining.length - 1].id;
-      const index = pretendProfiles.map((pro) => pro.id).indexOf(toRemove);
-      removed.push(toRemove);
-      childRefs[index].current.swipe(direction);
-    }
+  const swipeButton = async (direction) => {
+    await childRefs[profiles[index].id].current.swipe(direction);
   };
 
   const renderCards = () => {
-    return pretendProfiles.map((profile, i) => (
+    return profiles.slice(index).reverse().map((profile, i) => (
       <div className="swipe">
         <ProfileCard
-          ref={childRefs[i]}
-          key={i}
+          ref={childRefs[profile.id]}
+          key={profile.id}
           profile={profile}
           swiped={swiped}
           outOfFrame={outOfFrame}

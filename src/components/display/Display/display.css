@@ -1,9 +1,8 @@
 .card-container {
-    position: relative;
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
-.swipe{
-    /* position: absolute; */
+.swipe {
+  position: absolute;
 }

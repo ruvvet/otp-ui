@@ -15,6 +15,7 @@ export default function Main() {
         direction="column"
         justify="space-between"
         alignItems="center"
+        className = "main-grid"
       >
         <Header />
         <div className="main-body">
