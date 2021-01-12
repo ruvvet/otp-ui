@@ -1,10 +1,27 @@
-.main-container{
-    background: #121212;
-    border: 5px solid black;
-    height: 100vh;
-    width: 100vw;
-    color: rgb(0, 0, 0);
-    font-size: 1.5em;
-    color: white;
+.main-container {
+  background: #5c5c5c;
+  border: 5px solid black;
+  height: 100vh;
+  width: 100vw;
+  color: rgb(0, 0, 0);
+  font-size: 1.5em;
+  color: white;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.icon {
+  color: white !important;
+  font-size: 2rem !important;
+}
+
+.badge {
+}
+
+.main-body {
+  border: 5px solid red;
 
 }

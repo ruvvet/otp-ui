@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   border: 5px solid red;
-  height: 85vh;
+  height: 80vh;
   width: 100%;
 position: relative;
 
@@ -34,6 +34,7 @@ position: relative;
 .profile-card .card .profile-img {
     height: 100%;
     width: 100%;
+    object-fit: cover;
 }
 
 .profile-card .card .content {
@@ -54,4 +55,7 @@ position: relative;
 
 .drawer {
   width: 100px !important;
+  max-width: 100px!important;
+  
+
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import './header.css';
-import { Container, Grid, IconButton, Popover } from '@material-ui/core';
+import { Container, Grid, IconButton, Popover, Badge } from '@material-ui/core';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
-import NotificationsNoneRoundedIcon from '@material-ui/icons/NotificationsNoneRounded';
+import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
 
 export default function Header() {
   return (
@@ -14,10 +14,7 @@ export default function Header() {
         alignItems="center"
       >
         <IconButton>
-          <SettingsRoundedIcon
-            className="icon"
-            style={{ color: '#FFFFFF', fontSize: 40 }}
-          />
+          <SettingsRoundedIcon className="icon" />
         </IconButton>
         {/* <Popover
           anchorOrigin={{
@@ -29,15 +26,22 @@ export default function Header() {
             horizontal: 'center',
           }}
         > */}
-          <div>
-            <img src="./img/heart.png" />
-          </div>
+        <div>
+          <img src="./img/heart.png" />
+        </div>
         {/* </Popover> */}
+
         <IconButton>
-          <NotificationsNoneRoundedIcon
-            className="icon"
-            style={{ color: '#FFFFFF', fontSize: 40 }}
-          />
+          <Badge
+            badgeContent={100}
+            color="primary"
+            className="badge"
+            showZero
+            max={99}
+            overlap="circle"
+          >
+            <NotificationsRoundedIcon className="icon" />
+          </Badge>
         </IconButton>
       </Grid>
     </Container>
