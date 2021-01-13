@@ -26,6 +26,7 @@ export default function Details({ profile }) {
 
   return (
     <Box className="details-container scrollbar">
+     {profile.name.toUpperCase()}, rank lookup
       <div className="mains">
         <img src="https://r6operators.marcopixel.eu/icons/png/finka.png" />
         <img src="https://r6operators.marcopixel.eu/icons/png/dokkaebi.png" />

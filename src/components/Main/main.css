@@ -29,4 +29,9 @@
   height: 40px;
   width: 40px;
   color: rgb(211, 189, 200)!important;
+  padding: 0!important;
 }
+
+/* .MuiIconButton-{
+  padding: 0!important;
+} */

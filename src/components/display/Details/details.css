@@ -8,16 +8,15 @@
   position: relative;
   border-radius: 1rem;
   max-height: 300px;
-  width: auto;
+
   max-width: 400px;
   background: #222222;
-  /* background: linear-gradient(
+  background: linear-gradient(
     0deg,
     rgba(34, 34, 34, 1) 50%,
-    rgba(255, 255, 255, 0) 100%
-  ); */
+    rgba(255, 255, 255, 0) 90%
+  );
   overflow: auto;
-
 }
 
 .details-container .mains img {
@@ -43,7 +42,7 @@
 .scrollbar::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
   background-color: #cccccc00;
-  margin: 2rem 0 2rem 0;
+  margin: 7rem 0 2rem 0;
 }
 
 .scrollbar::-webkit-scrollbar {
@@ -62,5 +61,4 @@
     rgba(0, 0, 0, 1) 75%,
     transparent
   );
-
 }

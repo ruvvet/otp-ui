@@ -99,7 +99,7 @@ export default function Settings() {
     'Fuze',
     'Nøkk',
   ];
-
+//TODO: put into reference z-table
   const def = [
     'Aruni',
     'Bandit',
