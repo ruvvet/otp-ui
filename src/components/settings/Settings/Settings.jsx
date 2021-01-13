@@ -14,141 +14,37 @@ import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import { React, useState } from 'react';
 import './settings.css';
 import './settings.css';
+import { socialMedia, ranks, att, def } from '../../../lookup';
 
 export default function Settings() {
   const [displayName, setDisplayName] = useState('');
   const [rank, setRank] = useState();
-  const [twitch, setTwitch] = useState();
-  const [twitter, setTwitter] = useState();
-  const [instagram, setInstagram] = useState();
-  const [snapchat, setSnapchat] = useState();
-  const [tiktok, setTiktok] = useState();
-  const [spotify, setSpotify] = useState();
-  const [reddit, setReddit] = useState();
-  const [facebook, setFacebook] = useState();
-
-  const [mainAtt, setMainAtt] = useState();
-  const [mainDef, setMainDef] = useState();
+  const [socials, setSocials] = useState({ twitter: 'hi', twitch: 'hello' });
+  const [mainAtt, setMainAtt] = useState('Ash');
+  const [mainDef, setMainDef] = useState('Frost');
   const [about, setAbout] = useState();
   const [rankRange, setRankRange] = useState([20, 37]);
-
-  const socials = [
-    'twitch',
-    'twitter',
-    'instagram',
-    'snapchat',
-    'tiktok',
-    'spotify',
-    'facebook',
-    'reddit',
-  ];
-
-  const ranks = [
-    'Copper V',
-    'Copper IV',
-    'Copper III',
-    'Copper II',
-    'Copper I',
-    'Bronze V',
-    'Bronze IV',
-    'Bronze III',
-    'Bronze II',
-    'Bronze I',
-    'Silver V',
-    'Silver IV',
-    'Silver III',
-    'Silver II',
-    'Silver I',
-    'Gold III',
-    'Gold II',
-    'Gold I',
-    'Platinum III',
-    'Platinum II',
-    'Platinum I',
-    'Diamond',
-    'Champion',
-  ];
-
-  const att = [
-    'Hibana',
-    'Thermite',
-    'Ash',
-    'Buck',
-    'Kali',
-    'Maverick',
-    'Sledge',
-    'Thatcher',
-    'Twitch',
-    'Zero',
-    'Zofia',
-    'Blackbeard',
-    'Capitao',
-    'Dokkaebi',
-    'Finka',
-    'Glaz',
-    'Gridlock',
-    'Iana',
-    'IQ',
-    'Jackal',
-    'Lion',
-    'Montagne',
-    'Nomad',
-    'Ying',
-    'Amaru',
-    'Blitz',
-    'Fuze',
-    'Nøkk',
-  ];
-//TODO: put into reference z-table
-  const def = [
-    'Aruni',
-    'Bandit',
-    'Mute',
-    'Kaid',
-    'Jager',
-    'Mira',
-    'Mozzie',
-    'Pulse',
-    'Rook',
-    'Valkyrie',
-    'Wamai',
-    'Alibi',
-    'Caveira',
-    'Doc',
-    'Echo',
-    'Ela',
-    'Frost',
-    'Goyo',
-    'Kapkan',
-    'Lesion',
-    'Maestro',
-    'Smoke',
-    'Vigil',
-    'Warden',
-    'Castle',
-    'Clash',
-    'Oryx',
-    'Tachanka',
-  ];
 
   const handleRankRange = (event, newValue) => {
     setRankRange(newValue);
   };
 
   const renderSocialInputs = () => {
-    return socials.map((s, i) => (
+    return socialMedia.map((s, i) => (
       <Grid container spacing={1} alignItems="flex-end">
         <Grid item>
-          <img src={`./img/${s}.png`} />
+          <img src={s.img} />
         </Grid>
         <Grid item>
           <TextField
             key={`input-${i}`}
-            id={s}
-            label={s.toUpperCase()}
+            id={s.site}
+            label={s.site.toUpperCase()}
             className="input"
-            // helperText={`https://${s}.com/${twitter}`}
-            onChange={(e) => setTwitter(e.target.value)}
+            helperText={`https://${s.url}${socials[s.site]}`}
+            onChange={(e) => {
+              setSocials({ ...socials, [s.site]: e.target.value });
+            }}
           />
         </Grid>
       </Grid>
@@ -156,7 +52,11 @@ export default function Settings() {
   };
 
   const renderSelects = (list) => {
-    return list.map((r, i) => <MenuItem value={i}>{r}</MenuItem>);
+    return list.map((item, i) => (
+      <MenuItem value={item.rank? item.rank : item.operator}>
+        <img className="select-img" src={item.img} />{item.rank? item.rank : item.operator}
+      </MenuItem>
+    ));
   };
 
   return (
@@ -210,10 +110,11 @@ export default function Settings() {
           label="att"
           id="rank-select"
           value={mainAtt}
-          onChange={() => {
-            setMainAtt(1);
+          onChange={(e) => {
+            console.log(e.target.value)
+            setMainAtt(e.target.value);
           }}
-          autoWidth = {true}
+          autoWidth={true}
         >
           {renderSelects(att)}
         </Select>
@@ -224,8 +125,9 @@ export default function Settings() {
           label="def"
           id="rank-select"
           value={mainDef}
-          onChange={() => {
-            setMainDef(1);
+          onChange={(e) => {
+            console.log(e.target.value)
+            setMainDef(e.target.value);
           }}
         >
           {renderSelects(def)}

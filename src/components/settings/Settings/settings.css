@@ -21,3 +21,9 @@
   border: 1px dashed black;
   margin-top: 5px;
 }
+
+.select-img{
+  object-fit: contain;
+  height: 60px;
+  width:auto;
+}

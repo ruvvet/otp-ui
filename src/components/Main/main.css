@@ -1,11 +1,7 @@
 .main-container {
   background: #222222;
-
-
   background-repeat: no-repeat;
   background-size: cover;
-
-  border: 5px solid black;
   height: 100vh;
   width: 100vw;
   font-size: 1.5em;
@@ -14,22 +10,19 @@
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: center;
-
-
 }
 
 .main-grid {
   height: 100%;
   width: 100%;
-
 }
 .icon {
   color: white !important;
   font-size: 2rem !important;
   height: 40px;
   width: 40px;
-  color: rgb(211, 189, 200)!important;
-  padding: 0!important;
+  color: rgb(211, 189, 200) !important;
+  padding: 0 !important;
 }
 
 /* .MuiIconButton-{

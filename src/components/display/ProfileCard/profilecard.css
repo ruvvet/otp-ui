@@ -13,6 +13,7 @@
   position: absolute;
   height: 100%;
   width: 100%;
+
 }
 
 .profile-card .card::after {
@@ -23,7 +24,7 @@
   height: 64%;
   bottom: 0;
   /* z-index: 1; */
-  background: linear-gradient(to top, #000, rgba(0, 0, 0, 0));
+  background: linear-gradient(to top, #000000, rgba(0, 0, 0, 0));
 }
 
 .profile-card .card .profile-img {
@@ -48,12 +49,8 @@
   bottom: 50px;
   width: 100%;
   color: #ffffff;
+  padding: 0 0 2rem 2rem;
 }
-
-
-
-
-
 
 .profile-card .card .profile-stepper {
   position: absolute;

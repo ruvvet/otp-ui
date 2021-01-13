@@ -20,7 +20,7 @@ export default function Main() {
 
       >
         <Header />
-        <div >
+
           <Switch>
             <Route path="/messages">
               <Messages />
@@ -32,7 +32,7 @@ export default function Main() {
               <Display />
             </Route>
           </Switch>
-        </div>
+        
         <Footer />
       </Grid>
     </Container>

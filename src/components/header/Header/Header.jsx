@@ -18,29 +18,29 @@ export default function Header() {
         alignItems="center"
       >
         <Boop rotation={10} timing={150}>
-          <Tooltip title="Settings" style={{padding:0}}>
+          <Tooltip title="Settings" style={{ padding: 0 }}>
             <IconButton>
               <SettingsRoundedIcon className="icon" />
             </IconButton>
           </Tooltip>
         </Boop>
 
-        <div>SWEATT/OTP/IDK</div>
+        <div>OTP</div>
 
         <Boop rotation={10} timing={150}>
-        <Tooltip title="Notifications" style={{padding:0}}>
-          <IconButton>
-            <Badge
-              badgeContent={100}
-              color="primary"
-              className="badge"
-              showZero
-              max={99}
-              overlap="circle"
-            >
-              <NotificationsRoundedIcon className="icon" />
-            </Badge>
-          </IconButton>
+          <Tooltip title="Notifications" style={{ padding: 0 }}>
+            <IconButton>
+              <Badge
+                badgeContent={100}
+                color="primary"
+                className="badge"
+                showZero
+                max={99}
+                overlap="circle"
+              >
+                <NotificationsRoundedIcon className="icon" />
+              </Badge>
+            </IconButton>
           </Tooltip>
         </Boop>
       </Grid>
