@@ -9,6 +9,7 @@ import './starbg.css';
 import Messages from '../chat/Messages';
 import Settings from '../settings/Settings';
 import Profile from '../profile/Profile';
+import About from '../About/About';
 
 export default function Main() {
 
@@ -41,6 +42,9 @@ export default function Main() {
             </Route>
             <Route path="/settings">
               <Settings />
+            </Route>
+            <Route path="/about">
+              <About />
             </Route>
             <Route path="/">
               <Display />

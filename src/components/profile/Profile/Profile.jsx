@@ -1,10 +1,10 @@
 import {
-    Box,
-    Card,
-    CardMedia,
-    Grid,
-    IconButton,
-    MobileStepper
+  Box,
+  Card,
+  CardMedia,
+  Grid,
+  IconButton,
+  MobileStepper
 } from '@material-ui/core';
 import ArrowLeftRoundedIcon from '@material-ui/icons/ArrowLeftRounded';
 import ArrowRightRoundedIcon from '@material-ui/icons/ArrowRightRounded';

@@ -23,14 +23,10 @@ export default function Header() {
       >
         <Boop rotation={10} timing={150}>
           <Tooltip
-            title={
-              window.location.pathname !== '/' ? 'Main' : 'Settings'
-            }
+            title={window.location.pathname !== '/' ? 'Main' : 'Settings'}
             style={{ padding: 0 }}
           >
-            <Link
-              to={window.location.pathname !== '/' ? '/' : '/settings'}
-            >
+            <Link to={window.location.pathname !== '/' ? '/' : '/settings'}>
               <IconButton>
                 {window.location.pathname !== '/' ? (
                   <ReplyRoundedIcon
@@ -49,7 +45,11 @@ export default function Header() {
         </Boop>
 
         <div>
-          <img src="../img/otp.png" />
+          <Tooltip title="About OTP" style={{ padding: 0 }}>
+            <Link to="/about">
+              <img src="../img/otp.png" />
+            </Link>
+          </Tooltip>
         </div>
 
         <Boop rotation={10} timing={150}>
@@ -65,7 +65,7 @@ export default function Header() {
               >
                 <NotificationsRoundedIcon
                   className="icon"
-                  style={{ padding: 10, fontSize: '2rem', color: '#e6c714'}}
+                  style={{ padding: 10, fontSize: '2rem', color: '#e6c714' }}
                 />
               </Badge>
             </IconButton>

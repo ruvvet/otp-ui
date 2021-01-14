@@ -2,6 +2,7 @@ import { Container, Grid, IconButton, Badge, Tooltip } from '@material-ui/core';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import ChatBubbleRoundedIcon from '@material-ui/icons/ChatBubbleRounded';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
+import ReplyAllRoundedIcon from '@material-ui/icons/ReplyAllRounded';
 import React from 'react';
 import './footer.css';
 import Boop from '../../effects/Boop';
@@ -48,14 +49,30 @@ export default function Footer() {
           </Tooltip>
         </Boop>
         <Boop rotation={10} timing={150}>
-          <Tooltip title="Profile" style={{ padding: 0 }}>
-          <Link to="/profile">
-            <IconButton>
-              <PersonRoundedIcon
-                className="icon"
-                style={{ padding: 10, fontSize: '2rem', color: '#b093ff' }}
-              />
-            </IconButton>
+          <Tooltip
+            title={
+              window.location.pathname === '/profile' ? 'Logout' : 'Profile'
+            }
+            style={{ padding: 0 }}
+          >
+            <Link
+              to={
+                window.location.pathname === '/profile' ? '/logout' : '/profile'
+              }
+            >
+              <IconButton>
+                {window.location.pathname === '/profile' ? (
+                  <ReplyAllRoundedIcon
+                    className="icon"
+                    style={{ padding: 10, fontSize: '2rem', color: '#b093ff', transform:"rotate(180deg)" }}
+                  />
+                ) : (
+                  <PersonRoundedIcon
+                    className="icon"
+                    style={{ padding: 10, fontSize: '2rem', color: '#b093ff' }}
+                  />
+                )}
+              </IconButton>
             </Link>
           </Tooltip>
         </Boop>
