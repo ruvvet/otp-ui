@@ -1,9 +1,9 @@
 import { Badge, Container, Grid, IconButton, Tooltip } from '@material-ui/core';
 import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
-import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
 import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
-import { Link } from 'react-router-dom';
+import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
 import { React, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Boop from '../../effects/Boop';
 import './header.css';
 
@@ -24,18 +24,24 @@ export default function Header() {
         <Boop rotation={10} timing={150}>
           <Tooltip
             title={
-              window.location.pathname === '/settings' ? 'Main' : 'Settings'
+              window.location.pathname !== '/' ? 'Main' : 'Settings'
             }
             style={{ padding: 0 }}
           >
             <Link
-              to={window.location.pathname === '/settings' ? '/' : '/settings'}
+              to={window.location.pathname !== '/' ? '/' : '/settings'}
             >
               <IconButton>
-                {window.location.pathname === '/settings' ? (
-                  <ReplyRoundedIcon className="icon" />
+                {window.location.pathname !== '/' ? (
+                  <ReplyRoundedIcon
+                    className="icon"
+                    style={{ padding: 10, fontSize: '2rem', color: '#dedede' }}
+                  />
                 ) : (
-                  <SettingsRoundedIcon className="icon" />
+                  <SettingsRoundedIcon
+                    className="icon"
+                    style={{ padding: 10, fontSize: '2rem', color: '#dedede' }}
+                  />
                 )}
               </IconButton>
             </Link>
@@ -57,7 +63,10 @@ export default function Header() {
                 max={99}
                 overlap="circle"
               >
-                <NotificationsRoundedIcon className="icon" />
+                <NotificationsRoundedIcon
+                  className="icon"
+                  style={{ padding: 10, fontSize: '2rem', color: '#e6c714'}}
+                />
               </Badge>
             </IconButton>
           </Tooltip>

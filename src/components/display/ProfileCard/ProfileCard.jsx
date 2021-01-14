@@ -4,14 +4,13 @@ import {
   CardMedia,
   Grid,
   IconButton,
-  MobileStepper,
-  Button,
+  MobileStepper
 } from '@material-ui/core';
+import ArrowLeftRoundedIcon from '@material-ui/icons/ArrowLeftRounded';
+import ArrowRightRoundedIcon from '@material-ui/icons/ArrowRightRounded';
 import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded';
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import UnfoldMoreRoundedIcon from '@material-ui/icons/UnfoldMoreRounded';
-import ArrowRightRoundedIcon from '@material-ui/icons/ArrowRightRounded';
-import ArrowLeftRoundedIcon from '@material-ui/icons/ArrowLeftRounded';
 import { forwardRef, React, useState } from 'react';
 import TinderCard from 'react-tinder-card';
 import Slide from '../../effects/Slide';
@@ -54,22 +53,26 @@ export default forwardRef(
             position="static"
             activeStep={activeStep}
             nextButton={
-              <Button
-                size="small"
+              <IconButton>
+              <ArrowRightRoundedIcon
+              className="icon"
+                fontSize="large"
                 onClick={handleNext}
                 disabled={activeStep === 3}
-              >
-                Next
-              </Button>
+              />
+
+              </IconButton>
             }
             backButton={
-              <Button
-                size="small"
+              <IconButton>
+              <ArrowLeftRoundedIcon
+                className="icon"
+                fontSize="large"
                 onClick={handleBack}
                 disabled={activeStep === 0}
-              >
-                Back
-              </Button>
+              />
+
+                </IconButton>
             }
           />
 
@@ -101,7 +104,7 @@ export default forwardRef(
               <IconButton>
                 <HighlightOffRoundedIcon
                   className="icon"
-                  style={{ color: '#FFFFFF', fontSize: 40 }}
+                  style={{ padding: 1, fontSize: '2rem', color: '#FA4659', backgroundColor:"transparent" }}
                   onClick={() => swipeButton('left')}
                 />
               </IconButton>
@@ -109,14 +112,14 @@ export default forwardRef(
               <IconButton>
                 <UnfoldMoreRoundedIcon
                   className="icon"
-                  style={{ color: '#FFFFFF', fontSize: 40 }}
+                  style={{ padding: 5, fontSize: '3rem', color: '#20639B', backgroundColor:"transparent"}}
                   onClick={() => setIsVisible(!isVisible)}
                 />
               </IconButton>
               <IconButton>
                 <CheckCircleOutlineRoundedIcon
                   className="icon"
-                  style={{ color: '#FFFFFF', fontSize: 40 }}
+                  style={{ padding: 1, fontSize: '2rem', color: '#2EB872', backgroundColor:"transparent" }}
                   onClick={() => swipeButton('right')}
                 />
               </IconButton>

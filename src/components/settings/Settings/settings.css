@@ -4,6 +4,14 @@
   bottom: 7%;
 }
 
+.MuiSelect-select{
+  text-align-last:center !important;
+}
+
+.settings-container .profile{
+  padding-top: 7%!important;
+}
+
 .settings-container .settings-section {
   background-color: white;
   border-radius: 1em;
@@ -37,14 +45,21 @@
 }
 
 .settings-container .settings-section .add-pfp {
-  border: 1px dashed black;
-  margin-top: 5px;
+  margin-top: 3%;
 }
+
 
 .select-img {
   object-fit: contain;
   height: 60px;
   width: auto;
+}
+
+.settings-container .add-pfp img {
+height: 100px !important;
+width: 100px !important;
+object-fit: cover;
+border: 1px solid black;
 }
 
 .settings-scrollbar::-webkit-scrollbar-track {

@@ -60,6 +60,20 @@ export default function Settings() {
     ));
   };
 
+  const pics = [
+    'https://specials-images.forbesimg.com/imageserve/5f5f55887d9eec237a586841/960x0.jpg',
+    'https://www.tubefilter.com/wp-content/uploads/2020/11/pokimane-twitch-donations-cap-streamlabs.jpg',
+    'https://cdn1.dotesports.com/wp-content/uploads/2020/09/14075123/pokimane-vtuber-1024x575.jpg',
+  ];
+
+  const renderPics = () => {
+    return pics.map((img, i) => (
+      <Grid item xs>
+        <img src={img} className = "user-pics"/>
+      </Grid>
+    ));
+  };
+
   return (
     <Container maxWidth="sm" className="settings-container">
       {/* <Grid container direction="column" justify="center" alignItems="center"> */}
@@ -89,12 +103,20 @@ export default function Settings() {
         >
           {renderSelects(ranks)}
         </Select>
-        <div className="add-pfp">
-          Add PFP
-          <IconButton>
-            <AddCircleRoundedIcon className="icon" />
-          </IconButton>
-        </div>
+        <Grid
+          className="add-pfp"
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+        >
+          <Grid item xs>
+            <IconButton>
+              <AddCircleRoundedIcon className="icon" />
+            </IconButton>
+          </Grid>
+          {renderPics()}
+        </Grid>
       </Grid>
       <Grid item xs={12} className="settings-section social">
         <Grid container direction="row" justify="center" alignItems="center">

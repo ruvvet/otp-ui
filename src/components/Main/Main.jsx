@@ -8,6 +8,7 @@ import './main.css';
 import './starbg.css';
 import Messages from '../chat/Messages';
 import Settings from '../settings/Settings';
+import Profile from '../profile/Profile';
 
 export default function Main() {
 
@@ -29,6 +30,12 @@ export default function Main() {
         <Header />
 
           <Switch>
+          <Route path="/swipes">
+              <Messages />
+            </Route>
+          <Route path="/profile">
+              <Profile />
+            </Route>
             <Route path="/messages">
               <Messages />
             </Route>
