@@ -5,12 +5,19 @@ import Footer from '../footer/Footer';
 import Header from '../header/Header';
 import { Switch, Route } from 'react-router-dom';
 import './main.css';
+import './starbg.css';
 import Messages from '../chat/Messages';
 import Settings from '../settings/Settings';
 
 export default function Main() {
+
+
+
   return (
     <Container className="main-container" maxWidth="sm">
+      <div id='stars'></div>
+<div id='stars2'></div>
+<div id='stars3'></div>
       <Grid
         container
         direction="column"
@@ -32,7 +39,7 @@ export default function Main() {
               <Display />
             </Route>
           </Switch>
-        
+
         <Footer />
       </Grid>
     </Container>

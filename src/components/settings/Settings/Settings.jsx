@@ -29,8 +29,8 @@ export default function Settings() {
     setRankRange(newValue);
   };
 
-  const renderSocialInputs = () => {
-    return socialMedia.map((s, i) => (
+  const renderSocialInputs = (list) => {
+    return list.map((s, i) => (
       <Grid container spacing={1} alignItems="flex-end">
         <Grid item>
           <img src={s.img} />
@@ -97,8 +97,14 @@ export default function Settings() {
         </div>
       </Grid>
       <Grid item xs={12} className="settings-section social">
-        {renderSocialInputs()}
-        {/* Rank Slider
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Grid item xs={6} px={1}>
+            {renderSocialInputs(socialMedia.slice(0, socialMedia.length / 2))}
+          </Grid>
+          <Grid item xs={6} px={1}>
+            {renderSocialInputs(socialMedia.slice(socialMedia.length / 2))}
+          </Grid>
+          {/* Rank Slider
       <Slider
         value={rankRange}
         onChange={handleRankRange}
@@ -108,6 +114,7 @@ export default function Settings() {
           return `${rankRange}`;
         }}
       /> */}
+        </Grid>
       </Grid>
       <Grid item xs={12} className="settings-section ops" id="ops">
         <FormControl variant="outlined">
