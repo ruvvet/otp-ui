@@ -1,7 +1,5 @@
 .main-container {
   background: #222222;
-  background-repeat: no-repeat;
-  background-size: cover;
   height: 100vh;
   width: 100vw;
   font-size: 1.5em;
@@ -17,12 +15,14 @@
   width: 100%;
 }
 .icon {
-  color: white !important;
+  color: rgb(0, 0, 0) !important;
   font-size: 2rem !important;
   height: 40px;
   width: 40px;
-  color: rgb(211, 189, 200) !important;
   padding: 0 !important;
+  background-color: #dedede;
+  border-radius: 50%;
+  padding: 10px !important;
 }
 
 /* .MuiIconButton-{

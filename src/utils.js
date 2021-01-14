@@ -1,4 +1,7 @@
-const API = process.env.API_HOST;
+import dotenv from 'dotenv'
+dotenv.config()
+
+export const API = process.env.REACT_APP_API_HOST;
 
 export default async function OTPRequest(url, options) {
   // get the code from local storage via the key UWU_TOKEN

@@ -12,7 +12,7 @@ export default function Footer() {
       <Grid
         container
         direction="row"
-        justify="space-between"
+        justify="space-around"
         alignItems="center"
       >
         <Boop rotation={10} timing={150}>

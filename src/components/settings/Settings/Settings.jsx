@@ -53,48 +53,52 @@ export default function Settings() {
 
   const renderSelects = (list) => {
     return list.map((item, i) => (
-      <MenuItem value={item.rank? item.rank : item.operator}>
-        <img className="select-img" src={item.img} />{item.rank? item.rank : item.operator}
+      <MenuItem value={item.rank ? item.rank : item.operator}>
+        <img className="select-img" src={item.img} />
+        {item.rank ? item.rank : item.operator}
       </MenuItem>
     ));
   };
 
   return (
     <Container maxWidth="sm" className="settings-container">
-      <TextField
-        id="standard-full-width"
-        style={{ margin: 8 }}
-        placeholder="Display Name"
-        helperText={`Hi my name is ...${displayName}`}
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        onChange={(e) => {
-          setDisplayName(e.target.value);
-        }}
-      />
-      <InputLabel id="rank-input">Rank</InputLabel>
-      <Select
-        labelId="rank-input"
-        id="rank-select"
-        value={rank}
-        onChange={() => {
-          setRank(1);
-        }}
-        fullWidth
-      >
-        {renderSelects(ranks)}
-      </Select>
-      <div className="add-pfp">
-        Add PFP
-        <IconButton>
-          <AddCircleRoundedIcon className="icon" />
-        </IconButton>
-      </div>
-      {renderSocialInputs()}
-      {/* Rank Slider
+      {/* <Grid container direction="column" justify="center" alignItems="center"> */}
+      <Grid item xs={12} className="settings-section profile">
+        <TextField
+          id="standard-full-width"
+          style={{ margin: 8 }}
+          placeholder="Display Name"
+          helperText={`Hi my name is ...${displayName}`}
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={(e) => {
+            setDisplayName(e.target.value);
+          }}
+        />
+        <InputLabel id="rank-input">Rank</InputLabel>
+        <Select
+          labelId="rank-input"
+          value={rank}
+          onChange={() => {
+            setRank(1);
+          }}
+          fullWidth
+        >
+          {renderSelects(ranks)}
+        </Select>
+        <div className="add-pfp">
+          Add PFP
+          <IconButton>
+            <AddCircleRoundedIcon className="icon" />
+          </IconButton>
+        </div>
+      </Grid>
+      <Grid item xs={12} className="settings-section social">
+        {renderSocialInputs()}
+        {/* Rank Slider
       <Slider
         value={rankRange}
         onChange={handleRankRange}
@@ -104,35 +108,39 @@ export default function Settings() {
           return `${rankRange}`;
         }}
       /> */}
-      <FormControl variant="outlined">
-        <InputLabel id="rank-input">Att Main</InputLabel>
-        <Select
-          label="att"
-          id="rank-select"
-          value={mainAtt}
-          onChange={(e) => {
-            console.log(e.target.value)
-            setMainAtt(e.target.value);
-          }}
-          autoWidth={true}
-        >
-          {renderSelects(att)}
-        </Select>
-      </FormControl>
-      <FormControl variant="outlined">
-        <InputLabel id="rank-input">Def Main</InputLabel>
-        <Select
-          label="def"
-          id="rank-select"
-          value={mainDef}
-          onChange={(e) => {
-            console.log(e.target.value)
-            setMainDef(e.target.value);
-          }}
-        >
-          {renderSelects(def)}
-        </Select>
-      </FormControl>
+      </Grid>
+      <Grid item xs={12} className="settings-section ops" id="ops">
+        <FormControl variant="outlined">
+          <InputLabel id="rank-input">Att Main</InputLabel>
+          <Select
+            label="att"
+            id="rank-select"
+            value={mainAtt}
+            onChange={(e) => {
+              console.log(e.target.value);
+              setMainAtt(e.target.value);
+            }}
+            autoWidth={true}
+          >
+            {renderSelects(att)}
+          </Select>
+        </FormControl>
+        <FormControl variant="outlined">
+          <InputLabel id="rank-input">Def Main</InputLabel>
+          <Select
+            label="def"
+            id="rank-select"
+            value={mainDef}
+            onChange={(e) => {
+              console.log(e.target.value);
+              setMainDef(e.target.value);
+            }}
+          >
+            {renderSelects(def)}
+          </Select>
+        </FormControl>
+      </Grid>
+      {/* </Grid> */}
     </Container>
   );
 }

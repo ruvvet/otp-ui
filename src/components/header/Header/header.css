@@ -3,6 +3,7 @@
 }
 
 .header-container img {
-  height: 50px;
+  height: 80px;
   object-fit: contain;
+  filter:invert(100%);
 }
