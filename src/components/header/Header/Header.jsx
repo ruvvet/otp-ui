@@ -2,16 +2,20 @@ import { Badge, Container, Grid, IconButton, Tooltip } from '@material-ui/core';
 import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
 import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
-import { React, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { React, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Boop from '../../effects/Boop';
 import './header.css';
 
 export default function Header() {
-  //TODO: fix the ternary for settings/home button - needs to be in a state?
-
+  const location = useLocation();
+  const [back, setBack] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+
+  useEffect(() => {
+    setBack(window.location.pathname === '/');
+  }, [location]);
 
   return (
     <Container className="header-container" maxWidth="sm">
@@ -22,19 +26,16 @@ export default function Header() {
         alignItems="center"
       >
         <Boop rotation={10} timing={150}>
-          <Tooltip
-            title={window.location.pathname !== '/' ? 'Main' : 'Settings'}
-            style={{ padding: 0 }}
-          >
-            <Link to={window.location.pathname !== '/' ? '/' : '/settings'}>
+          <Tooltip title={back ? 'Settings' : 'Main'} style={{ padding: 0 }}>
+            <Link to={back ? '/settings' : '/'}>
               <IconButton>
-                {window.location.pathname !== '/' ? (
-                  <ReplyRoundedIcon
+                {back ? (
+                  <SettingsRoundedIcon
                     className="icon"
                     style={{ padding: 10, fontSize: '2rem', color: '#dedede' }}
                   />
                 ) : (
-                  <SettingsRoundedIcon
+                  <ReplyRoundedIcon
                     className="icon"
                     style={{ padding: 10, fontSize: '2rem', color: '#dedede' }}
                   />

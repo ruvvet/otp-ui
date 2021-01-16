@@ -53,7 +53,7 @@ export default function Settings() {
 
   const renderSelects = (list) => {
     return list.map((item, i) => (
-      <MenuItem value={item.rank ? item.rank : item.operator}>
+      <MenuItem divider value={item.rank ? item.rank : item.operator}>
         <img className="select-img" src={item.img} />
         {item.rank ? item.rank : item.operator}
       </MenuItem>

@@ -1,24 +1,16 @@
 import { Box } from '@material-ui/core';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './details.css';
+import { socialMedia } from '../../../lookup';
 
-export default function Details({ profile }) {
-  const pretendSocial = [
-    'twitch',
-    'twitter',
-    'instagram',
-    'snapchat',
-    'tiktok',
-    'spotify',
-    'facebook',
-    'reddit',
-  ];
-
+export default function Details({ profile, rankIcon, attIcon, defIcon }) {
   const renderSocials = () => {
-    return pretendSocial.map((site) => (
+    const socials = socialMedia.filter((s, i) => profile[s.site] !== null);
+
+    return socials.map((site, i) => (
       <div>
-        <a href="#">
-          <img src={`./img/${site}.png`} />
+        <a href={`${site.url}${profile[site.site]}`}>
+          <img src={site.img} />
         </a>
       </div>
     ));
@@ -26,10 +18,14 @@ export default function Details({ profile }) {
 
   return (
     <Box className="details-container scrollbar">
-     {profile.name.toUpperCase()}, rank lookup
+      <div>
+        {' '}
+        <img className="rank-profile-icon" src={rankIcon} />
+        {profile.displayName.toUpperCase()}, {profile.rank}
+      </div>
       <div className="mains">
-        <img src="https://r6operators.marcopixel.eu/icons/png/finka.png" />
-        <img src="https://r6operators.marcopixel.eu/icons/png/dokkaebi.png" />
+        <img src={attIcon} />
+        <img src={defIcon} />
       </div>
       <div className="social">{renderSocials()}</div>
     </Box>

@@ -1,14 +1,23 @@
-import { Container, Grid, IconButton, Badge, Tooltip } from '@material-ui/core';
-import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
+import { Badge, Container, Grid, IconButton, Tooltip } from '@material-ui/core';
 import ChatBubbleRoundedIcon from '@material-ui/icons/ChatBubbleRounded';
+import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import ReplyAllRoundedIcon from '@material-ui/icons/ReplyAllRounded';
-import React from 'react';
-import './footer.css';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Boop from '../../effects/Boop';
-import { Link } from 'react-router-dom';
+import './footer.css';
 
 export default function Footer() {
+  const location = useLocation();
+  const [logout, setLogout] = useState();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
+
+  useEffect(() => {
+    setLogout(window.location.pathname === '/profile');
+  }, [location]);
+
   return (
     <Container className="footer-container" maxWidth="sm">
       <Grid
@@ -49,22 +58,18 @@ export default function Footer() {
           </Tooltip>
         </Boop>
         <Boop rotation={10} timing={150}>
-          <Tooltip
-            title={
-              window.location.pathname === '/profile' ? 'Logout' : 'Profile'
-            }
-            style={{ padding: 0 }}
-          >
-            <Link
-              to={
-                window.location.pathname === '/profile' ? '/logout' : '/profile'
-              }
-            >
+          <Tooltip title={logout ? 'Logout' : 'Profile'} style={{ padding: 0 }}>
+            <Link to={logout ? '/logout' : '/profile'}>
               <IconButton>
-                {window.location.pathname === '/profile' ? (
+                {logout ? (
                   <ReplyAllRoundedIcon
                     className="icon"
-                    style={{ padding: 10, fontSize: '2rem', color: '#b093ff', transform:"rotate(180deg)" }}
+                    style={{
+                      padding: 10,
+                      fontSize: '2rem',
+                      color: '#b093ff',
+                      transform: 'rotate(180deg)',
+                    }}
                   />
                 ) : (
                   <PersonRoundedIcon

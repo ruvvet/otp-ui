@@ -5,51 +5,49 @@ import Footer from '../footer/Footer';
 import Header from '../header/Header';
 import { Switch, Route } from 'react-router-dom';
 import './main.css';
-import './starbg.css';
+//import './starbg.css';
 import Messages from '../chat/Messages';
+import Chat from '../chat/Chat';
 import Settings from '../settings/Settings';
 import Profile from '../profile/Profile';
 import About from '../About/About';
 
 export default function Main() {
-
-
-
   return (
     <Container className="main-container" maxWidth="sm">
-      <div id='stars'></div>
-<div id='stars2'></div>
-<div id='stars3'></div>
+      <div id="stars"></div>
+      <div id="stars2"></div>
+      <div id="stars3"></div>
       <Grid
         container
         direction="column"
         justify="space-between"
         alignItems="center"
-        className = "main-grid"
-
+        className="main-grid"
       >
         <Header />
 
-          <Switch>
+        <Switch>
           <Route path="/swipes">
-              <Messages />
-            </Route>
+            <Messages />
+          </Route>
           <Route path="/profile">
-              <Profile />
-            </Route>
-            <Route path="/messages">
-              <Messages />
-            </Route>
-            <Route path="/settings">
-              <Settings />
-            </Route>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/">
-              <Display />
-            </Route>
-          </Switch>
+            <Profile />
+          </Route>
+          <Route path="/messages">
+            {/* <Messages /> */}
+            <Chat />
+          </Route>
+          <Route path="/settings">
+            <Settings />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/">
+            <Display />
+          </Route>
+        </Switch>
 
         <Footer />
       </Grid>

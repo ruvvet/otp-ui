@@ -49,11 +49,7 @@ const pretendChats = [
 ];
 
 const renderMessages = () => {
-  return pretendChats.map((chat) => (
-
-      <Chat chat={chat} />
-
-  ));
+ 
 };
 
 export default function Messages() {

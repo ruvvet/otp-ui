@@ -1,48 +1,37 @@
 import { Container, Grid } from '@material-ui/core';
-import { createRef, React, useMemo, useState } from 'react';
+import { createRef, React, useMemo, useState, useEffect } from 'react';
 import ProfileCard from '../ProfileCard';
 import './display.css';
-
-const pretendProfiles = [
-  {
-    id: 1,
-    name: 'rando 1',
-    img: [
-      'https://specials-images.forbesimg.com/imageserve/5f5f55887d9eec237a586841/960x0.jpg',
-      'https://www.tubefilter.com/wp-content/uploads/2020/11/pokimane-twitch-donations-cap-streamlabs.jpg',
-      'https://cdn1.dotesports.com/wp-content/uploads/2020/09/14075123/pokimane-vtuber-1024x575.jpg',
-    ],
-  },
-  {
-    id: 2,
-    name: 'sweaty 2',
-    img: [
-      'https://boundingintocomics.com/wp-content/uploads/2019/10/2019.10.25-05.14-boundingintocomics-5db32d840ef42.png',
-      'https://www.tubefilter.com/wp-content/uploads/2020/11/pokimane-twitch-donations-cap-streamlabs.jpg',
-      'https://cdn1.dotesports.com/wp-content/uploads/2020/09/14075123/pokimane-vtuber-1024x575.jpg',
-    ],
-  },
-  {
-    id: 3,
-    name: 'feeder 3',
-    img: [
-      'https://a.espncdn.com/photo/2018/0917/r432464_1600x800cc.jpg',
-      'https://www.tubefilter.com/wp-content/uploads/2020/11/pokimane-twitch-donations-cap-streamlabs.jpg',
-      'https://cdn1.dotesports.com/wp-content/uploads/2020/09/14075123/pokimane-vtuber-1024x575.jpg',
-    ],
-  },
-];
+import OTPRequest from '../../../utils';
 
 export default function Display() {
-  const [profiles, setProfiles] = useState(pretendProfiles);
+  const [profiles, setProfiles] = useState([]);
   const [index, setIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
 
+  useEffect(() => {
+    console.log('calling api')
+    const getProfiles = async () => {
+      const response = await OTPRequest('/swipe', {
+        method: 'GET',
+      }).catch(() => {
+        setError(true);
+        return null;
+      });
+
+      if (response) {
+        setProfiles(response.profiles);
+      }
+      setLoading(false);
+    };
+
+    getProfiles();
+  }, []);
+
+  console.log(profiles)
   const childRefs = useMemo(
-    () =>
-      // Array(profiles.length)
-      //   .fill(0)
-      //   .map((i) => createRef()),
-      ({ 1: createRef(), 2: createRef(), 3: createRef() }),
+    () => ({ 1: createRef(), 2: createRef(), 3: createRef() }),
     []
   );
 
@@ -62,6 +51,8 @@ export default function Display() {
   };
 
   const renderCards = () => {
+
+    if(profiles.length >0){
     return profiles
       .slice(index)
       .reverse()
@@ -77,6 +68,7 @@ export default function Display() {
           />
         </div>
       ));
+    }
   };
 
   return (

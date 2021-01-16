@@ -4,17 +4,17 @@ import {
   CardMedia,
   Grid,
   IconButton,
-  MobileStepper
+  MobileStepper,
 } from '@material-ui/core';
 import ArrowLeftRoundedIcon from '@material-ui/icons/ArrowLeftRounded';
 import ArrowRightRoundedIcon from '@material-ui/icons/ArrowRightRounded';
 import UnfoldMoreRoundedIcon from '@material-ui/icons/UnfoldMoreRounded';
+import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 import { React, useState } from 'react';
 import TinderCard from 'react-tinder-card';
 import Details from '../../display/Details';
 import Slide from '../../effects/Slide';
 import './profile.css';
-
 
 export default function Profile() {
   const [viewDetails, setViewDetails] = useState(false);
@@ -90,7 +90,12 @@ export default function Profile() {
 
           <Box className="title">
             <div>
-              {isVisible ? null : `${profile.name.toUpperCase()}, rank lookup`}
+              {isVisible || (
+                <>
+                  <div><StarBorderRoundedIcon/>Profile Preview</div>
+                  <div>{profile.name.toUpperCase()}, rank lookup</div>
+                </>
+              )}
             </div>
           </Box>
 

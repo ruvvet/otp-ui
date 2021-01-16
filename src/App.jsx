@@ -1,22 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
 import Callback from './components/Callback';
 import Login from './components/Login';
 import Logout from './components/Logout/Logout';
 import Main from './components/Main';
+import io from 'socket.io-client';
+import OTPRequest from './utils';
 
 function App() {
-  // const toHex = (d) => {
-  //   const hex = ('0' + Number(d).toString(16)).slice(-2).toUpperCase();
-  //   return hex;
-  // };
+  const history = useHistory();
+  console.log(localStorage.getItem('OTP_TOKEN'));
 
-  // const date = new Date();
-  // const s = parseInt((date.getSeconds() * 255) / 59);
-  // const m = parseInt((date.getMinutes() * 255) / 59);
-  // const h = parseInt((date.getHours() * 255) / 23);
-  // const color = `${toHex(h)}${toHex(m)}${toHex(s)}`;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
+
+  // useEffect (()=>{
+
+  //   const socket = io('http://localhost:5000')
+  //   socket.on('FromAPI', (msg)=>{console.log(msg)})
+
+  // }, [])
+
+  useEffect(() => {
+    const checkJWT = async () => {
+      const response = await OTPRequest('/authorize/refreshJWT', {
+        method: 'GET',
+      }).catch(() => {
+        setError(true);
+        return null;
+      });
+
+      if (response === '401') {
+        history.push('/login');
+      } else if (response) {
+        localStorage.setItem('OTP_TOKEN', response);
+      }
+      setLoading(false);
+    };
+    checkJWT();
+  }, []);
+
+  console.log(localStorage.getItem('OTP_TOKEN'));
 
   return (
     <div
