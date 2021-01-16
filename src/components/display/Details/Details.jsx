@@ -16,6 +16,24 @@ export default function Details({ profile, rankIcon, attIcon, defIcon }) {
     ));
   };
 
+
+
+  const testReduce = () =>{
+
+    const socials2 = socialMedia.reduce((final, s)=>{
+      if (profile[s.site]!== null){
+        final.push(<div>hello</div>)
+      }
+      return final
+    }, [])
+
+    console.log(socials2.join())
+
+
+  }
+
+  testReduce()
+
   return (
     <Box className="details-container scrollbar">
       <div>
