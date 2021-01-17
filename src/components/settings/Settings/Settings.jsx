@@ -10,7 +10,7 @@ import {
   TextField,
   Snackbar,
 } from '@material-ui/core';
-import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import SaveIcon from '@material-ui/icons/Save';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -92,15 +92,37 @@ export default function Settings() {
   };
 
   const pics = [
-    'https://specials-images.forbesimg.com/imageserve/5f5f55887d9eec237a586841/960x0.jpg',
     'https://www.tubefilter.com/wp-content/uploads/2020/11/pokimane-twitch-donations-cap-streamlabs.jpg',
     'https://cdn1.dotesports.com/wp-content/uploads/2020/09/14075123/pokimane-vtuber-1024x575.jpg',
   ];
 
   const renderPics = () => {
-    return pics.map((img, i) => (
-      <Grid item xs>
-        <img src={img} className="user-pics" />
+    const pics2 = new Array(3).fill('');
+
+    return pics2.map((img, i) => (
+      <Grid item xs m={3}>
+        {pics[i] ? (
+          <img src={pics[i]} className="user-pics" />
+        ) : (
+          <>
+            <input
+              accept="image/*"
+              id="icon-button-file"
+              type="file"
+              style={{display: "none"}}
+            />
+            <label htmlFor="icon-button-file">
+              <IconButton
+                color="primary"
+                aria-label="upload picture"
+                component="span"
+
+              >
+                <PhotoCamera />
+              </IconButton>
+            </label>
+          </>
+        )}
       </Grid>
     ));
   };
@@ -142,11 +164,6 @@ export default function Settings() {
           justify="space-between"
           alignItems="center"
         >
-          <Grid item xs>
-            <IconButton>
-              <AddCircleRoundedIcon className="icon" />
-            </IconButton>
-          </Grid>
           {renderPics()}
         </Grid>
       </Grid>
@@ -177,6 +194,7 @@ export default function Settings() {
             label="att"
             id="rank-select"
             value={mainAtt}
+            className="settings-main-op"
             onChange={(e) => {
               console.log(e.target.value);
               setMainAtt(e.target.value);
@@ -192,6 +210,7 @@ export default function Settings() {
             label="def"
             id="rank-select"
             value={mainDef}
+            className="settings-main-op"
             onChange={(e) => {
               console.log(e.target.value);
               setMainDef(e.target.value);
