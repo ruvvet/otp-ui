@@ -15,8 +15,12 @@ import TinderCard from 'react-tinder-card';
 import Details from '../../display/Details';
 import Slide from '../../effects/Slide';
 import './profile.css';
+import { useSelector } from 'react-redux';
 
 export default function Profile() {
+
+  const displayName = useSelector((state) => state.profile.displayName);
+
   const [viewDetails, setViewDetails] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
@@ -93,7 +97,7 @@ export default function Profile() {
               {isVisible || (
                 <>
                   <div><StarBorderRoundedIcon/>Profile Preview</div>
-                  <div>{profile.name.toUpperCase()}, rank lookup</div>
+                  <div>{displayName}, rank lookup</div>
                 </>
               )}
             </div>

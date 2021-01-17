@@ -15,14 +15,18 @@ import { React, useState } from 'react';
 import './settings.css';
 import './settings.css';
 import { socialMedia, ranks, att, def } from '../../../lookup';
+import { useSelector, useDispatch } from 'react-redux';
+import { setDisplayName } from '../../../store/profileSlice';
 
 export default function Settings() {
-  const [displayName, setDisplayName] = useState('');
+  const dispatch = useDispatch();
+
+  const displayName = useSelector((state) => state.profile.displayName);
+
   const [rank, setRank] = useState();
   const [socials, setSocials] = useState({ twitter: 'hi', twitch: 'hello' });
   const [mainAtt, setMainAtt] = useState('Ash');
   const [mainDef, setMainDef] = useState('Frost');
-  const [about, setAbout] = useState();
   const [rankRange, setRankRange] = useState([20, 37]);
 
   const handleRankRange = (event, newValue) => {
@@ -69,7 +73,7 @@ export default function Settings() {
   const renderPics = () => {
     return pics.map((img, i) => (
       <Grid item xs>
-        <img src={img} className = "user-pics"/>
+        <img src={img} className="user-pics" />
       </Grid>
     ));
   };
@@ -89,7 +93,8 @@ export default function Settings() {
             shrink: true,
           }}
           onChange={(e) => {
-            setDisplayName(e.target.value);
+            dispatch(setDisplayName(e.target.value));
+            // dispatch({type: 'SETDISPLAYNAME', payload:e.target.value})
           }}
         />
         <InputLabel id="rank-input">Rank</InputLabel>
