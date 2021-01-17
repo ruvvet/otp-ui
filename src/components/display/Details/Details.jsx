@@ -4,35 +4,32 @@ import './details.css';
 import { socialMedia } from '../../../lookup';
 
 export default function Details({ profile, rankIcon, attIcon, defIcon }) {
+  // const renderSocials = () => {
+  //   const socials = socialMedia.filter((s, i) => profile[s.site] !== null);
+
+  //   return socials.map((site, i) => (
+  //     <div>
+  //       <a href={`${site.url}${profile[site.site]}`}>
+  //         <img src={site.img} />
+  //       </a>
+  //     </div>
+  //   ));
+  // };
+
   const renderSocials = () => {
-    const socials = socialMedia.filter((s, i) => profile[s.site] !== null);
-
-    return socials.map((site, i) => (
-      <div>
-        <a href={`${site.url}${profile[site.site]}`}>
-          <img src={site.img} />
-        </a>
-      </div>
-    ));
-  };
-
-
-
-  const testReduce = () =>{
-
-    const socials2 = socialMedia.reduce((final, s)=>{
-      if (profile[s.site]!== null){
-        final.push(<div>hello</div>)
+    return socialMedia.reduce((final, s) => {
+      if (profile[s.site] !== null) {
+        final.push(
+          <div>
+            <a href={`${s.url}${profile[s.site]}`}>
+              <img src={s.img} />
+            </a>
+          </div>
+        );
       }
-      return final
-    }, [])
-
-    console.log(socials2.join())
-
-
-  }
-
-  testReduce()
+      return final;
+    }, []);
+  };
 
   return (
     <Box className="details-container scrollbar">
