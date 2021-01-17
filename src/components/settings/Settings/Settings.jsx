@@ -1,36 +1,63 @@
 import {
+  Button,
   Container,
   FormControl,
-  FormHelperText,
   Grid,
   IconButton,
   InputLabel,
   MenuItem,
   Select,
-  Slider,
   TextField,
+  Snackbar,
 } from '@material-ui/core';
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
-import { React, useState } from 'react';
-import './settings.css';
-import './settings.css';
-import { socialMedia, ranks, att, def } from '../../../lookup';
-import { useSelector, useDispatch } from 'react-redux';
+import SaveIcon from '@material-ui/icons/Save';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { att, def, ranks, socialMedia } from '../../../lookup';
 import { setDisplayName } from '../../../store/profileSlice';
+import OTPRequest from '../../../utils';
+import './settings.css';
 
 export default function Settings() {
   const dispatch = useDispatch();
 
   const displayName = useSelector((state) => state.profile.displayName);
 
-  const [rank, setRank] = useState();
-  const [socials, setSocials] = useState({ twitter: 'hi', twitch: 'hello' });
-  const [mainAtt, setMainAtt] = useState('Ash');
-  const [mainDef, setMainDef] = useState('Frost');
-  const [rankRange, setRankRange] = useState([20, 37]);
+  const [rank, setRank] = useState('');
+  const [socials, setSocials] = useState({});
+  const [mainAtt, setMainAtt] = useState('');
+  const [mainDef, setMainDef] = useState('');
 
-  const handleRankRange = (event, newValue) => {
-    setRankRange(newValue);
+  const [snackbar, setSnackbar] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
+
+  const handleSubmit = async (e) => {
+    console.log('submitting');
+    setSnackbar(true);
+    e.preventDefault();
+
+    const newSettings = {
+      displayName,
+      rank,
+      //pictures,
+      socials,
+      mainAtt,
+      mainDef,
+    };
+
+    const response = await OTPRequest('/profile', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newSettings),
+    });
+
+    console.log(response);
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbar(false);
   };
 
   const renderSocialInputs = (list) => {
@@ -101,8 +128,8 @@ export default function Settings() {
         <Select
           labelId="rank-input"
           value={rank}
-          onChange={() => {
-            setRank(1);
+          onChange={(e) => {
+            setRank(e.target.value);
           }}
           fullWidth
         >
@@ -174,7 +201,27 @@ export default function Settings() {
           </Select>
         </FormControl>
       </Grid>
+      <Grid item xs={12} className="">
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          className="settings-submit"
+          startIcon={<SaveIcon />}
+          onClick={handleSubmit}
+        >
+          Save
+        </Button>
+        <Snackbar
+          open={snackbar}
+          onClose={handleCloseSnackbar}
+          autoHideDuration={3000}
+          message="Saved!"
+        />
+      </Grid>
       {/* </Grid> */}
     </Container>
   );
 }
+
+//TODO: PROGRESS FOR SAVE BUTTON: https://material-ui.com/components/progress/
