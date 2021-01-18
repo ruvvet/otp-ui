@@ -1,5 +1,5 @@
 import { Container, Grid } from '@material-ui/core';
-import { createRef, React, useMemo, useState, useEffect } from 'react';
+import React, { createRef,  useMemo, useState, useEffect } from 'react';
 import ProfileCard from '../ProfileCard';
 import './display.css';
 import OTPRequest from '../../../utils';

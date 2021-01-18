@@ -15,7 +15,13 @@ import SaveIcon from '@material-ui/icons/Save';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { att, def, ranks, socialMedia } from '../../../lookup';
-import { setDisplayName } from '../../../store/profileSlice';
+import {
+  setDisplayName,
+  setRank,
+  setSocials,
+  setMainAtt,
+  setMainDef,
+} from '../../../store/profileSlice';
 import OTPRequest from '../../../utils';
 import './settings.css';
 
@@ -23,11 +29,10 @@ export default function Settings() {
   const dispatch = useDispatch();
 
   const displayName = useSelector((state) => state.profile.displayName);
-
-  const [rank, setRank] = useState('');
-  const [socials, setSocials] = useState({});
-  const [mainAtt, setMainAtt] = useState('');
-  const [mainDef, setMainDef] = useState('');
+  const rank = useSelector((state) => state.profile.rank);
+  const socials = useSelector((state) => state.profile.socials);
+  const mainAtt = useSelector((state) => state.profile.mainAtt);
+  const mainDef = useSelector((state) => state.profile.mainDef);
 
   const [snackbar, setSnackbar] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -38,7 +43,7 @@ export default function Settings() {
     setSnackbar(true);
     e.preventDefault();
 
-    const newSettings = {
+    const newProfile = {
       displayName,
       rank,
       //pictures,
@@ -50,7 +55,7 @@ export default function Settings() {
     const response = await OTPRequest('/profile', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newSettings),
+      body: JSON.stringify(newProfile),
     });
 
     console.log(response);
@@ -71,10 +76,11 @@ export default function Settings() {
             key={`input-${i}`}
             id={s.site}
             label={s.site.toUpperCase()}
+            // value = {socials[s.site]}
             className="input"
             helperText={`https://${s.url}${socials[s.site]}`}
             onChange={(e) => {
-              setSocials({ ...socials, [s.site]: e.target.value });
+              dispatch(setSocials({ ...socials, [s.site]: e.target.value }));
             }}
           />
         </Grid>
@@ -84,7 +90,7 @@ export default function Settings() {
 
   const renderSelects = (list) => {
     return list.map((item, i) => (
-      <MenuItem divider value={item.rank ? item.rank : item.operator}>
+      <MenuItem divider value={item.rank || item.operator}>
         <img className="select-img" src={item.img} />
         {item.rank ? item.rank : item.operator}
       </MenuItem>
@@ -109,14 +115,13 @@ export default function Settings() {
               accept="image/*"
               id="icon-button-file"
               type="file"
-              style={{display: "none"}}
+              style={{ display: 'none' }}
             />
             <label htmlFor="icon-button-file">
               <IconButton
                 color="primary"
                 aria-label="upload picture"
                 component="span"
-
               >
                 <PhotoCamera />
               </IconButton>
@@ -133,6 +138,7 @@ export default function Settings() {
       <Grid item xs={12} className="settings-section profile">
         <TextField
           id="standard-full-width"
+          value = {displayName}
           style={{ margin: 8 }}
           placeholder="Display Name"
           helperText={`Hi my name is ...${displayName}`}
@@ -143,7 +149,6 @@ export default function Settings() {
           }}
           onChange={(e) => {
             dispatch(setDisplayName(e.target.value));
-            // dispatch({type: 'SETDISPLAYNAME', payload:e.target.value})
           }}
         />
         <InputLabel id="rank-input">Rank</InputLabel>
@@ -196,8 +201,7 @@ export default function Settings() {
             value={mainAtt}
             className="settings-main-op"
             onChange={(e) => {
-              console.log(e.target.value);
-              setMainAtt(e.target.value);
+              dispatch(setMainAtt(e.target.value));
             }}
             autoWidth={true}
           >
@@ -212,8 +216,7 @@ export default function Settings() {
             value={mainDef}
             className="settings-main-op"
             onChange={(e) => {
-              console.log(e.target.value);
-              setMainDef(e.target.value);
+              dispatch(setMainDef(e.target.value));
             }}
           >
             {renderSelects(def)}

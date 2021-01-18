@@ -10,7 +10,7 @@ import ArrowLeftRoundedIcon from '@material-ui/icons/ArrowLeftRounded';
 import ArrowRightRoundedIcon from '@material-ui/icons/ArrowRightRounded';
 import UnfoldMoreRoundedIcon from '@material-ui/icons/UnfoldMoreRounded';
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import TinderCard from 'react-tinder-card';
 import Details from '../../display/Details';
 import Slide from '../../effects/Slide';
@@ -18,7 +18,6 @@ import './profile.css';
 import { useSelector } from 'react-redux';
 
 export default function Profile() {
-
   const displayName = useSelector((state) => state.profile.displayName);
 
   const [viewDetails, setViewDetails] = useState(false);
@@ -96,7 +95,10 @@ export default function Profile() {
             <div>
               {isVisible || (
                 <>
-                  <div><StarBorderRoundedIcon/>Profile Preview</div>
+                  <div>
+                    <StarBorderRoundedIcon />
+                    Profile Preview
+                  </div>
                   <div>{displayName}, rank lookup</div>
                 </>
               )}

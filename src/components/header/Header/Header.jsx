@@ -2,7 +2,7 @@ import { Badge, Container, Grid, IconButton, Tooltip } from '@material-ui/core';
 import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
 import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
-import { React, useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Boop from '../../effects/Boop';
 import './header.css';

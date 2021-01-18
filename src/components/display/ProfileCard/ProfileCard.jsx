@@ -11,7 +11,7 @@ import ArrowRightRoundedIcon from '@material-ui/icons/ArrowRightRounded';
 import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded';
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import UnfoldMoreRoundedIcon from '@material-ui/icons/UnfoldMoreRounded';
-import { forwardRef, React, useState, useEffect } from 'react';
+import React, { forwardRef, useState, useEffect } from 'react';
 import TinderCard from 'react-tinder-card';
 import Slide from '../../effects/Slide';
 import Details from '../Details';
