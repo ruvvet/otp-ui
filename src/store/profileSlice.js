@@ -38,8 +38,8 @@ const profileSlice = createSlice({
     },
 
     initializeProfile(state, action) {
-      state.displayName = action.payload.displayName || '';
-      state.rank = action.payload.rank || '';
+      state.displayName = action.payload.displayName || action.payload.discordUserName;
+      state.rank = action.payload.rank || 'Unranked';
       state.pics = action.payload.pictures.reduce(
         (result, pic) => {
           result[pic.index] = pic.url;

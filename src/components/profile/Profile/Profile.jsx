@@ -10,22 +10,42 @@ import ArrowLeftRoundedIcon from '@material-ui/icons/ArrowLeftRounded';
 import ArrowRightRoundedIcon from '@material-ui/icons/ArrowRightRounded';
 import UnfoldMoreRoundedIcon from '@material-ui/icons/UnfoldMoreRounded';
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TinderCard from 'react-tinder-card';
 import Details from '../../display/Details';
 import Slide from '../../effects/Slide';
 import './profile.css';
 import { useSelector } from 'react-redux';
+import { ranks, att, def } from '../../../lookup';
 
 export default function Profile() {
   const displayName = useSelector((state) => state.profile.displayName);
+  const rank = useSelector((state) => state.profile.rank);
+  const pics = useSelector((state) => state.profile.pics);
+  const socials = useSelector((state) => state.profile.socials);
+  const mainAtt = useSelector((state) => state.profile.mainAtt);
+  const mainDef = useSelector((state) => state.profile.mainDef);
 
   const [viewDetails, setViewDetails] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
+  const [rankIcon, setRankIcon] = useState('');
+  const [attIcon, setAttIcon] = useState('');
+  const [defIcon, setDefIcon] = useState('');
 
   //TODO: click away, setViewDetails = false;
+
+  useEffect(() => {
+    const rankIcon = ranks.find((r) => r.rank === rank);
+    setRankIcon(rankIcon ? rankIcon.img : '');
+
+    const attMain = att.find((op) => op.operator === mainAtt);
+    setAttIcon(attMain ? attMain.img : '');
+
+    const defMain = def.find((op) => op.operator === mainDef);
+    setDefIcon(defMain ? defMain.img : '');
+  }, []);
 
   const handleNext = () => {
     setCurrentImgIndex(currentImgIndex + 1);
@@ -37,15 +57,7 @@ export default function Profile() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const profile = {
-    id: 1,
-    name: 'rando 1',
-    img: [
-      'https://specials-images.forbesimg.com/imageserve/5f5f55887d9eec237a586841/960x0.jpg',
-      'https://www.tubefilter.com/wp-content/uploads/2020/11/pokimane-twitch-donations-cap-streamlabs.jpg',
-      'https://cdn1.dotesports.com/wp-content/uploads/2020/09/14075123/pokimane-vtuber-1024x575.jpg',
-    ],
-  };
+  const numPics = Object.values(pics).filter(Boolean).length;
 
   return (
     <TinderCard
@@ -57,49 +69,51 @@ export default function Profile() {
         <MobileStepper
           className="profile-stepper"
           variant="dots"
-          steps={3}
+          steps={numPics}
           position="static"
           activeStep={activeStep}
           nextButton={
-            <IconButton>
-              <ArrowRightRoundedIcon
-                className="icon"
-                fontSize="large"
-                onClick={handleNext}
-                disabled={activeStep === 3}
-              />
+            <IconButton
+              onClick={handleNext}
+              disabled={activeStep === numPics - 1}
+            >
+              <ArrowRightRoundedIcon className="icon" fontSize="large" />
             </IconButton>
           }
           backButton={
-            <IconButton>
-              <ArrowLeftRoundedIcon
-                className="icon"
-                fontSize="large"
-                onClick={handleBack}
-                disabled={activeStep === 0}
-              />
+            <IconButton onClick={handleBack} disabled={activeStep === 0}>
+              <ArrowLeftRoundedIcon className="icon" fontSize="large" />
             </IconButton>
           }
         />
         <CardMedia
           className="profile-img"
           component="img"
-          image={profile.img[currentImgIndex]}
+          image={Object.values(pics)[currentImgIndex]}
         />
         <Grid container direction="columns" className="content">
           <Slide isVisible={isVisible}>
-            <Details profile={profile} />
+            <Details
+            name={displayName}
+                rank={rank}
+                socials={socials}
+                rankIcon={rankIcon}
+                attIcon={attIcon}
+                defIcon={defIcon}/>
           </Slide>
 
           <Box className="title">
             <div>
               {isVisible || (
                 <>
-                  <div>
+                  <>
+                    <img className="rank-profile-icon" src={rankIcon} />
+                    {displayName.toUpperCase()}, {rank}
+                    {/* <div>
                     <StarBorderRoundedIcon />
                     Profile Preview
-                  </div>
-                  <div>{displayName}, rank lookup</div>
+                  </div> */}
+                  </>
                 </>
               )}
             </div>

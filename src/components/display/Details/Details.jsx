@@ -3,25 +3,21 @@ import React, { useState, useEffect } from 'react';
 import './details.css';
 import { socialMedia } from '../../../lookup';
 
-export default function Details({ profile, rankIcon, attIcon, defIcon }) {
-  // const renderSocials = () => {
-  //   const socials = socialMedia.filter((s, i) => profile[s.site] !== null);
-
-  //   return socials.map((site, i) => (
-  //     <div>
-  //       <a href={`${site.url}${profile[site.site]}`}>
-  //         <img src={site.img} />
-  //       </a>
-  //     </div>
-  //   ));
-  // };
-
+export default function Details({
+  name,
+  rank,
+  socials,
+  rankIcon,
+  attIcon,
+  defIcon,
+}) {
   const renderSocials = () => {
+
     return socialMedia.reduce((final, s) => {
-      if (profile[s.site] !== null) {
+      if (socials[s.site]) {
         final.push(
           <div>
-            <a href={`${s.url}${profile[s.site]}`}>
+            <a href={`https://www.${s.url}${socials[s.site]}`} target="_blank">
               <img src={s.img} />
             </a>
           </div>
@@ -36,7 +32,7 @@ export default function Details({ profile, rankIcon, attIcon, defIcon }) {
       <div>
         {' '}
         <img className="rank-profile-icon" src={rankIcon} />
-        {profile.displayName.toUpperCase()}, {profile.rank}
+        {name.toUpperCase()}, {rank}
       </div>
       <div className="mains">
         <img src={attIcon} />

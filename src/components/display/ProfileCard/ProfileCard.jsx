@@ -16,7 +16,9 @@ import TinderCard from 'react-tinder-card';
 import Slide from '../../effects/Slide';
 import Details from '../Details';
 import './profilecard.css';
-import { ranks, att, def } from '../../../lookup';
+import { ranks, att, def, socialMedia } from '../../../lookup';
+import { setSocials } from '../../../store/profileSlice';
+import { checkPropTypes } from 'prop-types';
 
 export default forwardRef(
   ({ profile, swiped, outOfFrame, swipeButton }, ref) => {
@@ -28,6 +30,8 @@ export default forwardRef(
 
     const [attIcon, setAttIcon] = useState('');
     const [defIcon, setDefIcon] = useState('');
+    const [pics, setPics] = useState([]);
+    const [socials, setSocials] = useState([]);
 
     useEffect(() => {
       const rankIcon = ranks.find((r) => r.rank === profile.rank);
@@ -38,7 +42,32 @@ export default forwardRef(
 
       const defMain = def.find((op) => op.operator === profile.def);
       setDefIcon(defMain ? defMain.img : '');
-    }, []);
+
+      setPics(profile.pictures.map((pic, i) => pic.url));
+
+      setSocials(
+        //     socialMedia.reduce((final, s) => {
+        //       if (profile[s.site]) {
+        //         final[s.site] = profile[s.site];
+        //       }
+        //       return final;
+        //     }),
+        //     {}
+        //   );
+        // }, {}
+        {
+          twitch: profile.twitch || '',
+          twitter: profile.twitter || '',
+          instagram: profile.instagram || '',
+          snapchat: profile.snapchat || '',
+          tiktok: profile.tiktok || '',
+          spotify: profile.spotify || '',
+          facebook: profile.facebook || '',
+          reddit: profile.reddit || '',
+        }
+      );
+    });
+
     //TODO: click away, setViewDetails = false;
 
     const handleNext = () => {
@@ -50,8 +79,6 @@ export default forwardRef(
       setCurrentImgIndex(currentImgIndex - 1);
       setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
-
-
 
     return (
       <TinderCard
@@ -70,23 +97,16 @@ export default forwardRef(
             position="static"
             activeStep={activeStep}
             nextButton={
-              <IconButton>
-                <ArrowRightRoundedIcon
-                  className="icon"
-                  fontSize="large"
-                  onClick={handleNext}
-                  disabled={activeStep === 3}
-                />
+              <IconButton
+                onClick={handleNext}
+                disabled={activeStep === pics.length - 1}
+              >
+                <ArrowRightRoundedIcon className="icon" fontSize="large" />
               </IconButton>
             }
             backButton={
-              <IconButton>
-                <ArrowLeftRoundedIcon
-                  className="icon"
-                  fontSize="large"
-                  onClick={handleBack}
-                  disabled={activeStep === 0}
-                />
+              <IconButton onClick={handleBack} disabled={activeStep === 0}>
+                <ArrowLeftRoundedIcon className="icon" fontSize="large" />
               </IconButton>
             }
           />
@@ -94,12 +114,14 @@ export default forwardRef(
           <CardMedia
             className="profile-img"
             component="img"
-            image={profile.pictures[currentImgIndex]}
+            image={pics[currentImgIndex]}
           />
           <Grid container direction="columns" className="content">
             <Slide isVisible={isVisible}>
               <Details
-                profile={profile}
+                name={profile.displayName || profile.discordUserName}
+                rank={profile.rank}
+                socials={socials}
                 rankIcon={rankIcon}
                 attIcon={attIcon}
                 defIcon={defIcon}

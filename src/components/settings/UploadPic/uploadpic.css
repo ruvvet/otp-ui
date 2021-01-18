@@ -1,15 +1,25 @@
 .upload-pic-item {
   margin: 2% !important;
   border: 2px dashed black;
-  height: 100px !important;
+  height: 130px !important;
+  width: 100px !important;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.upload-pic-item img {
-  height: 100px !important;
-  width: 100px !important;
-  object-fit: cover;
-  border: 1px solid black;
+.upload-pic-item .float-input{
+  position: absolute;
+
 }
+
+.upload-pic-item img {
+  height: 100% !important;
+  width: 100% !important;
+  object-fit: cover;
+}
+
+.input-icon:hover{
+  background-color: #FFFFFF70 !important;
+}
+
