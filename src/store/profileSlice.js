@@ -5,6 +5,7 @@ const profileSlice = createSlice({
   initialState: {
     displayName: '',
     rank: '',
+    pics: {},
     socials: {},
     mainAtt: '',
     mainDef: '',
@@ -18,6 +19,10 @@ const profileSlice = createSlice({
 
     setRank(state, action) {
       state.rank = action.payload;
+    },
+
+    setPics(state, action) {
+      state.pics = action.payload;
     },
 
     setSocials(state, action) {
@@ -35,6 +40,11 @@ const profileSlice = createSlice({
     initializeProfile(state, action) {
       state.displayName = action.payload.displayName || '';
       state.rank = action.payload.rank || '';
+      state.pics = {
+        picOne: action.payload.picOne || '',
+        picTwo: action.payload.picTwo || '',
+        picThree: action.payload.picThree || '',
+      };
       state.socials = {
         twitch: action.payload.twitch || '',
         twitter: action.payload.twitter || '',
@@ -71,6 +81,7 @@ const profileSlice = createSlice({
 export const {
   setDisplayName,
   setRank,
+  setPics,
   setSocials,
   setMainAtt,
   setMainDef,

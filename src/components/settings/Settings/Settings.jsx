@@ -18,11 +18,13 @@ import { att, def, ranks, socialMedia } from '../../../lookup';
 import {
   setDisplayName,
   setRank,
+  setPics,
   setSocials,
   setMainAtt,
   setMainDef,
 } from '../../../store/profileSlice';
 import OTPRequest from '../../../utils';
+import UploadPic from '../UploadPic/UploadPic';
 import './settings.css';
 
 export default function Settings() {
@@ -30,6 +32,7 @@ export default function Settings() {
 
   const displayName = useSelector((state) => state.profile.displayName);
   const rank = useSelector((state) => state.profile.rank);
+  const pics = useSelector((state) => state.profile.pics);
   const socials = useSelector((state) => state.profile.socials);
   const mainAtt = useSelector((state) => state.profile.mainAtt);
   const mainDef = useSelector((state) => state.profile.mainDef);
@@ -60,6 +63,8 @@ export default function Settings() {
 
     console.log(response);
   };
+
+
 
   const handleCloseSnackbar = () => {
     setSnackbar(false);
@@ -97,38 +102,9 @@ export default function Settings() {
     ));
   };
 
-  const pics = [
-    'https://www.tubefilter.com/wp-content/uploads/2020/11/pokimane-twitch-donations-cap-streamlabs.jpg',
-    'https://cdn1.dotesports.com/wp-content/uploads/2020/09/14075123/pokimane-vtuber-1024x575.jpg',
-  ];
-
   const renderPics = () => {
-    const pics2 = new Array(3).fill('');
-
-    return pics2.map((img, i) => (
-      <Grid item xs m={3}>
-        {pics[i] ? (
-          <img src={pics[i]} className="user-pics" />
-        ) : (
-          <>
-            <input
-              accept="image/*"
-              id="icon-button-file"
-              type="file"
-              style={{ display: 'none' }}
-            />
-            <label htmlFor="icon-button-file">
-              <IconButton
-                color="primary"
-                aria-label="upload picture"
-                component="span"
-              >
-                <PhotoCamera />
-              </IconButton>
-            </label>
-          </>
-        )}
-      </Grid>
+    return Object.keys(pics).map((picKey) => (
+      <UploadPic pic={pics[picKey]} />
     ));
   };
 
@@ -138,7 +114,7 @@ export default function Settings() {
       <Grid item xs={12} className="settings-section profile">
         <TextField
           id="standard-full-width"
-          value = {displayName}
+          value={displayName}
           style={{ margin: 8 }}
           placeholder="Display Name"
           helperText={`Hi my name is ...${displayName}`}
