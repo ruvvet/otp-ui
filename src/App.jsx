@@ -26,6 +26,7 @@ function App() {
     const checkJWT = async () => {
       const response = await OTPRequest('/authorize/refreshJWT', {
         method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
       }).catch(() => {
         setError(true);
         return null;

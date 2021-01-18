@@ -1,15 +1,13 @@
 .settings-container {
-  border: 5px solid red;
-  position: absolute;
   bottom: 7%;
 }
 
-.MuiSelect-select{
-  text-align-last:center !important;
+.MuiSelect-select {
+  text-align-last: center !important;
 }
 
-.settings-container .profile{
-  padding-top: 7%!important;
+.settings-container .profile {
+  padding-top: 7% !important;
 }
 
 .settings-container .settings-section {
@@ -39,15 +37,10 @@
   width: 30px;
 }
 
-.settings-container .settings-section .rank-slider {
+/* .settings-container .settings-section .rank-slider {
   height: 30px;
   width: 30px;
-}
-
-.settings-container .settings-section .add-pfp {
-  margin-top: 3%;
-}
-
+} */
 
 .select-img {
   object-fit: contain;
@@ -55,16 +48,17 @@
   width: auto;
 }
 
-.settings-container .add-pfp img {
-height: 100px !important;
-width: 100px !important;
-object-fit: cover;
-border: 1px solid black;
-}
-
-.settings-container .settings-main-op{
+.settings-container .settings-main-op {
   width: 150px;
 }
+
+
+.settings-container .save-button {
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+
 
 .settings-scrollbar::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);

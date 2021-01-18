@@ -15,6 +15,7 @@ export default function Display() {
     const getProfiles = async () => {
       const response = await OTPRequest('/swipe', {
         method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
       }).catch(() => {
         setError(true);
         return null;

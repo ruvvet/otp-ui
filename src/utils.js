@@ -10,7 +10,7 @@ export default async function OTPRequest(url, options) {
   console.log('sending a request to API with', userToken)
   const headers = {
     ...options.headers,
-    'Content-Type': 'application/json',
+    // 'Content-Type': 'application/json',
     'X-OTP-User': userToken,
   };
 
@@ -22,10 +22,12 @@ export default async function OTPRequest(url, options) {
    //TODO: FIX THIS SHIT
     return '401';
   }
+
   const contentType = response.headers.get('Content-Type');
 
   if (contentType && contentType.includes('application/json')) {
     return response.json();
   }
+  
   return response;
 }

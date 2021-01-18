@@ -55,16 +55,12 @@ export default function Settings() {
       mainDef,
     };
 
-    const response = await OTPRequest('/profile', {
+    await OTPRequest('/profile', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newProfile),
     });
-
-    console.log(response);
   };
-
-
 
   const handleCloseSnackbar = () => {
     setSnackbar(false);
@@ -83,7 +79,11 @@ export default function Settings() {
             label={s.site.toUpperCase()}
             // value = {socials[s.site]}
             className="input"
-            helperText={`https://${s.url}${socials[s.site]}`}
+            helperText={
+              `${s.url}${socials[s.site]}`.length > 25
+                ? `${s.url}${socials[s.site]}`.slice(0, 25) + '...'
+                : `${s.url}${socials[s.site]}`
+            }
             onChange={(e) => {
               dispatch(setSocials({ ...socials, [s.site]: e.target.value }));
             }}
@@ -104,7 +104,7 @@ export default function Settings() {
 
   const renderPics = () => {
     return Object.keys(pics).map((picKey) => (
-      <UploadPic pic={pics[picKey]} />
+      <UploadPic picKey={picKey} pic={pics[picKey]} />
     ));
   };
 
@@ -139,7 +139,6 @@ export default function Settings() {
           {renderSelects(ranks)}
         </Select>
         <Grid
-          className="add-pfp"
           container
           direction="row"
           justify="space-between"
@@ -199,7 +198,7 @@ export default function Settings() {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={12} className="">
+      <Grid item xs={12} className="save-button">
         <Button
           variant="contained"
           color="primary"

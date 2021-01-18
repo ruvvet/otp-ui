@@ -20,6 +20,7 @@ export default function Callback() {
       const login = async () => {
         const response = await OTPRequest('/authorize/exchange', {
           method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ code }),
         });
 

@@ -1,0 +1,15 @@
+.upload-pic-item {
+  margin: 2% !important;
+  border: 2px dashed black;
+  height: 100px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-pic-item img {
+  height: 100px !important;
+  width: 100px !important;
+  object-fit: cover;
+  border: 1px solid black;
+}

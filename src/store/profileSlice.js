@@ -40,11 +40,13 @@ const profileSlice = createSlice({
     initializeProfile(state, action) {
       state.displayName = action.payload.displayName || '';
       state.rank = action.payload.rank || '';
-      state.pics = {
-        picOne: action.payload.picOne || '',
-        picTwo: action.payload.picTwo || '',
-        picThree: action.payload.picThree || '',
-      };
+      state.pics = action.payload.pictures.reduce(
+        (result, pic) => {
+          result[pic.index] = pic.url;
+          return result;
+        },
+        { picOne: '', picTwo: '', picThree: '' }
+      );
       state.socials = {
         twitch: action.payload.twitch || '',
         twitter: action.payload.twitter || '',

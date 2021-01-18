@@ -41,9 +41,7 @@ export default function Main() {
 
   return (
     <Container className="main-container" maxWidth="sm">
-      <div id="stars"></div>
-      <div id="stars2"></div>
-      <div id="stars3"></div>
+
       <Grid
         container
         direction="column"
