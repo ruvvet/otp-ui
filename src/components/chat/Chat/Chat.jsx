@@ -11,8 +11,13 @@ import React, { useState, useEffect } from 'react';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import './chat.css';
 import io from 'socket.io-client';
+import {useParams} from 'react-router-dom'
 
 export default function Chat({ chat }) {
+
+  const {id} = useParams();
+
+
   const [socket, setSocket] = useState();
   const [number, setNumber] = useState(1);
   const [msg, setMsg] = useState('');
@@ -23,36 +28,6 @@ export default function Chat({ chat }) {
     { user: 2, message: 'hiya', timestamp: '1001' },
     { user: 1, message: 'hiasgsg', timestamp: '1002' },
     { user: 2, message: 'hiasgsgasdgasg', timestamp: '1003' },
-    {
-      user: 2,
-      message:
-        'hiasgsgasdgasgdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-      timestamp: '1004',
-    },
-    {
-      user: 1,
-      message:
-        'hiasgsgasdgasgdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-      timestamp: '1004',
-    },
-    {
-      user: 2,
-      message:
-        'hiasgsgasdgasgdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-      timestamp: '1004',
-    },
-    {
-      user: 2,
-      message:
-        'hiasgsgasdgasgdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-      timestamp: '1004',
-    },
-    {
-      user: 2,
-      message:
-        'hiasgsgasdgasgdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-      timestamp: '1004',
-    },
   ];
 
   //TODO - send on enter

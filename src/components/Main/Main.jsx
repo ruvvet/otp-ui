@@ -41,7 +41,6 @@ export default function Main() {
 
   return (
     <Container className="main-container" maxWidth="sm">
-
       <Grid
         container
         direction="column"
@@ -59,8 +58,10 @@ export default function Main() {
             <Profile />
           </Route>
           <Route path="/messages">
-            {/* <Messages /> */}
-            <Chat />
+            <Messages />
+          </Route>
+          <Route path="/messages/:id">
+            <Chat /> 
           </Route>
           <Route path="/settings">
             <Settings />

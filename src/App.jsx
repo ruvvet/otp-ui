@@ -8,19 +8,29 @@ import Main from './components/Main';
 import io from 'socket.io-client';
 import OTPRequest from './utils';
 
+
+
 function App() {
   const history = useHistory();
   console.log(localStorage.getItem('OTP_TOKEN'));
 
+
+  const [socket, setSocket] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
-  // useEffect (()=>{
+  useEffect (()=>{
 
-  //   const socket = io('http://localhost:5000')
-  //   socket.on('FromAPI', (msg)=>{console.log(msg)})
+    const socket = io('http://localhost:5000')
 
-  // }, [])
+    setSocket(socket);
+    socket.emit('hi', new Date())
+
+
+
+    socket.on('FromAPI', (msg)=>{console.log(msg)})
+
+  }, [])
 
   useEffect(() => {
     const checkJWT = async () => {
