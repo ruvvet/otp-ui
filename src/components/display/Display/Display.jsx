@@ -1,5 +1,5 @@
 import { Container, Grid } from '@material-ui/core';
-import React, { createRef,  useMemo, useState, useEffect } from 'react';
+import React, { createRef, useMemo, useState, useEffect } from 'react';
 import ProfileCard from '../ProfileCard';
 import './display.css';
 import OTPRequest from '../../../utils';
@@ -11,7 +11,7 @@ export default function Display() {
   const [error, setError] = useState();
 
   useEffect(() => {
-    console.log('calling api')
+    console.log('calling api');
     const getProfiles = async () => {
       const response = await OTPRequest('/swipe', {
         method: 'GET',
@@ -30,16 +30,23 @@ export default function Display() {
     getProfiles();
   }, []);
 
-  console.log(profiles)
   const childRefs = useMemo(
     () => ({ 1: createRef(), 2: createRef(), 3: createRef() }),
     []
   );
 
-  const swiped = (direction, id) => {
+  const swiped = async (direction, id) => {
     console.log('removing: ' + id);
     console.log(direction);
     // make api call to update database
+    if (direction === 'right') {
+
+      await OTPRequest('/swipe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({swipeId:id}),
+      });
+    }
   };
 
   const outOfFrame = (id) => {
@@ -52,23 +59,22 @@ export default function Display() {
   };
 
   const renderCards = () => {
-
-    if(profiles.length >0){
-    return profiles
-      .slice(index)
-      .reverse()
-      .map((profile, i) => (
-        <div className="swipe">
-          <ProfileCard
-            ref={childRefs[profile.id]}
-            key={profile.id}
-            profile={profile}
-            swiped={swiped}
-            outOfFrame={outOfFrame}
-            swipeButton={swipeButton}
-          />
-        </div>
-      ));
+    if (profiles.length > 0) {
+      return profiles
+        .slice(index)
+        .reverse()
+        .map((profile, i) => (
+          <div className="swipe">
+            <ProfileCard
+              ref={childRefs[profile.id]}
+              key={profile.discordId}
+              profile={profile}
+              swiped={swiped}
+              outOfFrame={outOfFrame}
+              swipeButton={swipeButton}
+            />
+          </div>
+        ));
     }
   };
 

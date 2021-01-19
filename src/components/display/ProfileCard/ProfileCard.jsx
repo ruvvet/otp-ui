@@ -46,27 +46,24 @@ export default forwardRef(
       setPics(profile.pictures.map((pic, i) => pic.url));
 
       setSocials(
-        //     socialMedia.reduce((final, s) => {
-        //       if (profile[s.site]) {
-        //         final[s.site] = profile[s.site];
-        //       }
-        //       return final;
-        //     }),
-        //     {}
-        //   );
-        // }, {}
-        {
-          twitch: profile.twitch || '',
-          twitter: profile.twitter || '',
-          instagram: profile.instagram || '',
-          snapchat: profile.snapchat || '',
-          tiktok: profile.tiktok || '',
-          spotify: profile.spotify || '',
-          facebook: profile.facebook || '',
-          reddit: profile.reddit || '',
-        }
+        socialMedia.reduce((final, s) => {
+          if (profile[s.site]) {
+            final[s.site] = profile[s.site];
+          }
+          return final;
+        }, {})
       );
-    });
+    }, [profile]);
+    // {
+    //   twitch: profile.twitch || '',
+    //   twitter: profile.twitter || '',
+    //   instagram: profile.instagram || '',
+    //   snapchat: profile.snapchat || '',
+    //   tiktok: profile.tiktok || '',
+    //   spotify: profile.spotify || '',
+    //   facebook: profile.facebook || '',
+    //   reddit: profile.reddit || '',
+    // }
 
     //TODO: click away, setViewDetails = false;
 

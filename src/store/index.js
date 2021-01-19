@@ -1,15 +1,10 @@
-
-
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import profileReducer from './profileSlice'
+import profileReducer from './profileSlice';
 
 const rootReducer = combineReducers({
-    profile: profileReducer,
-
-
-  })
-
+  profile: profileReducer,
+});
 
 export default configureStore({
-    reducer: rootReducer
-  })
+  reducer: rootReducer,
+});
