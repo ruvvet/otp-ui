@@ -12,22 +12,23 @@ import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import './chat.css';
 import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
+import { API } from '../../../utils';
 
 export default function Chat() {
-  const {id} = useParams();
+  const { id } = useParams();
 
-  console.log('param id', id)
+  console.log('param id', id);
 
   const [socket, setSocket] = useState();
   const [tempId, setTempId] = useState();
   const [convo, setConvo] = useState([]);
   const [msg, setMsg] = useState('');
 
-   //TODO - send on enter
+  //TODO - send on enter
 
   useEffect(() => {
     // conect to socket
-    const socket = io('http://localhost:5000');
+    const socket = io(API);
 
     // set the socket with the socket instance
     setSocket(socket);
@@ -36,7 +37,10 @@ export default function Chat() {
     socket.emit('sendMyId', tempId);
 
     socket.on('incomingMsg', (senderId, msg) => {
-      setConvo(prevConvo=>[...prevConvo, { user: parseInt(senderId), msg, timestamp: new Date().toDateString() }]);
+      setConvo((prevConvo) => [
+        ...prevConvo,
+        { user: parseInt(senderId), msg, timestamp: new Date().toDateString() },
+      ]);
     });
 
     return () => {
@@ -45,8 +49,11 @@ export default function Chat() {
   }, [tempId]);
 
   const handleSendMsg = () => {
-    setConvo([...convo, {user:parseInt(tempId), msg, timestamp: new Date().toDateString()}]);
-    setMsg('')
+    setConvo([
+      ...convo,
+      { user: parseInt(tempId), msg, timestamp: new Date().toDateString() },
+    ]);
+    setMsg('');
 
     socket.emit('outgoingMsg', tempId, id, msg);
   };
@@ -57,7 +64,7 @@ export default function Chat() {
       if (c.user === tempId) {
         return (
           <Grid
-          key={`chat${i}`}
+            key={`chat${i}`}
             container
             direction="row"
             justify="flex-start"
@@ -81,7 +88,7 @@ export default function Chat() {
       } else {
         return (
           <Grid
-          key={`chat${i}`}
+            key={`chat${i}`}
             container
             direction="row"
             justify="flex-end"
@@ -116,7 +123,8 @@ export default function Chat() {
         style={{ height: '100%' }}
       >
         <Grid container direction="row" justify="center" alignItems="center">
-          My#<input type="number" onChange={(e)=>setTempId(e.target.value)}/>
+          My#
+          <input type="number" onChange={(e) => setTempId(e.target.value)} />
         </Grid>
         <Grid
           container

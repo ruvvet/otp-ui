@@ -19,18 +19,18 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
-  useEffect (()=>{
+  // useEffect (()=>{
 
-    const socket = io('http://localhost:5000')
+  //   const socket = io('http://localhost:5000')
 
-    setSocket(socket);
-    socket.emit('hi', new Date())
+  //   setSocket(socket);
+  //   socket.emit('hi', new Date())
 
 
 
-    socket.on('FromAPI', (msg)=>{console.log(msg)})
+  //   socket.on('FromAPI', (msg)=>{console.log(msg)})
 
-  }, [])
+  // }, [])
 
   useEffect(() => {
     const checkJWT = async () => {
