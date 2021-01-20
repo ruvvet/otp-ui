@@ -48,6 +48,56 @@ const pretendMatch = [
     img:
       'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
   },
+  {
+    name: 'person2',
+    img:
+      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
+  },
+  {
+    name: 'person2',
+    img:
+      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
+  },
+  {
+    name: 'person2',
+    img:
+      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
+  },
+  {
+    name: 'person2',
+    img:
+      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
+  },
+  {
+    name: 'person2',
+    img:
+      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
+  },
+  {
+    name: 'person2',
+    img:
+      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
+  },
+  {
+    name: 'person2',
+    img:
+      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
+  },
+  {
+    name: 'person2',
+    img:
+      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
+  },
+  {
+    name: 'person2',
+    img:
+      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
+  },
+  {
+    name: 'person2',
+    img:
+      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
+  },
 ];
 
 export default function Messages() {
@@ -55,7 +105,7 @@ export default function Messages() {
     return pretendMatch.map((match, i) => (
       <Paper elevation={0} className="message-match">
         <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={2}>
+          <Grid item xs>
             <Badge
               className="online-badge"
               badgeContent={100}
@@ -72,10 +122,10 @@ export default function Messages() {
               <Avatar alt={match.name} src={match.img} />
             </Badge>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs>
             {match.name}
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs>
             <Tooltip title="Send a message!" style={{ padding: 0 }}>
               <Link to={`/messages/${match.name}`}>
                 <IconButton
@@ -129,12 +179,14 @@ export default function Messages() {
   };
 
   return (
-    <Container className="messages-container">
+    <Container maxWidth="sm" className="messages-container scrollbar2">
       <Grid
         container
-        direction="column"
-        justify="flex-start"
+        direction="row"
+        justify="center"
         alignItems="center"
+        className= "messages-wrapper"
+
       >
         {renderMessages()}
       </Grid>

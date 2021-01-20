@@ -1,14 +1,21 @@
 .messages-container {
+  /* width: 45% !important;
+
+  position: absolute !important; */
+
+  max-height: 80%;
   position: relative;
+  overflow: auto;
 }
 
-.messages-container img {
-  height: 100px;
-  width: 100px;
+.messages-wrapper {
+
+  height: auto;
+  width: auto;
 }
 
 .messages-container .MuiBadge-dot {
-  background-color: green !important;
+  background-color: #4dc24d !important;
   height: 15px !important;
   min-width: 15px !important;
   border-radius: 50% !important;
@@ -18,18 +25,18 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   border-radius: 50%;
   animation: ripple 1.2s infinite ease-in-out;
-  border: 1px solid green;
+  border: 1px solid #4dc24d;
   content: '';
-
 }
 
-.messages-container .message-match{
-    margin: 10px 0;
-    width: 100%;
+.messages-container .message-match {
+  margin: 10px 0;
+  padding: 0 10px;
+  width: 80%;
 }
 
 @keyframes ripple {
