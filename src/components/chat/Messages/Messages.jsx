@@ -1,21 +1,16 @@
 import {
-  Box,
-  Container,
-  Grid,
   Avatar,
   Badge,
-  Chip,
-  Tooltip,
+  Container,
+  Grid,
   IconButton,
   Paper,
+  Tooltip,
 } from '@material-ui/core';
-import React from 'react';
-import Chat from '../Chat/Chat';
-import './messages.css';
-import DoneIcon from '@material-ui/icons/Done';
-import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRounded';
 import ChatRoundedIcon from '@material-ui/icons/ChatRounded';
-import {Link} from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './messages.css';
 
 const pretendMatch = [
   {
@@ -81,21 +76,18 @@ export default function Messages() {
             {match.name}
           </Grid>
           <Grid item xs={2}>
-            <Tooltip
-              title="Send a message!"
-              style={{ padding: 0 }}
-            >
+            <Tooltip title="Send a message!" style={{ padding: 0 }}>
               <Link to={`/messages/${match.name}`}>
-              <IconButton
-                className="icon"
-                // href={`/messages/${match.name}`}
-              >
-                <ChatRoundedIcon
+                <IconButton
                   className="icon"
-                  color="primary"
-                  style={{ padding: 5, fontSize: '2rem'}}
-                />
-              </IconButton>
+                  // href={`/messages/${match.name}`}
+                >
+                  <ChatRoundedIcon
+                    className="icon"
+                    color="primary"
+                    style={{ padding: 5, fontSize: '2rem' }}
+                  />
+                </IconButton>
               </Link>
             </Tooltip>
             <Tooltip

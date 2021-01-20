@@ -11,52 +11,53 @@ import React, { useState, useEffect } from 'react';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import './chat.css';
 import io from 'socket.io-client';
-import {useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 
-export default function Chat({ chat }) {
-
+export default function Chat() {
   const {id} = useParams();
 
+  console.log('param id', id)
 
   const [socket, setSocket] = useState();
-  const [number, setNumber] = useState(1);
+  const [tempId, setTempId] = useState();
+  const [convo, setConvo] = useState([]);
   const [msg, setMsg] = useState('');
 
-  const currentUser = 1;
-  const pretendChat = [
-    { user: 1, message: 'hi', timestamp: '1000' },
-    { user: 2, message: 'hiya', timestamp: '1001' },
-    { user: 1, message: 'hiasgsg', timestamp: '1002' },
-    { user: 2, message: 'hiasgsgasdgasg', timestamp: '1003' },
-  ];
-
-  //TODO - send on enter
+   //TODO - send on enter
 
   useEffect(() => {
+    // conect to socket
     const socket = io('http://localhost:5000');
 
+    // set the socket with the socket instance
     setSocket(socket);
 
-    socket.emit('hello', number);
+    //socket instance.emit('event name', message being passed back)
+    socket.emit('sendMyId', tempId);
 
-    socket.on('outgoingMsg', (senderId, msg) => {
-      console.log(senderId, msg);
+    socket.on('incomingMsg', (senderId, msg) => {
+      setConvo(prevConvo=>[...prevConvo, { user: parseInt(senderId), msg, timestamp: new Date().toDateString() }]);
     });
 
     return () => {
       socket.disconnect();
     };
-  }, [number]);
+  }, [tempId]);
 
   const handleSendMsg = () => {
-    socket.emit('incomingMsg', number, 2, msg);
+    setConvo([...convo, {user:parseInt(tempId), msg, timestamp: new Date().toDateString()}]);
+    setMsg('')
+
+    socket.emit('outgoingMsg', tempId, id, msg);
   };
 
+  console.log(convo);
   const renderChat = () => {
-    return pretendChat.map((c, i) => {
-      if (c.user === currentUser) {
+    return convo.map((c, i) => {
+      if (c.user === tempId) {
         return (
           <Grid
+          key={`chat${i}`}
             container
             direction="row"
             justify="flex-start"
@@ -72,7 +73,7 @@ export default function Chat({ chat }) {
               }}
               className="chat-message"
             >
-              {c.message}
+              {c.msg}
             </Box>
             <Box className="chat-timestamp">{c.timestamp}</Box>
           </Grid>
@@ -80,6 +81,7 @@ export default function Chat({ chat }) {
       } else {
         return (
           <Grid
+          key={`chat${i}`}
             container
             direction="row"
             justify="flex-end"
@@ -95,7 +97,7 @@ export default function Chat({ chat }) {
               }}
               className="chat-message"
             >
-              {c.message}
+              {c.msg}
             </Box>
             <Avatar src="#">{c.user}</Avatar>
           </Grid>
@@ -114,7 +116,7 @@ export default function Chat({ chat }) {
         style={{ height: '100%' }}
       >
         <Grid container direction="row" justify="center" alignItems="center">
-          You are chatting with: //..
+          My#<input type="number" onChange={(e)=>setTempId(e.target.value)}/>
         </Grid>
         <Grid
           container

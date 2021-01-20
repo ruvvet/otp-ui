@@ -57,12 +57,13 @@ export default function Main() {
           <Route path="/profile">
             <Profile />
           </Route>
+          <Route path="/messages/:id">
+            <Chat />
+          </Route>
           <Route path="/messages">
             <Messages />
           </Route>
-          <Route path="/messages/:id">
-            <Chat /> 
-          </Route>
+
           <Route path="/settings">
             <Settings />
           </Route>
