@@ -54,16 +54,6 @@ export default forwardRef(
         }, {})
       );
     }, [profile]);
-    // {
-    //   twitch: profile.twitch || '',
-    //   twitter: profile.twitter || '',
-    //   instagram: profile.instagram || '',
-    //   snapchat: profile.snapchat || '',
-    //   tiktok: profile.tiktok || '',
-    //   spotify: profile.spotify || '',
-    //   facebook: profile.facebook || '',
-    //   reddit: profile.reddit || '',
-    // }
 
     //TODO: click away, setViewDetails = false;
 

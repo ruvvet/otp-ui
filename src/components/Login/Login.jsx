@@ -172,6 +172,3 @@ export default function Login() {
     </Container>
   );
 }
-
-// TODO: fix login button link
-//TODO: add diaglog for TOS agreement

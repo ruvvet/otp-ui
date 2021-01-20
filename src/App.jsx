@@ -7,14 +7,11 @@ import Logout from './components/Logout/Logout';
 import Main from './components/Main';
 import io from 'socket.io-client';
 import OTPRequest from './utils';
-import PrivateRoute from './components/utility/PrivateRoute'
-
-
+import PrivateRoute from './components/utility/PrivateRoute';
 
 function App() {
   const history = useHistory();
   console.log(localStorage.getItem('OTP_TOKEN'));
-
 
   const [socket, setSocket] = useState();
   const [loading, setLoading] = useState(true);
@@ -26,8 +23,6 @@ function App() {
 
   //   setSocket(socket);
   //   socket.emit('hi', new Date())
-
-
 
   //   socket.on('FromAPI', (msg)=>{console.log(msg)})
 
@@ -52,8 +47,6 @@ function App() {
     };
     checkJWT();
   }, []);
-
-  console.log(localStorage.getItem('OTP_TOKEN'));
 
   return (
     <div

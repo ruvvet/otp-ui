@@ -57,11 +57,11 @@ export default function Header() {
           <Tooltip title="Notifications" style={{ padding: 0 }}>
             <IconButton>
               <Badge
-                badgeContent={100}
+                badgeContent={'!'}
                 color="primary"
                 className="badge"
                 showZero
-                max={99}
+                // max={'!'}
                 overlap="circle"
               >
                 <NotificationsRoundedIcon
