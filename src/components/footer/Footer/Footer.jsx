@@ -49,12 +49,14 @@ export default function Footer() {
         </Boop>
         <Boop rotation={10} timing={150}>
           <Tooltip title="Matches" style={{ padding: 0 }}>
+            <Link to="/matches">
             <IconButton>
               <FavoriteRoundedIcon
                 className="icon"
                 style={{ padding: 12, fontSize: '3rem', color: '#cf0773' }}
               />
             </IconButton>
+            </Link>
           </Tooltip>
         </Boop>
         <Boop rotation={10} timing={150}>

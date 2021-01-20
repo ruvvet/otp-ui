@@ -1,19 +1,19 @@
 import { Container, Grid } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+import { initializeProfile } from '../../store/profileSlice';
+import OTPRequest from '../../utils';
+import About from '../About/About';
+import Chat from '../chat/Chat';
+import Messages from '../chat/Messages';
+import Matches from '../match/Matches';
 import Display from '../display/Display';
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
-import { Switch, Route } from 'react-router-dom';
-import './main.css';
-//import './starbg.css';
-import Messages from '../chat/Messages';
-import Chat from '../chat/Chat';
-import Settings from '../settings/Settings';
 import Profile from '../profile/Profile';
-import About from '../About/About';
-import { useDispatch, useSelector } from 'react-redux';
-import { initializeProfile } from '../../store/profileSlice';
-import OTPRequest from '../../utils';
+import Settings from '../settings/Settings';
+import './main.css';
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -31,7 +31,6 @@ export default function Main() {
       });
 
       if (response) {
-        console.log(response);
         dispatch(initializeProfile(response));
         setLoading(false);
       }
@@ -63,7 +62,9 @@ export default function Main() {
           <Route path="/messages">
             <Messages />
           </Route>
-
+          <Route path="/matches">
+            <Matches />
+          </Route>
           <Route path="/settings">
             <Settings />
           </Route>

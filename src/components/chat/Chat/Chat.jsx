@@ -23,6 +23,8 @@ export default function Chat() {
   const [tempId, setTempId] = useState();
   const [convo, setConvo] = useState([]);
   const [msg, setMsg] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
 
   //TODO - send on enter
 

@@ -143,7 +143,7 @@ export default forwardRef(
               alignItems="center"
               className="buttons"
             >
-              <IconButton>
+              <IconButton onClick={() => swipeButton('left')}>
                 <HighlightOffRoundedIcon
                   className="icon"
                   style={{
@@ -152,11 +152,11 @@ export default forwardRef(
                     color: '#FA4659',
                     backgroundColor: 'transparent',
                   }}
-                  onClick={() => swipeButton('left')}
+
                 />
               </IconButton>
 
-              <IconButton>
+              <IconButton  onClick={() => setIsVisible(!isVisible)}>
                 <UnfoldMoreRoundedIcon
                   className="icon"
                   style={{
@@ -165,10 +165,10 @@ export default forwardRef(
                     color: '#20639B',
                     backgroundColor: 'transparent',
                   }}
-                  onClick={() => setIsVisible(!isVisible)}
+
                 />
               </IconButton>
-              <IconButton>
+              <IconButton onClick={() => swipeButton('right')}>
                 <CheckCircleOutlineRoundedIcon
                   className="icon"
                   style={{
@@ -177,7 +177,7 @@ export default forwardRef(
                     color: '#2EB872',
                     backgroundColor: 'transparent',
                   }}
-                  onClick={() => swipeButton('right')}
+
                 />
               </IconButton>
             </Grid>

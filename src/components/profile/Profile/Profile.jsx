@@ -26,7 +26,7 @@ export default function Profile() {
   const mainAtt = useSelector((state) => state.profile.mainAtt);
   const mainDef = useSelector((state) => state.profile.mainDef);
 
-  const [viewDetails, setViewDetails] = useState(false);
+const [viewDetails, setViewDetails] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [currentImgIndex, setCurrentImgIndex] = useState(0);

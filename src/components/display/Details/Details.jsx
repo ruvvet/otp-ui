@@ -1,7 +1,7 @@
 import { Box } from '@material-ui/core';
-import React, { useState, useEffect } from 'react';
-import './details.css';
+import React from 'react';
 import { socialMedia } from '../../../lookup';
+import './details.css';
 
 export default function Details({
   name,
@@ -12,7 +12,6 @@ export default function Details({
   defIcon,
 }) {
   const renderSocials = () => {
-
     return socialMedia.reduce((final, s) => {
       if (socials[s.site]) {
         final.push(
