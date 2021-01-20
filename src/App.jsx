@@ -7,6 +7,7 @@ import Logout from './components/Logout/Logout';
 import Main from './components/Main';
 import io from 'socket.io-client';
 import OTPRequest from './utils';
+import PrivateRoute from './components/utility/PrivateRoute'
 
 
 
@@ -71,9 +72,9 @@ function App() {
         <Route path="/logout">
           <Logout />
         </Route>
-        <Route path="/">
+        <PrivateRoute path="/">
           <Main />
-        </Route>
+        </PrivateRoute>
       </Switch>
     </div>
   );
