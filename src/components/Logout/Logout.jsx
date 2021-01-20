@@ -1,6 +1,13 @@
 import React from 'react';
 import './logout.css';
+import { useHistory } from 'react-router-dom';
 
 export default function Logout() {
-  return <div>Logout</div>;
+  const history = useHistory();
+
+  const logout = () => {
+    localStorage.removeItem('OTP_TOKEN');
+    history.push('/login');
+  };
+  return <>{logout()}</>;
 }

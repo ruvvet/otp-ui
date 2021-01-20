@@ -62,72 +62,82 @@ export default function Login() {
       <Grid
         container
         direction="column"
-        justify="space-between"
+        justify="space-around"
         alignItems="center"
+        style={{ height: '50%' }}
       >
-        <Button
-          variant="contained"
-          className="login-btn"
-          startIcon={
-            <img
-              className="logo"
-              src="./img/otp.png"
-              style={{ height: 50, width: 50 }}
-            />
-          }
-          onClick={handleDialogOpen}
-          style={{ backgroundColor: '#FFFFFF50' }}
-          fullWidth
-        />
-        <Dialog
-          open={dialog}
-          onClose={handleDialogClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              <Typography variant="body2">
-                Please read the terms of service carefully before using the OTP
-                web-app operated by ruvvet.com.
-              </Typography>
-              <Typography variant="h6">Conditions of use </Typography>
-              <Typography variant="body2">
-                By using this website, you certify that you have read and
-                reviewed this Agreement and that you agree to comply with its
-                terms. If you do not want to be bound by the terms of this
-                Agreement, you are advised to leave the website accordingly. OTP
-                only grants use and access of this website, its products, and
-                its services to those who have accepted its terms.
-              </Typography>
-            </DialogContentText>
-          </DialogContent>
+        <Grid item xs>
+          <Typography variant="h4">FInd your one true party.</Typography>
 
-          <DialogActions>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  icon={<FavoriteBorder />}
-                  checkedIcon={<Favorite />}
-                  // onChange={(e) => handleAccept()}
-                  onChange={(e) =>
-                    setDisableButton(disableButton ? false : true)
-                  }
-                />
-              }
-              label="I accept and agree to the Terms of Use"
-            />
-            <Button
-              variant="contained"
-              color="secondary"
-              autoFocus
-              disabled={disableButton}
-              href={`${API}/authorize`}
-            >
-              Login
-            </Button>
-          </DialogActions>
-        </Dialog>
+          <Typography variant="subtitle1">
+            You're not thirsty, you're just lonely.
+          </Typography>
+        </Grid>
+        <Grid item xs style={{width: "100%"}}>
+          <Button
+            variant="contained"
+            className="login-btn"
+            startIcon={
+              <img
+                className="logo"
+                src="./img/otp.png"
+                style={{ height: 50, width: 50 }}
+              />
+            }
+            onClick={handleDialogOpen}
+            style={{ backgroundColor: '#FFFFFF50' }}
+            fullWidth
+          />
+          <Dialog
+            open={dialog}
+            onClose={handleDialogClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                <Typography variant="body2">
+                  Please read the terms of service carefully before using the
+                  OTP web-app operated by ruvvet.com.
+                </Typography>
+                <Typography variant="h6">Conditions of use </Typography>
+                <Typography variant="body2">
+                  By using this website, you certify that you have read and
+                  reviewed this Agreement and that you agree to comply with its
+                  terms. If you do not want to be bound by the terms of this
+                  Agreement, you are advised to leave the website accordingly.
+                  OTP only grants use and access of this website, its products,
+                  and its services to those who have accepted its terms.
+                </Typography>
+              </DialogContentText>
+            </DialogContent>
+
+            <DialogActions>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    icon={<FavoriteBorder />}
+                    checkedIcon={<Favorite />}
+                    // onChange={(e) => handleAccept()}
+                    onChange={(e) =>
+                      setDisableButton(disableButton ? false : true)
+                    }
+                  />
+                }
+                label="I accept and agree to the Terms of Use"
+              />
+              <Button
+                variant="contained"
+                color="secondary"
+                autoFocus
+                disabled={disableButton}
+                href={`${API}/authorize`}
+              >
+                Login
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Grid>
 
         {/*
         <Button
@@ -144,14 +154,7 @@ export default function Login() {
           style={{ backgroundColor: '#FFFFFF50' }}
           fullWidth
         /> */}
-        <Grid item xs>
-          <Typography variant="h4">FInd your one true party.</Typography>
-        </Grid>
-        <Grid item xs>
-          <Typography variant="subtitle1">
-            You're not thirsty, you're just lonely.
-          </Typography>
-        </Grid>
+
         <Grid item xs>
           <Paper elevation={3}>
             <List>{generate()}</List>

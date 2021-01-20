@@ -1,0 +1,12 @@
+.matches-container{
+    max-height: 75%;
+    position: relative;
+    overflow: auto;
+}
+
+
+.matches-container .matches-avatar{
+
+    height: 60px !important;
+    width: 60px !important;
+}

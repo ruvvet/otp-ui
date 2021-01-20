@@ -12,7 +12,7 @@ import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import './chat.css';
 import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
-import { API } from '../../../utils';
+import OTPRequest, { API } from '../../../utils';
 
 export default function Chat() {
   const { id } = useParams();
@@ -23,11 +23,49 @@ export default function Chat() {
   const [tempId, setTempId] = useState();
   const [convo, setConvo] = useState([]);
   const [msg, setMsg] = useState('');
+  const [convoHistory, setConvoHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
   //TODO - send on enter
 
+  useEffect(() => {
+    const getChatHistory = async () => {
+      const response = await OTPRequest('/chat', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }).catch(() => {
+        setError(true);
+        return null;
+      });
+
+      if (response) {
+        setConvo(
+          response.map((chatlog, i) => {
+            if (chatlog.receiver === 1) {
+              return {
+                user: chatlog.receiver,
+                msg: chatlog.msg,
+                timestamp: new Date(chatlog.date).toDateString(),
+              };
+            } else {
+              return {
+                user: chatlog.sender,
+                msg: chatlog.msg,
+                timestamp:  new Date(chatlog.date).toDateString(),
+              };
+            }
+          })
+        );
+
+        // setConvoHistory(response);
+        setLoading(false);
+      }
+    };
+    getChatHistory();
+  }, []);
+
+  console.log(convo);
   useEffect(() => {
     // conect to socket
     const socket = io(API);
@@ -41,7 +79,7 @@ export default function Chat() {
     socket.on('incomingMsg', (senderId, msg) => {
       setConvo((prevConvo) => [
         ...prevConvo,
-        { user: parseInt(senderId), msg, timestamp: new Date().toDateString() },
+        { user: senderId, msg, timestamp: new Date().toDateString() },
       ]);
     });
 
@@ -51,13 +89,17 @@ export default function Chat() {
   }, [tempId]);
 
   const handleSendMsg = () => {
-    setConvo([
-      ...convo,
-      { user: parseInt(tempId), msg, timestamp: new Date().toDateString() },
-    ]);
-    setMsg('');
+    if (msg) {
+      setConvo([
+        ...convo,
+        { user: tempId, msg, timestamp: new Date().toDateString() },
+      ]);
+      setMsg('');
 
-    socket.emit('outgoingMsg', tempId, id, msg);
+      socket.emit('outgoingMsg', tempId, id, msg);
+    } else {
+      console.log('hello');
+    }
   };
 
   console.log(convo);
@@ -134,6 +176,7 @@ export default function Chat() {
           alignItems="flex-start"
           className="chat-box scrollbar2"
         >
+
           {renderChat()}
         </Grid>
 
