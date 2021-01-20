@@ -20,10 +20,11 @@ export default function About() {
       <Grid
         container
         direction="column"
-        justify="space-around"
+        justify="space-between"
         alignItems="flex-start"
         wrap="nowrap"
-        spacing={2}
+        spacing={3}
+        className = "about-container-grid"
       >
         <Grid item xs>
           <Typography variant="h2">Find your OTP - one true party.</Typography>
@@ -97,7 +98,7 @@ export default function About() {
             </Grid>
           </Paper>
         </Grid>
-        <Grid item xs>
+        <Grid item xs style={{margin: "20% 0 0 0"}}>
           <Typography variant="caption">
             <Grid item xs>
               OTP is made with React, Express, and TypeORM. <br />
