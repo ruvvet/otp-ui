@@ -30,7 +30,7 @@ function App() {
 
   useEffect(() => {
     const checkJWT = async () => {
-      const response = await OTPRequest('/authorize/refreshJWT', {
+      const response = await OTPRequest('/authorize/token', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       }).catch(() => {

@@ -11,7 +11,7 @@ export default async function OTPRequest(url, options) {
   const headers = {
     ...options.headers,
     // 'Content-Type': 'application/json',
-    'X-OTP-User': userToken,
+    'x-otp-user': userToken,
   };
 
   const response = await fetch(`${API}${url}`, { ...options, headers });

@@ -8,101 +8,58 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import ChatRoundedIcon from '@material-ui/icons/ChatRounded';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import OTPRequest from '../../../utils';
 import './messages.css';
 
-const pretendMatch = [
-  {
-    name: 'person1',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-  {
-    name: 'person2',
-    img:
-      'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
-  },
-];
-
 export default function Messages() {
+  const [convos, setConvos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
+
+  useEffect(() => {
+    const getConvos = async () => {
+      const response = await OTPRequest('/chat/convos', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }).catch(() => {
+        setError(true);
+        return null;
+      });
+
+      if (response) {
+        console.log(response);
+
+        const tempId = "1";
+
+        const uniqueConvos = response.reduce((result, convo) => {
+          if (
+            !result.includes(convo.chat_receiver) &&
+            convo.chat_receiver !== tempId
+          ) {
+            result.push(convo.chat_receiver);
+          }
+          if (
+            !result.includes(convo.chat_sender) &&
+            convo.chat_sender !== tempId
+          ) {
+            result.push(convo.chat_sender);
+          }
+          return result;
+        }, []);
+
+
+
+        setConvos(uniqueConvos);
+        setLoading(false);
+      }
+    };
+    getConvos();
+  }, []);
+
   const renderMessages = () => {
-    return pretendMatch.map((match, i) => (
+    return convos.map((convo, i) => (
       <Paper elevation={0} className="message-match">
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item xs>
@@ -119,15 +76,15 @@ export default function Messages() {
               overlap="circle"
               invisible={false}
             >
-              <Avatar alt={match.name} src={match.img} />
+              <Avatar alt={convo.name} src={convo.img} />
             </Badge>
           </Grid>
           <Grid item xs>
-            {match.name}
+            {convo}
           </Grid>
           <Grid item xs>
             <Tooltip title="Send a message!" style={{ padding: 0 }}>
-              <Link to={`/messages/${match.name}`}>
+              <Link to={`/messages/${convo}`}>
                 <IconButton
                   className="icon"
                   // href={`/messages/${match.name}`}
@@ -146,7 +103,7 @@ export default function Messages() {
             >
               <IconButton
                 className="icon"
-                href={`https://discordapp.com/users/${match.id}`}
+                href={`https://discordapp.com/users/${convo.id}`}
               >
                 <img
                   style={{
@@ -185,8 +142,7 @@ export default function Messages() {
         direction="row"
         justify="center"
         alignItems="center"
-        className= "messages-wrapper"
-
+        className="messages-wrapper"
       >
         {renderMessages()}
       </Grid>

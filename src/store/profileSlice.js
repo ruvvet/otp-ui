@@ -42,10 +42,9 @@ const profileSlice = createSlice({
       //}
     },
 
-
-
     initializeProfile(state, action) {
-      state.displayName = action.payload.displayName || action.payload.discordUserName;
+      state.displayName =
+        action.payload.displayName || action.payload.discordUserName;
       state.rank = action.payload.rank || 'Unranked';
       state.pics = action.payload.pictures.reduce(
         (result, pic) => {
@@ -66,6 +65,8 @@ const profileSlice = createSlice({
       };
       state.mainAtt = action.payload.att || '';
       state.mainDef = action.payload.def || '';
+      state.discordAvatar = action.payload.discordAvatar || '';
+      state.lastActive = action.payload.lastActive;
     },
   },
 });
@@ -96,5 +97,4 @@ export const {
   setMainDef,
   initializeProfile,
 } = profileSlice.actions;
-
 export default profileSlice.reducer;

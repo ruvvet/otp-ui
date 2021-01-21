@@ -11,8 +11,16 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import OTPRequest from '../../../utils';
+import { useDispatch, useSelector } from 'react-redux';
+// import { setMatchNotification } from '../../../store/notificationSlice';
 
 export default function Matches() {
+  const lastActive = useSelector((state) => state.profile.lastActive);
+  // const matchNotification = useSelector(
+  //   (state) => state.notification.matchNotification
+  // );
+
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [matches, setMatches] = useState([]);
@@ -28,7 +36,20 @@ export default function Matches() {
       });
 
       if (response) {
-        console.log(response);
+        let matchCounter = 0;
+
+        response.map((match, i) => {
+          console.log(lastActive);
+          console.log(new Date(match.time).getTime());
+          console.log(Date.parse(lastActive));
+
+          if (new Date(match.time).getTime() < Date.parse(lastActive)) {
+            matchCounter++;
+          }
+        });
+
+        // dispatch(setMatchNotification(2));
+
         setMatches(response);
         setLoading(false);
       }
@@ -89,5 +110,3 @@ export default function Matches() {
     </Container>
   );
 }
-
-

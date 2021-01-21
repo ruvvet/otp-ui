@@ -1,13 +1,9 @@
-.settings-container {
-  bottom: 7%;
-}
-
 .MuiSelect-select {
   text-align-last: center !important;
 }
 
 .settings-container .profile {
-  padding-top: 7% !important;
+  padding-top: 0% !important;
 }
 
 .settings-container .settings-section {

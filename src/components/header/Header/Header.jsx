@@ -6,8 +6,15 @@ import React, {  useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Boop from '../../effects/Boop';
 import './header.css';
+import { useSelector } from 'react-redux';
 
 export default function Header() {
+
+  const matchNotification = useSelector(
+    (state) => state.profile.matchNotification
+  );
+
+
   const location = useLocation();
   const [back, setBack] = useState();
   const [loading, setLoading] = useState(true);
@@ -16,6 +23,9 @@ export default function Header() {
   useEffect(() => {
     setBack(window.location.pathname === '/');
   }, [location]);
+
+  console.log('matchnotifaication', matchNotification)
+
 
   return (
     <Container className="header-container" maxWidth="sm">
@@ -57,7 +67,7 @@ export default function Header() {
           <Tooltip title="Notifications" style={{ padding: 0 }}>
             <IconButton>
               <Badge
-                badgeContent={'!'}
+                badgeContent={matchNotification}
                 color="primary"
                 className="badge"
                 showZero

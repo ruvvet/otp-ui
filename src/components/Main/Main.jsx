@@ -33,6 +33,7 @@ export default function Main() {
       if (response) {
         dispatch(initializeProfile(response));
         setLoading(false);
+
       }
     };
     getProfile();

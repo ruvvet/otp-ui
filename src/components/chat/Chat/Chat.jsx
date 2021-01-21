@@ -31,7 +31,7 @@ export default function Chat() {
 
   useEffect(() => {
     const getChatHistory = async () => {
-      const response = await OTPRequest('/chat', {
+      const response = await OTPRequest(`/chat/${'1'}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       }).catch(() => {
@@ -40,6 +40,7 @@ export default function Chat() {
       });
 
       if (response) {
+        console.log(response)
         setConvo(
           response.map((chatlog, i) => {
             if (chatlog.receiver === 1) {
