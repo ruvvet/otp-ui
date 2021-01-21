@@ -35,7 +35,14 @@ const profileSlice = createSlice({
 
     setMainDef(state, action) {
       state.mainDef = action.payload;
+
+      //return {
+      // ...state,
+      // mainDef:action.payload
+      //}
     },
+
+
 
     initializeProfile(state, action) {
       state.displayName = action.payload.displayName || action.payload.discordUserName;

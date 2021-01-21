@@ -10,12 +10,13 @@ import './footer.css';
 
 export default function Footer() {
   const location = useLocation();
+
   const [logout, setLogout] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
   useEffect(() => {
-    setLogout(window.location.pathname === '/profile');
+    setLogout(location.pathname === '/profile');
   }, [location]);
 
   return (
