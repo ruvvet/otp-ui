@@ -39,7 +39,6 @@ export default function Settings() {
   const [error, setError] = useState();
 
   const handleSubmit = async (e) => {
-    console.log('submitting');
     setSnackbar(true);
     e.preventDefault();
 

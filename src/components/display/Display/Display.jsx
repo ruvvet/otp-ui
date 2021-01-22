@@ -11,7 +11,6 @@ export default function Display() {
   const [error, setError] = useState();
 
   useEffect(() => {
-    console.log('calling api');
     const getProfiles = async () => {
       const response = await OTPRequest('/swipe', {
         method: 'GET',

@@ -32,7 +32,6 @@ export default function Callback() {
         // this is their identifier
         // and maintains the session
         const token = await response.json();
-        console.log('TOKEN HERE', token)
         localStorage.setItem('OTP_TOKEN', token);
 
         // if 201 status, they are a new user

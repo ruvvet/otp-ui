@@ -40,7 +40,7 @@ export default function Chat() {
       });
 
       if (response) {
-        console.log(response)
+
         setConvo(
           response.map((chatlog, i) => {
             if (chatlog.receiver === 1) {

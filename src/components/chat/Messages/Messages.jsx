@@ -31,7 +31,6 @@ export default function Messages() {
       });
 
       if (response) {
-        console.log(response);
 
         const tempId = '1';
 
@@ -173,7 +172,7 @@ export default function Messages() {
         alignItems="center"
         className="messages-wrapper"
       >
-        {renderMessages()}
+        {/* {renderMessages()} */}
       </Grid>
     </Container>
   );

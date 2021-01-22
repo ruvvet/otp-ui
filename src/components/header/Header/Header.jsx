@@ -9,20 +9,19 @@ import './header.css';
 import { useSelector } from 'react-redux';
 
 export default function Header() {
-  const matchNotification = useSelector(
-    (state) => state.match.matchNotification
-  );
-
   const location = useLocation();
+
   const [back, setBack] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
+  const matchNotification = useSelector(
+    (state) => state.match.matchNotification
+  );
+
   useEffect(() => {
     setBack(window.location.pathname === '/');
   }, [location]);
-
-  console.log('matchnotifaication', matchNotification);
 
   return (
     <Container className="header-container" maxWidth="sm">

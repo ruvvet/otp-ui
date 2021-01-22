@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Boop from '../../effects/Boop';
 import './footer.css';
+import { useSelector } from 'react-redux';
 
 export default function Footer() {
   const location = useLocation();
@@ -14,6 +15,8 @@ export default function Footer() {
   const [logout, setLogout] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+
+  const chatNotification = useSelector((state) => state.chat.chatNotification);
 
   useEffect(() => {
     setLogout(location.pathname === '/profile');
@@ -32,7 +35,7 @@ export default function Footer() {
             <Link to="/messages">
               <IconButton>
                 <Badge
-                  badgeContent={100}
+                  badgeContent={chatNotification}
                   color="primary"
                   className="badge"
                   showZero
@@ -51,12 +54,12 @@ export default function Footer() {
         <Boop rotation={10} timing={150}>
           <Tooltip title="Matches" style={{ padding: 0 }}>
             <Link to="/matches">
-            <IconButton>
-              <FavoriteRoundedIcon
-                className="icon"
-                style={{ padding: 12, fontSize: '3rem', color: '#cf0773' }}
-              />
-            </IconButton>
+              <IconButton>
+                <FavoriteRoundedIcon
+                  className="icon"
+                  style={{ padding: 12, fontSize: '3rem', color: '#cf0773' }}
+                />
+              </IconButton>
             </Link>
           </Tooltip>
         </Boop>

@@ -11,7 +11,6 @@ import PrivateRoute from './components/utility/PrivateRoute';
 
 function App() {
   const history = useHistory();
-  console.log(localStorage.getItem('OTP_TOKEN'));
 
   const [socket, setSocket] = useState();
   const [loading, setLoading] = useState(true);
@@ -41,7 +40,6 @@ function App() {
       if (response === '401') {
         history.push('/login');
       } else if (response) {
-        console.log('ABOUT TO SAVE THE OTP_TOKEN', response)
         localStorage.setItem('OTP_TOKEN', response);
       }
       setLoading(false);

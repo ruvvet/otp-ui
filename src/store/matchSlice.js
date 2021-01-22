@@ -4,7 +4,7 @@ const matchSlice = createSlice({
   name: 'match',
   initialState: {
     matchNotification: 0,
-    chatNotification: 0,
+
     matches: [],
   },
   reducers: {
@@ -14,15 +14,8 @@ const matchSlice = createSlice({
     setMatchNotification(state, action) {
       state.matchNotification = action.payload;
     },
-    setChatNotification(state, action) {
-      state.chatNotification = action.payload;
-    },
   },
 });
 
-export const {
-  setMatchNotification,
-  setChatNotification,
-  setMatches,
-} = matchSlice.actions;
+export const { setMatches, setMatchNotification } = matchSlice.actions;
 export default matchSlice.reducer;

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { initializeProfile } from '../../store/profileSlice';
-
+import { setChats, setChatNotification } from '../../store/chatSlice';
 import { setMatches, setMatchNotification } from '../../store/matchSlice';
 import OTPRequest from '../../utils';
 import About from '../About/About';
@@ -19,8 +19,6 @@ import './main.css';
 
 export default function Main() {
   const dispatch = useDispatch();
-
-
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
@@ -51,10 +49,26 @@ export default function Main() {
         dispatch(setMatches(matchResponse));
 
         const matchCounter = matchResponse.filter(
-          (match) => new Date(match.time).getTime() > Date.parse(profileResponse.lastActive)
+          (match) =>
+            new Date(match.time).getTime() >
+            Date.parse(profileResponse.lastActive)
         );
 
         dispatch(setMatchNotification(matchCounter.length));
+      }
+
+      const chatResponse = await OTPRequest('/chat/convos', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }).catch(() => {
+        setError(true);
+        return null;
+      });
+
+      if (chatResponse) {
+        dispatch(setChats(chatResponse));
+
+        dispatch(setChatNotification(5));
       }
 
       setLoading(false);
