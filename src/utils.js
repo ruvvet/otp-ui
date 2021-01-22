@@ -29,3 +29,13 @@ export default async function OTPRequest(url, options, returnRaw = false) {
 
   return response;
 }
+
+
+
+export function discordAvatar (id, avatar){
+
+  return `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`
+
+
+
+}

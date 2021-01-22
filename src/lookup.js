@@ -100,3 +100,4 @@ export const def = [
   { operator: 'Oryx', img: './img/operators/oryx.png', side: 'def' },
   { operator: 'Tachanka', img: './img/operators/tachanka.png', side: 'def' },
 ];
+

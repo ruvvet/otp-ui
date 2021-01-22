@@ -1,0 +1,10 @@
+.matches-avatar{
+    height: 60px !important;
+    width: 60px !important;
+}
+
+.match-button-container img{
+    height: 50px;
+    object-fit: cover;
+    width: 50px;
+}

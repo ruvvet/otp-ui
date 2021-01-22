@@ -8,7 +8,7 @@ import { setMatches, setMatchNotification } from '../../store/matchSlice';
 import OTPRequest from '../../utils';
 import About from '../About/About';
 import Chat from '../chat/Chat';
-import Messages from '../chat/Messages';
+import Messages from '../chat/Chats';
 import Matches from '../match/Matches';
 import Display from '../display/Display';
 import Footer from '../footer/Footer';
@@ -57,7 +57,7 @@ export default function Main() {
         dispatch(setMatchNotification(matchCounter.length));
       }
 
-      const chatResponse = await OTPRequest('/chat/convos', {
+      const chatResponse = await OTPRequest('/chat', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       }).catch(() => {
@@ -89,9 +89,6 @@ export default function Main() {
         <Header />
 
         <Switch>
-          <Route path="/swipes">
-            <Messages />
-          </Route>
           <Route path="/profile">
             <Profile />
           </Route>

@@ -21,9 +21,8 @@
   word-wrap: break-word;
 }
 
-
-.chat-box{
-overflow: auto;
+.chat-box {
+  overflow: auto;
   height: 80%;
   padding: 5% 2%;
 }
@@ -41,6 +40,4 @@ overflow: auto;
 .scrollbar2::-webkit-scrollbar-thumb {
   background-color: #ffffff;
   border-radius: 1rem;
-
-
 }
