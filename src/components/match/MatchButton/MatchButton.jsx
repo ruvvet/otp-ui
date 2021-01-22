@@ -44,6 +44,7 @@ export default function MatchButton({ match }) {
               match.liker.discordAvatar
             )}
             className="matches-avatar"
+            alt={match.liker.displayName || match.liker.discordUsername}
           />
         </Grid>
 

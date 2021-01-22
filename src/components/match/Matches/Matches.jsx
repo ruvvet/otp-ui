@@ -9,8 +9,6 @@ import './matches.css';
 
 export default function Matches() {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
 
   const matches = useSelector((state) => state.match.matches);
 

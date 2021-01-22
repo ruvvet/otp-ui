@@ -16,6 +16,7 @@ import Header from '../header/Header';
 import Profile from '../profile/Profile';
 import Settings from '../settings/Settings';
 import './main.css';
+import Spinner from '../utility/Spinner';
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -87,31 +88,33 @@ export default function Main() {
         className="main-grid"
       >
         <Header />
-
-        <Switch>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/messages/:id">
-            <Chat />
-          </Route>
-          <Route path="/messages">
-            <Messages />
-          </Route>
-          <Route path="/matches">
-            <Matches />
-          </Route>
-          <Route path="/settings">
-            <Settings />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/">
-            <Display />
-          </Route>
-        </Switch>
-
+        {loading ? (
+          <Spinner />
+        ) : (
+          <Switch>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+            <Route path="/messages/:id">
+              <Chat />
+            </Route>
+            <Route path="/messages">
+              <Messages />
+            </Route>
+            <Route path="/matches">
+              <Matches />
+            </Route>
+            <Route path="/settings">
+              <Settings />
+            </Route>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/">
+              <Display />
+            </Route>
+          </Switch>
+        )}
         <Footer />
       </Grid>
     </Container>

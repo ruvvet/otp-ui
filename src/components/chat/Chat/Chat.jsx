@@ -13,6 +13,7 @@ import './chat.css';
 import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
 import OTPRequest, { API } from '../../../utils';
+import Spinner from '../../utility/Spinner'
 
 export default function Chat() {
   const { id } = useParams();
@@ -40,7 +41,6 @@ export default function Chat() {
       });
 
       if (response) {
-
         setConvo(
           response.map((chatlog, i) => {
             if (chatlog.receiver === 1) {
@@ -53,7 +53,7 @@ export default function Chat() {
               return {
                 user: chatlog.sender,
                 msg: chatlog.msg,
-                timestamp:  new Date(chatlog.date).toDateString(),
+                timestamp: new Date(chatlog.date).toDateString(),
               };
             }
           })
@@ -65,7 +65,6 @@ export default function Chat() {
     };
     getChatHistory();
   }, []);
-
 
   useEffect(() => {
     // conect to socket
@@ -176,8 +175,7 @@ export default function Chat() {
           alignItems="flex-start"
           className="chat-box scrollbar2"
         >
-
-          {renderChat()}
+          {loading ? <Spinner /> : renderChat()}
         </Grid>
 
         <Grid

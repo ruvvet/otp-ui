@@ -5,6 +5,7 @@ import Callback from './components/Callback';
 import Login from './components/Login';
 import Logout from './components/Logout/Logout';
 import Main from './components/Main';
+import Spinner from './components/utility/Spinner';
 import io from 'socket.io-client';
 import OTPRequest from './utils';
 import PrivateRoute from './components/utility/PrivateRoute';
@@ -50,9 +51,6 @@ function App() {
   return (
     <div
       className="app"
-      // style={{
-      //   background: `radial-gradient(circle, #${color} 0%, #dedede50 100%)`,
-      // }}
     >
       <Switch>
         <Route path="/callback">

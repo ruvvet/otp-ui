@@ -1,42 +1,46 @@
 import { Container, Grid } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ChatButton from '../ChatButton';
 import './chats.css';
+import io from 'socket.io-client';
+import { API } from '../../../utils';
 
 export default function Chats() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+  const [socket, setSocket] = useState();
 
   const chats = useSelector((state) => state.chat.chats);
-  // useEffect(() => {
-  //   // conect to socket
-  //   const socket = io(API);
+  
+  useEffect(() => {
+    // conect to socket
+    const socket = io(API);
 
-  //   // set the socket with the socket instance
-  //   setSocket(socket);
+    // set the socket with the socket instance
+    setSocket(socket);
 
-  //   //socket instance.emit('event name', message being passed back)
-  //   socket.emit('sendMyId', '1');
+    //socket instance.emit('event name', message being passed back)
+    socket.emit('sendMyId', '1');
 
-  //   const checkOnline = [];
+    const checkOnline = [];
 
-  //   chats.map((c, i) => {
-  //     socket.emit('checkOnline', c, '1');
+    chats.map((c, i) => {
+      socket.emit('checkOnline', c, '1');
 
-  //     socket.on('confirmOnline', (buddyId, onlineStatus) => {
-  //       if (onlineStatus) {
-  //         console.log('hi');
-  //       }
-  //     });
-  //   });
+      socket.on('confirmOnline', (buddyId, onlineStatus) => {
+        if (onlineStatus) {
+          console.log('hi');
+        }
+      });
+    });
 
-  //   socket.on('', (senderId, msg) => {});
+    socket.on('', (senderId, msg) => {});
 
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, []);
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   const renderChats = () => {
     return chats.map((chat, i) => (

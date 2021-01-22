@@ -45,7 +45,6 @@ export default function Settings() {
     const newProfile = {
       displayName,
       rank,
-      //pictures,
       socials,
       mainAtt,
       mainDef,
@@ -56,6 +55,8 @@ export default function Settings() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newProfile),
     });
+
+    //TODO progress bar/set snackbar after successful save
   };
 
   const handleCloseSnackbar = () => {

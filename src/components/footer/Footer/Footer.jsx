@@ -13,8 +13,7 @@ export default function Footer() {
   const location = useLocation();
 
   const [logout, setLogout] = useState();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
+
 
   const chatNotification = useSelector((state) => state.chat.chatNotification);
 

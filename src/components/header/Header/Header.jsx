@@ -12,8 +12,6 @@ export default function Header() {
   const location = useLocation();
 
   const [back, setBack] = useState();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
 
   const matchNotification = useSelector(
     (state) => state.match.matchNotification

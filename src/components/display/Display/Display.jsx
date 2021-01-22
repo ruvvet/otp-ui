@@ -3,6 +3,7 @@ import React, { createRef, useMemo, useState, useEffect } from 'react';
 import ProfileCard from '../ProfileCard';
 import './display.css';
 import OTPRequest from '../../../utils';
+import Spinner from '../../utility/Spinner';
 
 export default function Display() {
   const [profiles, setProfiles] = useState([]);
@@ -80,7 +81,7 @@ export default function Display() {
   return (
     <Container className="card-container" maxWidth="sm">
       <Grid container direction="column" justify="center" alignItems="center">
-        {renderCards()}
+        {loading? <Spinner /> : renderCards()}
       </Grid>
     </Container>
   );
