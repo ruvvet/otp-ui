@@ -10,9 +10,11 @@ export default function Chats() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [socket, setSocket] = useState();
+  const [onlineStatus, setOnlineStatus] = useState([]);
 
   const chats = useSelector((state) => state.chat.chats);
-  
+  const discordId = useSelector((state) => state.profile.discordId);
+
   useEffect(() => {
     // conect to socket
     const socket = io(API);
@@ -21,16 +23,17 @@ export default function Chats() {
     setSocket(socket);
 
     //socket instance.emit('event name', message being passed back)
-    socket.emit('sendMyId', '1');
+    socket.emit('sendMyId', discordId );
 
-    const checkOnline = [];
 
-    chats.map((c, i) => {
-      socket.emit('checkOnline', c, '1');
+    chats.map((buddy, i) => {
+      socket.emit('checkOnline', discordId, buddy.receiverId);
 
-      socket.on('confirmOnline', (buddyId, onlineStatus) => {
-        if (onlineStatus) {
-          console.log('hi');
+      socket.on('confirmOnline', (buddyId, online) => {
+        console.log('online?')
+        if (online) {
+          console.log(buddyId,'online');
+          setOnlineStatus([...onlineStatus, online])
         }
       });
     });
@@ -44,7 +47,7 @@ export default function Chats() {
 
   const renderChats = () => {
     return chats.map((chat, i) => (
-      <ChatButton key={`chatBuddy${i}`} chatBuddy={chat} />
+      <ChatButton key={`chatBuddy${i}`} chatBuddy={chat} online={onlineStatus[i]}/>
     ));
   };
 

@@ -43,6 +43,7 @@ const profileSlice = createSlice({
     },
 
     initializeProfile(state, action) {
+      state.discordId = action.payload.discordId;
       state.displayName =
         action.payload.displayName || action.payload.discordUsername;
       state.rank = action.payload.rank || 'Unranked';

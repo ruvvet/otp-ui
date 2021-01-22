@@ -167,7 +167,7 @@ export default function Chat() {
       >
         <Grid container direction="row" justify="center" alignItems="center">
           My#
-          <input type="number" onChange={(e) => setTempId(e.target.value)} />
+          <input type="text" onChange={(e) => setTempId(e.target.value)} />
         </Grid>
         <Grid
           container
