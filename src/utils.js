@@ -3,7 +3,7 @@ dotenv.config();
 
 export const API = process.env.REACT_APP_API_HOST;
 
-export default async function OTPRequest(url, options) {
+export default async function OTPRequest(url, options, returnRaw = false) {
   // get the code from local storage via the key UWU_TOKEN
   const userToken = localStorage.getItem('OTP_TOKEN');
 
@@ -25,9 +25,11 @@ export default async function OTPRequest(url, options) {
 
   const contentType = response.headers.get('Content-Type');
 
-  if (contentType && contentType.includes('application/json')) {
+  if (!returnRaw && contentType && contentType.includes('application/json')) {
+    console.log(`returning json ${url}`)
     return response.json();
   }
+
 
   return response;
 }

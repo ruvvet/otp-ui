@@ -41,6 +41,7 @@ function App() {
       if (response === '401') {
         history.push('/login');
       } else if (response) {
+        console.log('ABOUT TO SAVE THE OTP_TOKEN', response)
         localStorage.setItem('OTP_TOKEN', response);
       }
       setLoading(false);

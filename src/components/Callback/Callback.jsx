@@ -18,18 +18,31 @@ export default function Callback() {
       // make a call to the api endpoint to exchange the code for the google_id
 
       const login = async () => {
-        const response = await OTPRequest('/authorize/exchange', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ code }),
-        });
+        const response = await OTPRequest(
+          '/authorize/exchange',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code }),
+          },
+          true
+        );
 
         // we save the google_id to the local storage
         // this is their identifier
         // and maintains the session
-        localStorage.setItem('OTP_TOKEN', response);
-        // then push them to the main page
+        const token = await response.json();
+        console.log('TOKEN HERE', token)
+        localStorage.setItem('OTP_TOKEN', token);
+
+        // if 201 status, they are a new user
+        if (response.status === 201) {
+          history.push('/settings');
+        } else {
+
+        // else push to main page
         history.push('/');
+        }
       };
 
       login();

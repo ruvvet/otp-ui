@@ -20,6 +20,7 @@ import { ranks, att, def } from '../../../lookup';
 
 export default function Profile() {
   const displayName = useSelector((state) => state.profile.displayName);
+
   const rank = useSelector((state) => state.profile.rank);
   const pics = useSelector((state) => state.profile.pics);
   const socials = useSelector((state) => state.profile.socials);

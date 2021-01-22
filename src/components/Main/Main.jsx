@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { initializeProfile } from '../../store/profileSlice';
+
+import { setMatches, setMatchNotification } from '../../store/matchSlice';
 import OTPRequest from '../../utils';
 import About from '../About/About';
 import Chat from '../chat/Chat';
@@ -17,12 +19,15 @@ import './main.css';
 
 export default function Main() {
   const dispatch = useDispatch();
+
+
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
   useEffect(() => {
-    const getProfile = async () => {
-      const response = await OTPRequest('/profile', {
+    const getData = async () => {
+      const profileResponse = await OTPRequest('/profile', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       }).catch(() => {
@@ -30,13 +35,32 @@ export default function Main() {
         return null;
       });
 
-      if (response) {
-        dispatch(initializeProfile(response));
-        setLoading(false);
-
+      if (profileResponse) {
+        dispatch(initializeProfile(profileResponse));
       }
+
+      const matchResponse = await OTPRequest('/swipe/matches', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }).catch(() => {
+        setError(true);
+        return null;
+      });
+
+      if (matchResponse) {
+        dispatch(setMatches(matchResponse));
+
+        const matchCounter = matchResponse.filter(
+          (match) => new Date(match.time).getTime() > Date.parse(profileResponse.lastActive)
+        );
+
+        dispatch(setMatchNotification(matchCounter.length));
+      }
+
+      setLoading(false);
     };
-    getProfile();
+
+    getData();
   }, []);
 
   return (

@@ -2,18 +2,16 @@ import { Badge, Container, Grid, IconButton, Tooltip } from '@material-ui/core';
 import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
 import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
-import React, {  useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Boop from '../../effects/Boop';
 import './header.css';
 import { useSelector } from 'react-redux';
 
 export default function Header() {
-
   const matchNotification = useSelector(
-    (state) => state.profile.matchNotification
+    (state) => state.match.matchNotification
   );
-
 
   const location = useLocation();
   const [back, setBack] = useState();
@@ -24,8 +22,7 @@ export default function Header() {
     setBack(window.location.pathname === '/');
   }, [location]);
 
-  console.log('matchnotifaication', matchNotification)
-
+  console.log('matchnotifaication', matchNotification);
 
   return (
     <Container className="header-container" maxWidth="sm">
@@ -71,7 +68,7 @@ export default function Header() {
                 color="primary"
                 className="badge"
                 showZero
-                // max={'!'}
+                max={99}
                 overlap="circle"
               >
                 <NotificationsRoundedIcon

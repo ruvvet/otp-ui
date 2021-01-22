@@ -1,10 +1,10 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import profileReducer from './profileSlice';
-import notificationReducer from './notificationSlice';
+import matchReducer from './matchSlice';
 
 const rootReducer = combineReducers({
   profile: profileReducer,
-  // notification: notificationReducer,
+  match: matchReducer,
 });
 
 export default configureStore({

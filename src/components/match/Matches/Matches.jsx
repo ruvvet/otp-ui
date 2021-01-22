@@ -10,53 +10,22 @@ import {
   IconButton,
   Tooltip,
 } from '@material-ui/core';
-import OTPRequest from '../../../utils';
+
 import { useDispatch, useSelector } from 'react-redux';
-// import { setMatchNotification } from '../../../store/notificationSlice';
+
 
 export default function Matches() {
-  const lastActive = useSelector((state) => state.profile.lastActive);
-  // const matchNotification = useSelector(
-  //   (state) => state.notification.matchNotification
-  // );
+
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
-  const [matches, setMatches] = useState([]);
 
-  useEffect(() => {
-    const getMatches = async () => {
-      const response = await OTPRequest('/swipe/matches', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      }).catch(() => {
-        setError(true);
-        return null;
-      });
 
-      if (response) {
-        let matchCounter = 0;
+  const matches = useSelector(
+    (state) => state.match.matches
+  );
 
-        response.map((match, i) => {
-          console.log(lastActive);
-          console.log(new Date(match.time).getTime());
-          console.log(Date.parse(lastActive));
-
-          if (new Date(match.time).getTime() < Date.parse(lastActive)) {
-            matchCounter++;
-          }
-        });
-
-        // dispatch(setMatchNotification(2));
-
-        setMatches(response);
-        setLoading(false);
-      }
-    };
-
-    getMatches();
-  }, []);
 
   const renderMatches = () => {
     return matches.map((match, i) => (

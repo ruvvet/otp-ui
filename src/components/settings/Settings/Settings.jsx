@@ -3,25 +3,22 @@ import {
   Container,
   FormControl,
   Grid,
-  IconButton,
   InputLabel,
   MenuItem,
   Select,
-  TextField,
   Snackbar,
+  TextField,
 } from '@material-ui/core';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import SaveIcon from '@material-ui/icons/Save';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { att, def, ranks, socialMedia } from '../../../lookup';
 import {
   setDisplayName,
-  setRank,
-  setPics,
-  setSocials,
   setMainAtt,
   setMainDef,
+  setRank,
+  setSocials,
 } from '../../../store/profileSlice';
 import OTPRequest from '../../../utils';
 import UploadPic from '../UploadPic/UploadPic';
@@ -132,7 +129,7 @@ export default function Settings() {
           labelId="rank-input"
           value={rank}
           onChange={(e) => {
-            setRank(e.target.value);
+            dispatch(setRank(e.target.value));
           }}
           fullWidth
         >

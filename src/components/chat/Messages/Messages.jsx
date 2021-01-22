@@ -10,13 +10,15 @@ import {
 import ChatRoundedIcon from '@material-ui/icons/ChatRounded';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import OTPRequest from '../../../utils';
+import OTPRequest, { API } from '../../../utils';
 import './messages.css';
+import io from 'socket.io-client';
 
 export default function Messages() {
   const [convos, setConvos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+
 
   useEffect(() => {
     const getConvos = async () => {
@@ -31,7 +33,7 @@ export default function Messages() {
       if (response) {
         console.log(response);
 
-        const tempId = "1";
+        const tempId = '1';
 
         const uniqueConvos = response.reduce((result, convo) => {
           if (
@@ -49,14 +51,41 @@ export default function Messages() {
           return result;
         }, []);
 
-
-
         setConvos(uniqueConvos);
         setLoading(false);
       }
     };
     getConvos();
   }, []);
+
+  // useEffect(() => {
+  //   // conect to socket
+  //   const socket = io(API);
+
+  //   // set the socket with the socket instance
+  //   setSocket(socket);
+
+  //   //socket instance.emit('event name', message being passed back)
+  //   socket.emit('sendMyId', '1');
+
+  //   const checkOnline = [];
+
+  //   convos.map((c, i) => {
+  //     socket.emit('checkOnline', c, '1');
+
+  //     socket.on('confirmOnline', (buddyId, onlineStatus) => {
+  //       if (onlineStatus) {
+  //         console.log('hi');
+  //       }
+  //     });
+  //   });
+
+  //   socket.on('', (senderId, msg) => {});
+
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, []);
 
   const renderMessages = () => {
     return convos.map((convo, i) => (

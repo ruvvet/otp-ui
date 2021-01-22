@@ -66,7 +66,7 @@ export default function Chat() {
     getChatHistory();
   }, []);
 
-  console.log(convo);
+
   useEffect(() => {
     // conect to socket
     const socket = io(API);
@@ -103,7 +103,6 @@ export default function Chat() {
     }
   };
 
-  console.log(convo);
   const renderChat = () => {
     return convo.map((c, i) => {
       if (c.user === tempId) {

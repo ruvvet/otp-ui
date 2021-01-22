@@ -44,14 +44,18 @@ const profileSlice = createSlice({
 
     initializeProfile(state, action) {
       state.displayName =
-        action.payload.displayName || action.payload.discordUserName;
+        action.payload.displayName || action.payload.discordUsername;
       state.rank = action.payload.rank || 'Unranked';
       state.pics = action.payload.pictures.reduce(
         (result, pic) => {
           result[pic.index] = pic.url;
           return result;
         },
-        { picOne: '', picTwo: '', picThree: '' }
+        {
+          picOne: `https://cdn.discordapp.com/avatars/${action.payload.discordId}/${action.payload.discordAvatar}.png`,
+          picTwo: '',
+          picThree: '',
+        }
       );
       state.socials = {
         twitch: action.payload.twitch || '',
