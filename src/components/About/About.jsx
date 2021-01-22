@@ -12,6 +12,7 @@ import {
 import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
+import BugReportRoundedIcon from '@material-ui/icons/BugReportRounded';
 import Boop from '../effects/Boop';
 
 export default function About() {
@@ -24,7 +25,7 @@ export default function About() {
         alignItems="flex-start"
         wrap="nowrap"
         spacing={3}
-        className = "about-container-grid"
+        className="about-container-grid"
       >
         <Grid item xs>
           <Typography variant="h2">Find your OTP - one true party.</Typography>
@@ -59,9 +60,15 @@ export default function About() {
                   alignItems="center"
                 >
                   <Avatar src="https://pbs.twimg.com/profile_images/1012374148805550080/3DQR6ojs_400x400.jpg" />
-                  <Typography variant="caption" style={{padding: "0 0 0 10px"}}>Connect w/ Me!</Typography>
+                  <Typography
+                    variant="caption"
+                    style={{ padding: '0 0 0 10px' }}
+                  >
+                    Connect w/ Me!
+                  </Typography>
                 </Grid>
               </Grid>
+
               <Boop rotation={10} timing={150}>
                 <Tooltip title="github.com/ruvvet" style={{ padding: 0 }}>
                   <IconButton href="https://github.com/ruvvet" target="_blank">
@@ -98,14 +105,32 @@ export default function About() {
             </Grid>
           </Paper>
         </Grid>
-        <Grid item xs style={{margin: "20% 0 0 0"}}>
+        <Grid item xs style={{ margin: '20% 0 0 0' }}>
+
+            <Boop rotation={10} timing={150}>
+              <Tooltip title="Report a bug!" style={{ padding: 0 }}>
+                <IconButton
+                  href="https://twitter.com/intent/tweet?text=%40Ruvvet%20OTP%20%20%F0%9F%90%9B%20report%3A%20"
+                  target="_blank"
+                >
+                  <BugReportRoundedIcon
+                    className="icon"
+                    style={{ padding: 12, fontSize: '2rem' }}
+                  />
+                </IconButton>
+              </Tooltip>
+            </Boop>
+        
           <Typography variant="caption">
             <Grid item xs>
               OTP is made with React, Express, and TypeORM. <br />
               UI designed with Material-UI. <br />
               Icons by Freepik, Pixel-perfect from
-              <Link href="https://www.flaticon.com/" title="Flaticon">
-                {' '}
+              <Link
+                href="https://www.flaticon.com/"
+                target="_blank"
+                title="Flaticon"
+              >
                 Flaticon.com
               </Link>
             </Grid>
