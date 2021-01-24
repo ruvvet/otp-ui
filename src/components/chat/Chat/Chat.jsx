@@ -181,12 +181,13 @@ export default function Chat() {
         alignItems="center"
         style={{ height: '100%' }}
       >
-        <Grid container direction="row" justify="center" alignItems="center">
-          {buddyId}
+        <Grid container direction="row" justify="center" alignItems="center" style={{padding:"5px 0 0 0"}}>
+        {match.liker.displayName || match.liker.discordUsername}
         </Grid>
         <Grid
           container
           justify="flex-start"
+          direction="row-reverse"
           alignItems="flex-start"
           className="chat-box scrollbar2"
         >
@@ -232,4 +233,4 @@ export default function Chat() {
   );
 }
 
-//todo: anchor to bottom of scrollbar
+//todo: anchor to bottom of scrollbar https://stackoverflow.com/questions/37620694/how-to-scroll-to-bottom-in-react
