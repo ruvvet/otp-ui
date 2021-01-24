@@ -30,7 +30,7 @@ export default function Chat() {
 
   useEffect(() => {
     const getChatHistory = async () => {
-      const response = await OTPRequest(`/chat/${'1'}`, {
+      const response = await OTPRequest(`/chat/${buddyId}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       }).catch(() => {
@@ -41,7 +41,7 @@ export default function Chat() {
       if (response) {
         setConvo(
           response.map((chatlog, i) => {
-            if (chatlog.receiver === 1) {
+            if (chatlog.receiver === myId) {
               return {
                 user: chatlog.receiver,
                 msg: chatlog.msg,
@@ -213,3 +213,8 @@ export default function Chat() {
     </Container>
   );
 }
+
+
+// TODO: check if match
+// get data from match
+//
