@@ -101,8 +101,9 @@ export default function Chat() {
   };
 
   const renderChat = () => {
+    console.log(convo)
     return convo.map((c, i) => {
-      if (c.user === myId) {
+      if (c.user !== myId) {
         return (
           <Grid
             key={`chat${i}`}

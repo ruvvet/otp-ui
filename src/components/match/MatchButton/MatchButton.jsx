@@ -57,11 +57,25 @@ export default function MatchButton({ match }) {
           </Typography>
         </Grid>
         <Grid item xs={4}>
-          <img src={rankIcon(match.liker.rank)} />
-          <img src={attIcon(match.liker.att)} />
-          <img src={defIcon(match.liker.def)} />
+          {match.liker.rank && <img src={rankIcon(match.liker.rank)} />}
+          {match.liker.att && <img src={attIcon(match.liker.att)} /> }
+          { match.liker.def && <img src={defIcon(match.liker.def)} />}
         </Grid>
         <Grid item xs={2}>
+        <Tooltip title="Send a message!" style={{ padding: 0 }}>
+            <Link to={`/messages/${match.liker.discordId}`}>
+              <IconButton
+                className="icon"
+                // href={`/messages/${match.name}`}
+              >
+                <ChatRoundedIcon
+                  className="icon"
+                  color="primary"
+                  style={{ padding: 5, fontSize: '2rem' }}
+                />
+              </IconButton>
+            </Link>
+          </Tooltip>
           <Tooltip title="Send Discord Friend Request!" style={{ padding: 0 }}>
             <IconButton
               className="icon"
