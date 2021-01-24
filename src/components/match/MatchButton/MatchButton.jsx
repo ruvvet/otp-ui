@@ -11,6 +11,8 @@ import React from 'react';
 import { discordAvatar } from '../../../utils';
 import './matchbutton.css';
 import { att, def, ranks, socialMedia } from '../../../lookup';
+import { Link } from 'react-router-dom';
+import ChatRoundedIcon from '@material-ui/icons/ChatRounded';
 
 export default function MatchButton({ match }) {
   const rankIcon = (userrank) => {
@@ -48,7 +50,7 @@ export default function MatchButton({ match }) {
           />
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Typography variant="h6">
             {match.liker.displayName || match.liker.discordUserName}
           </Typography>
@@ -61,7 +63,7 @@ export default function MatchButton({ match }) {
           {match.liker.att && <img src={attIcon(match.liker.att)} /> }
           { match.liker.def && <img src={defIcon(match.liker.def)} />}
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={3}>
         <Tooltip title="Send a message!" style={{ padding: 0 }}>
             <Link to={`/messages/${match.liker.discordId}`}>
               <IconButton
@@ -71,7 +73,7 @@ export default function MatchButton({ match }) {
                 <ChatRoundedIcon
                   className="icon"
                   color="primary"
-                  style={{ padding: 5, fontSize: '2rem' }}
+                  style={{ padding: 0, fontSize: '2rem' }}
                 />
               </IconButton>
             </Link>
@@ -89,6 +91,7 @@ export default function MatchButton({ match }) {
                   padding: 5,
                   fontSize: '2rem',
                   color: '#dedede',
+                  padding: 0
                 }}
                 src="./img/discord.png"
               />
