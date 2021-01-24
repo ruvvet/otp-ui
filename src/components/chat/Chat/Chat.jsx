@@ -182,7 +182,8 @@ export default function Chat() {
         style={{ height: '100%' }}
       >
         <Grid container direction="row" justify="center" alignItems="center" style={{padding:"5px 0 0 0"}}>
-        {match.liker.displayName || match.liker.discordUsername}
+        {/* {match.liker.displayName || match.liker.discordUsername} */}
+        {buddyId}
         </Grid>
         <Grid
           container
