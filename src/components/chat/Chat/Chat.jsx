@@ -41,7 +41,7 @@ export default function Chat() {
     );
 
     if (checkMatch) {
-      setMatch(checkMatch[0])
+      setMatch(checkMatch[0]);
       // if matched, get chat history
       const getChatHistory = async () => {
         const response = await OTPRequest(`/chat/${buddyId}`, {
@@ -53,22 +53,14 @@ export default function Chat() {
         });
 
         if (response) {
-          console.log('response', response)
+          console.log('response', response);
           setConvo(
             response.map((chatlog, i) => {
-              if (chatlog.receiverId === myId) {
-                return {
-                  user: chatlog.receiverId,
-                  msg: chatlog.msg,
-                  timestamp: new Date(chatlog.date).toDateString(),
-                };
-              } else {
-                return {
-                  user: chatlog.senderId,
-                  msg: chatlog.msg,
-                  timestamp: new Date(chatlog.date).toDateString(),
-                };
-              }
+              return {
+                user: chatlog.senderId,
+                msg: chatlog.msg,
+                timestamp: new Date(chatlog.date).toDateString(),
+              };
             })
           );
 
@@ -136,10 +128,7 @@ export default function Chat() {
                 match.liker.discordId,
                 match.liker.discordAvatar
               )}
-              alt={
-                match.liker.displayName ||
-                match.liker.discordUsername
-              }
+              alt={match.liker.displayName || match.liker.discordUsername}
             />
             <Box
               component="span"
@@ -243,6 +232,4 @@ export default function Chat() {
   );
 }
 
-// TODO: check if match
-// get data from match
-//
+//todo: anchor to bottom of scrollbar
