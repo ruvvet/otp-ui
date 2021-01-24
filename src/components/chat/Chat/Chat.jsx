@@ -1,24 +1,26 @@
 import {
-  TextField,
+  Avatar,
   Box,
   Container,
   Grid,
   IconButton,
-  Avatar,
-  Typography,
+  TextField,
 } from '@material-ui/core';
-import React, { useState, useEffect } from 'react';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
-import './chat.css';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 import io from 'socket.io-client';
-import { useParams } from 'react-router-dom';
 import OTPRequest, { API } from '../../../utils';
 import Spinner from '../../utility/Spinner';
-import { useSelector } from 'react-redux';
+import './chat.css';
 
 export default function Chat() {
+  const history = useHistory();
+
   const { id: buddyId } = useParams();
   const myId = useSelector((state) => state.profile.discordId);
+  const matches = useSelector((state) => state.match.matches);
 
   const [socket, setSocket] = useState();
   const [convo, setConvo] = useState([]);
@@ -29,40 +31,52 @@ export default function Chat() {
   //TODO - send on enter
 
   useEffect(() => {
-    const getChatHistory = async () => {
-      const response = await OTPRequest(`/chat/${buddyId}`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      }).catch(() => {
-        setError(true);
-        return null;
-      });
+    // check if buddy ID and I are matched
 
-      if (response) {
-        console.log('response', response)
-        setConvo(
-          response.map((chatlog, i) => {
-            if (chatlog.receiver === myId) {
-              return {
-                user: chatlog.receiver,
-                msg: chatlog.msg,
-                timestamp: new Date(chatlog.date).toDateString(),
-              };
-            } else {
-              return {
-                user: chatlog.sender,
-                msg: chatlog.msg,
-                timestamp: new Date(chatlog.date).toDateString(),
-              };
-            }
-          })
-        );
+    const checkMatch = matches.filter(
+      (match, i) => buddyId === match.liker.discordId
+    );
 
-        // setConvoHistory(response);
-        setLoading(false);
-      }
-    };
-    getChatHistory();
+    if (checkMatch) {
+      // if matched, get chat history
+      const getChatHistory = async () => {
+        const response = await OTPRequest(`/chat/${buddyId}`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        }).catch(() => {
+          setError(true);
+          return null;
+        });
+
+        if (response) {
+          console.log('response', response);
+          setConvo(
+            response.map((chatlog, i) => {
+              if (chatlog.receiverId === myId) {
+                return {
+                  user: chatlog.receiver,
+                  msg: chatlog.msg,
+                  timestamp: new Date(chatlog.date).toDateString(),
+                };
+              } else {
+                return {
+                  user: chatlog.senderId,
+                  msg: chatlog.msg,
+                  timestamp: new Date(chatlog.date).toDateString(),
+                };
+              }
+            })
+          );
+
+          // setConvoHistory(response);
+          setLoading(false);
+        }
+      };
+      getChatHistory();
+    } else {
+      //if not matched, push back to chat page
+      history.push('/messages');
+    }
   }, []);
 
   useEffect(() => {
@@ -102,7 +116,7 @@ export default function Chat() {
   };
 
   const renderChat = () => {
-    console.log('convo rendering', convo)
+    console.log('convo rendering', convo);
     return convo.map((c, i) => {
       if (c.user !== myId) {
         return (
@@ -215,7 +229,6 @@ export default function Chat() {
     </Container>
   );
 }
-
 
 // TODO: check if match
 // get data from match
