@@ -110,7 +110,7 @@ export default function Chat() {
   };
 
   const handleKeyDown = (key) => {
-    if (key === 'enter') {
+    if (key === 'Enter') {
       handleSendMsg();
     }
   };
