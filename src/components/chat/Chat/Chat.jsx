@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import io from 'socket.io-client';
-import OTPRequest, { API } from '../../../utils';
+import OTPRequest, { API, discordAvatar } from '../../../utils';
 import Spinner from '../../utility/Spinner';
 import './chat.css';
 
@@ -20,6 +20,8 @@ export default function Chat() {
 
   const { id: buddyId } = useParams();
   const myId = useSelector((state) => state.profile.discordId);
+  const myAvatar = useSelector((state) => state.profile.discordAvatar);
+  const myDisplayName = useSelector((state) => state.profile.displayName);
   const matches = useSelector((state) => state.match.matches);
 
   const [socket, setSocket] = useState();
@@ -37,10 +39,7 @@ export default function Chat() {
       (match, i) => buddyId === match.liker.discordId
     );
 
-    console.log('checkMatch', checkMatch)
-
     if (checkMatch) {
-      console.log('matched, getting history')
       // if matched, get chat history
       const getChatHistory = async () => {
         const response = await OTPRequest(`/chat/${buddyId}`, {
@@ -52,12 +51,11 @@ export default function Chat() {
         });
 
         if (response) {
-          console.log('response', response);
           setConvo(
             response.map((chatlog, i) => {
               if (chatlog.receiverId === myId) {
                 return {
-                  user: chatlog.receiver,
+                  user: chatlog.receiverId,
                   msg: chatlog.msg,
                   timestamp: new Date(chatlog.date).toDateString(),
                 };
@@ -114,7 +112,7 @@ export default function Chat() {
 
       socket.emit('outgoingMsg', myId, buddyId, msg);
     } else {
-      console.log('hello');
+      console.log('error sending message');
     }
   };
 
@@ -130,7 +128,16 @@ export default function Chat() {
             justify="flex-start"
             alignItems="center"
           >
-            <Avatar src="#">{c.user}</Avatar>
+            <Avatar
+              src={discordAvatar(
+                checkMatch[0].liker.discordId,
+                checkMatch[0].liker.discordAvatar
+              )}
+              alt={
+                checkMatch[0].liker.displayName ||
+                checkMatch[0].liker.discordUsername
+              }
+            />
             <Box
               component="span"
               m={1}
@@ -166,7 +173,7 @@ export default function Chat() {
             >
               {c.msg}
             </Box>
-            <Avatar src="#">{c.user}</Avatar>
+            <Avatar src={discordAvatar(myId, myAvatar)} alt={myDisplayName} />
           </Grid>
         );
       }
