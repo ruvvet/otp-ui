@@ -21,12 +21,12 @@ export default function MatchButton({ match }) {
   };
 
   const renderAttIcon = (attacker) => {
-    const attIcon = att.find((op) => op.operator === attacker).img;
+    const attIcon = att.find((op) => op.operator === attacker);
     return attIcon ? <img src={attIcon.img} /> : null;
   };
 
   const renderDefIcon = (defender) => {
-    const defIcon = def.find((op) => op.operator === defender).img;
+    const defIcon = def.find((op) => op.operator === defender);
     return defIcon ? <img src={defIcon.img} /> : null;
   };
 
