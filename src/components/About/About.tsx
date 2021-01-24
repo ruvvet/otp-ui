@@ -39,7 +39,7 @@ export default function About() {
           </Paper>
         </Grid>
         <Grid item xs>
-          <Typography variant="h7">
+          <Typography variant="h6">
             Login with Discord. Set up your profile. Match with other Siegers.
             Make new friends. Play Siege together. Have fun!
           </Typography>
@@ -120,7 +120,7 @@ export default function About() {
                 </IconButton>
               </Tooltip>
             </Boop>
-        
+
           <Typography variant="caption">
             <Grid item xs>
               OTP is made with React, Express, and TypeORM. <br />

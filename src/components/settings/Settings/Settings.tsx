@@ -13,6 +13,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { att, def, ranks, socialMedia } from '../../../lookup';
+import { RootState } from '../../../store';
 import {
   setDisplayName,
   setMainAtt,
@@ -27,18 +28,20 @@ import './settings.css';
 export default function Settings() {
   const dispatch = useDispatch();
 
-  const displayName = useSelector((state) => state.profile.displayName);
-  const rank = useSelector((state) => state.profile.rank);
-  const pics = useSelector((state) => state.profile.pics);
-  const socials = useSelector((state) => state.profile.socials);
-  const mainAtt = useSelector((state) => state.profile.mainAtt);
-  const mainDef = useSelector((state) => state.profile.mainDef);
+  const displayName = useSelector(
+    (state: RootState) => state.profile.displayName
+  );
+  const rank = useSelector((state: RootState) => state.profile.rank);
+  const pics = useSelector((state: RootState) => state.profile.pics);
+  const socials = useSelector((state: RootState) => state.profile.socials);
+  const mainAtt = useSelector((state: RootState) => state.profile.mainAtt);
+  const mainDef = useSelector((state: RootState) => state.profile.mainDef);
 
   const [snackbar, setSnackbar] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     setSnackbar(true);
     e.preventDefault();
 
@@ -63,7 +66,11 @@ export default function Settings() {
     setSnackbar(false);
   };
 
-  const renderSocialInputs = (list) => {
+  const renderSocialInputs = (list: {
+    img: string;
+    site: keyof typeof socials;
+    url: string;
+  }[]) => {
     return list.map((s, i) => (
       <Grid container spacing={1} alignItems="flex-end">
         <Grid item>
@@ -90,7 +97,7 @@ export default function Settings() {
     ));
   };
 
-  const renderSelects = (list) => {
+  const renderSelects = (list: {rank?: string, operator?: string, img: string}[]) => {
     return list.map((item, i) => (
       <MenuItem divider value={item.rank || item.operator}>
         <img className="select-img" src={item.img} />
@@ -101,7 +108,7 @@ export default function Settings() {
 
   const renderPics = () => {
     return Object.keys(pics).map((picKey) => (
-      <UploadPic picKey={picKey} pic={pics[picKey]} />
+      <UploadPic picKey={picKey} pic={pics[picKey as keyof typeof pics]} />
     ));
   };
 
@@ -128,8 +135,8 @@ export default function Settings() {
         <Select
           labelId="rank-input"
           value={rank}
-          onChange={(e) => {
-            dispatch(setRank(e.target.value));
+          onChange={(e: React.ChangeEvent<{ value: unknown }>) => {
+            dispatch(setRank(e.target.value as string));
           }}
           fullWidth
         >
@@ -146,10 +153,10 @@ export default function Settings() {
       </Grid>
       <Grid item xs={12} className="settings-section social">
         <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={6} px={1}>
+          <Grid item xs={6}>
             {renderSocialInputs(socialMedia.slice(0, socialMedia.length / 2))}
           </Grid>
-          <Grid item xs={6} px={1}>
+          <Grid item xs={6}>
             {renderSocialInputs(socialMedia.slice(socialMedia.length / 2))}
           </Grid>
           {/* Rank Slider
@@ -173,7 +180,7 @@ export default function Settings() {
             value={mainAtt}
             className="settings-main-op"
             onChange={(e) => {
-              dispatch(setMainAtt(e.target.value));
+              dispatch(setMainAtt(e.target.value as string));
             }}
             autoWidth={true}
           >
@@ -188,7 +195,7 @@ export default function Settings() {
             value={mainDef}
             className="settings-main-op"
             onChange={(e) => {
-              dispatch(setMainDef(e.target.value));
+              dispatch(setMainDef(e.target.value as string));
             }}
           >
             {renderSelects(def)}

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
 
-export default function PrivateRoute({ children, ...rest }) {
-
+export default function PrivateRoute({ children, ...rest }: RouteProps) {
   const auth = localStorage.getItem('OTP_TOKEN');
 
   return (

@@ -2,21 +2,28 @@ import React, { useRef, useState } from 'react';
 // import ReactDOM from 'react-dom';
 // import { bool, node } from 'prop-types';
 import { useTransition, animated } from 'react-spring';
+import { SlideProps } from '@material-ui/core';
+
+interface Props extends SlideProps {
+  isVisible: boolean;
+  forceSlideIn: boolean;
+}
 
 const visibleStyle = { height: 'auto', opacity: 1, overflow: 'visible' };
 const hiddenStyle = { opacity: 0, height: 0, overflow: 'hidden' };
 
-function getElementHeight(ref) {
+function getElementHeight(ref:any) {
   return ref.current ? ref.current.getBoundingClientRect().height : 0;
 }
 
-export default function Slide({ isVisible, children, forceSlideIn }) {
+export default function Slide({ isVisible, children, forceSlideIn }: Props) {
   const isVisibleOnMount = useRef(isVisible && !forceSlideIn);
   const containerRef = useRef(null);
   const innerRef = useRef(null);
 
+  /* @ts-ignore */
   const transitions = useTransition(isVisible, null, {
-    enter: () => async (next, cancel) => {
+    enter: () => async (next: any, cancel: any) => {
       const height = getElementHeight(innerRef);
 
       cancel();
@@ -24,7 +31,7 @@ export default function Slide({ isVisible, children, forceSlideIn }) {
       await next({ height, opacity: 1, overflow: 'hidden' });
       await next(visibleStyle);
     },
-    leave: () => async (next, cancel) => {
+    leave: () => async (next: any, cancel: any) => {
       const height = getElementHeight(containerRef);
 
       cancel();

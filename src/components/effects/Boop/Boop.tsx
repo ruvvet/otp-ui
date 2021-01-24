@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { animated, useSpring } from 'react-spring';
+import { OTPProps } from '../../../interfaces';
 
-export default function Boop({ rotation, timing, children }) {
+interface BoopProps extends OTPProps{
+  rotation: number;
+  timing: number;
+}
+
+export default function Boop({ rotation, timing, children }: BoopProps) {
   const [isBooped, setIsBooped] = useState(false);
 
   const style = useSpring({

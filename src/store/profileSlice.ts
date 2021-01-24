@@ -1,39 +1,81 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ProfileResponse } from '../interfaces';
+
+const initialState: {
+  discordId: string;
+  displayName: string;
+  rank: string;
+  pics: {
+    picOne: string;
+    picTwo: string;
+    picThree: string;
+  };
+  socials: {
+    twitch: string;
+    twitter: string;
+    instagram: string;
+    snapchat: string;
+    tiktok: string;
+    spotify: string;
+    facebook: string;
+    reddit: string;
+  };
+  mainAtt: string;
+  mainDef: string;
+  discordAvatar: string;
+  lastActive: string;
+} = {
+  discordId: '',
+  displayName: '',
+  rank: '',
+  pics: {
+    picOne: '',
+    picTwo: '',
+    picThree: '',
+  },
+  socials: {
+    twitch: '',
+    twitter: '',
+    instagram: '',
+    snapchat: '',
+    tiktok: '',
+    spotify: '',
+    facebook: '',
+    reddit: '',
+  },
+  mainAtt: '',
+  mainDef: '',
+  discordAvatar: '',
+  lastActive: '',
+};
 
 const profileSlice = createSlice({
   name: 'profile',
-  initialState: {
-    displayName: '',
-    rank: '',
-    pics: {},
-    socials: {},
-    mainAtt: '',
-    mainDef: '',
-  },
+  initialState,
   reducers: {
     // key is function name, value is the function
-    setDisplayName(state, action) {
+    setDisplayName(state, action: PayloadAction<string>) {
       // update the store inside this function
       state.displayName = action.payload;
     },
 
-    setRank(state, action) {
+    setRank(state, action: PayloadAction<string>) {
       state.rank = action.payload;
     },
 
-    setPics(state, action) {
+    setPics(state, action: PayloadAction<typeof initialState['pics']>) {
       state.pics = action.payload;
     },
 
-    setSocials(state, action) {
+    setSocials(state, action: PayloadAction<typeof initialState['socials']>) {
       state.socials = action.payload;
     },
 
-    setMainAtt(state, action) {
+    setMainAtt(state, action: PayloadAction<string>) {
       state.mainAtt = action.payload;
     },
 
-    setMainDef(state, action) {
+    setMainDef(state, action: PayloadAction<string>) {
       state.mainDef = action.payload;
 
       //return {
@@ -42,7 +84,7 @@ const profileSlice = createSlice({
       //}
     },
 
-    initializeProfile(state, action) {
+    initializeProfile(state, action: PayloadAction<ProfileResponse>) {
       state.discordId = action.payload.discordId;
       state.displayName =
         action.payload.displayName || action.payload.discordUsername;

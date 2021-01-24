@@ -40,7 +40,7 @@ export default function Login() {
         <ListItemIcon>
           <img src={a.icon} />
         </ListItemIcon>
-        <ListItemText primary primary={a.item} />
+        <ListItemText primary={a.item} />
       </ListItem>
     ));
   };

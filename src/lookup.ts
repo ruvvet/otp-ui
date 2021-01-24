@@ -1,4 +1,16 @@
-export const socialMedia = [
+export const socialMedia: {
+  site:
+    | 'twitch'
+    | 'twitter'
+    | 'instagram'
+    | 'snapchat'
+    | 'tiktok'
+    | 'spotify'
+    | 'facebook'
+    | 'reddit';
+  url: string;
+  img: string;
+}[] = [
   { site: 'twitch', url: 'twitch.tv/', img: './img/twitch.png' },
   { site: 'twitter', url: 'twitter.com/', img: './img/twitter.png' },
   { site: 'instagram', url: 'instagram.com/', img: './img/instagram.png' },
@@ -100,4 +112,3 @@ export const def = [
   { operator: 'Oryx', img: './img/operators/oryx.png', side: 'def' },
   { operator: 'Tachanka', img: './img/operators/tachanka.png', side: 'def' },
 ];
-
