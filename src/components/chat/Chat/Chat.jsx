@@ -13,18 +13,16 @@ import './chat.css';
 import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
 import OTPRequest, { API } from '../../../utils';
-import Spinner from '../../utility/Spinner'
+import Spinner from '../../utility/Spinner';
+import { useSelector } from 'react-redux';
 
 export default function Chat() {
-  const { id } = useParams();
-
-  console.log('param id', id);
+  const { id: buddyId } = useParams();
+  const myId = useSelector((state) => state.profile.discordId);
 
   const [socket, setSocket] = useState();
-  const [tempId, setTempId] = useState();
   const [convo, setConvo] = useState([]);
   const [msg, setMsg] = useState('');
-  const [convoHistory, setConvoHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
@@ -74,7 +72,7 @@ export default function Chat() {
     setSocket(socket);
 
     //socket instance.emit('event name', message being passed back)
-    socket.emit('sendMyId', tempId);
+    socket.emit('sendMyId', myId);
 
     socket.on('incomingMsg', (senderId, msg) => {
       setConvo((prevConvo) => [
@@ -86,17 +84,17 @@ export default function Chat() {
     return () => {
       socket.disconnect();
     };
-  }, [tempId]);
+  }, []);
 
   const handleSendMsg = () => {
     if (msg) {
       setConvo([
         ...convo,
-        { user: tempId, msg, timestamp: new Date().toDateString() },
+        { user: myId, msg, timestamp: new Date().toDateString() },
       ]);
       setMsg('');
 
-      socket.emit('outgoingMsg', tempId, id, msg);
+      socket.emit('outgoingMsg', myId, buddyId, msg);
     } else {
       console.log('hello');
     }
@@ -104,7 +102,7 @@ export default function Chat() {
 
   const renderChat = () => {
     return convo.map((c, i) => {
-      if (c.user === tempId) {
+      if (c.user === myId) {
         return (
           <Grid
             key={`chat${i}`}
@@ -166,8 +164,7 @@ export default function Chat() {
         style={{ height: '100%' }}
       >
         <Grid container direction="row" justify="center" alignItems="center">
-          My#
-          <input type="text" onChange={(e) => setTempId(e.target.value)} />
+          {buddyId}
         </Grid>
         <Grid
           container
