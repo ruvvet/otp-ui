@@ -39,7 +39,7 @@ export default function Chat() {
       });
 
       if (response) {
-        console.log('response')
+        console.log('response', response)
         setConvo(
           response.map((chatlog, i) => {
             if (chatlog.receiver === myId) {
