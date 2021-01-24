@@ -59,9 +59,9 @@ export default function MatchButton({ match }) {
           </Typography>
         </Grid>
         <Grid item xs={4}>
-          {match.liker.rank && <img src={rankIcon(match.liker.rank)} />}
-          {match.liker.att && <img src={attIcon(match.liker.att)} /> }
-          { match.liker.def && <img src={defIcon(match.liker.def)} />}
+          {match.liker.rank && <img src={rankIcon(match.liker.rank) || ''} />}
+          {match.liker.att && <img src={attIcon(match.liker.att)|| ''} /> }
+          { match.liker.def && <img src={defIcon(match.liker.def)|| ''} />}
         </Grid>
         <Grid item xs={3}>
         <Tooltip title="Send a message!" style={{ padding: 0 }}>

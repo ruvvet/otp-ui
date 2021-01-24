@@ -188,7 +188,6 @@ export default function Chat() {
         <Grid
           container
           justify="flex-start"
-          direction="row-reverse"
           alignItems="flex-start"
           className="chat-box scrollbar2"
         >
