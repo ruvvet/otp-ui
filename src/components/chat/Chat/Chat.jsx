@@ -40,7 +40,7 @@ export default function Chat() {
       (match, i) => buddyId === match.liker.discordId
     );
 
-    if (checkMatch) {
+    if (checkMatch.length) {
       setMatch(checkMatch[0]);
       // if matched, get chat history
       const getChatHistory = async () => {
@@ -182,8 +182,7 @@ export default function Chat() {
         style={{ height: '100%' }}
       >
         <Grid container direction="row" justify="center" alignItems="center" style={{padding:"5px 0 0 0"}}>
-        {/* {match.liker.displayName || match.liker.discordUsername} */}
-        {buddyId}
+        {match && (match.liker.displayName || match.liker.discordUsername)}
         </Grid>
         <Grid
           container

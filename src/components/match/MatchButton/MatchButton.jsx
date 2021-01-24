@@ -15,22 +15,19 @@ import { Link } from 'react-router-dom';
 import ChatRoundedIcon from '@material-ui/icons/ChatRounded';
 
 export default function MatchButton({ match }) {
-  const rankIcon = (userrank) => {
-    if (userrank) {
-    return ranks.find((r) => r.rank === userrank).img;
-  }
+  const renderRankIcon = (userrank) => {
+    const rankIcon = ranks.find((r) => r.rank === userrank);
+    return rankIcon ? <img src={rankIcon.img} /> : null;
   };
 
-  const attIcon = (attacker) => {
-    if (attacker){
-    return att.find((op) => op.operator === attacker).img;
-  }
+  const renderAttIcon = (attacker) => {
+    const attIcon = att.find((op) => op.operator === attacker).img;
+    return attIcon ? <img src={attIcon.img} /> : null;
   };
 
-  const defIcon = (defender) => {
-    if (defender){
-    return def.find((op) => op.operator === defender).img;
-  }
+  const renderDefIcon = (defender) => {
+    const defIcon = def.find((op) => op.operator === defender).img;
+    return defIcon ? <img src={defIcon.img} /> : null;
   };
 
   return (
@@ -65,12 +62,12 @@ export default function MatchButton({ match }) {
           </Typography>
         </Grid>
         <Grid item xs={4}>
-          {match.liker.rank ? <img src={rankIcon(match.liker.rank)} /> : ''}
-          {match.liker.att ? <img src={attIcon(match.liker.att)} />: ''}
-          { match.liker.def ? <img src={defIcon(match.liker.def)} />: ''}
+          {renderRankIcon()}
+          {renderAttIcon()}
+          {renderDefIcon()}
         </Grid>
         <Grid item xs={3}>
-        <Tooltip title="Send a message!" style={{ padding: 0 }}>
+          <Tooltip title="Send a message!" style={{ padding: 0 }}>
             <Link to={`/messages/${match.liker.discordId}`}>
               <IconButton
                 className="icon"
@@ -97,7 +94,7 @@ export default function MatchButton({ match }) {
                   padding: 5,
                   fontSize: '2rem',
                   color: '#dedede',
-                  padding: 0
+                  padding: 0,
                 }}
                 src="./img/discord.png"
               />
