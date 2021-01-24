@@ -16,15 +16,21 @@ import ChatRoundedIcon from '@material-ui/icons/ChatRounded';
 
 export default function MatchButton({ match }) {
   const rankIcon = (userrank) => {
+    if (userrank) {
     return ranks.find((r) => r.rank === userrank).img;
+  }
   };
 
   const attIcon = (attacker) => {
+    if (attacker){
     return att.find((op) => op.operator === attacker).img;
+  }
   };
 
   const defIcon = (defender) => {
+    if (defender){
     return def.find((op) => op.operator === defender).img;
+  }
   };
 
   return (
