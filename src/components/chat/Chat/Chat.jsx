@@ -37,7 +37,10 @@ export default function Chat() {
       (match, i) => buddyId === match.liker.discordId
     );
 
+    console.log('checkMatch', checkMatch)
+
     if (checkMatch) {
+      console.log('matched, getting history')
       // if matched, get chat history
       const getChatHistory = async () => {
         const response = await OTPRequest(`/chat/${buddyId}`, {
