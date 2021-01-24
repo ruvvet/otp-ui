@@ -39,6 +39,7 @@ export default function Chat() {
       });
 
       if (response) {
+        console.log('response')
         setConvo(
           response.map((chatlog, i) => {
             if (chatlog.receiver === myId) {
@@ -101,7 +102,7 @@ export default function Chat() {
   };
 
   const renderChat = () => {
-    console.log(convo)
+    console.log('convo rendering', convo)
     return convo.map((c, i) => {
       if (c.user !== myId) {
         return (
