@@ -62,9 +62,9 @@ export default function MatchButton({ match }) {
           </Typography>
         </Grid>
         <Grid item xs={4}>
-          {renderRankIcon()}
-          {renderAttIcon()}
-          {renderDefIcon()}
+          {renderRankIcon(match.liker.rank)}
+          {renderAttIcon(match.liker.att)}
+          {renderDefIcon(match.liker.def)}
         </Grid>
         <Grid item xs={3}>
           <Tooltip title="Send a message!" style={{ padding: 0 }}>
