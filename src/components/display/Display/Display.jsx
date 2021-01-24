@@ -58,6 +58,8 @@ export default function Display() {
     await childRefs[profiles[index].id].current.swipe(direction);
   };
 
+//TODO - this button doesnt work
+
   const renderCards = () => {
     if (profiles.length > 0) {
       return profiles

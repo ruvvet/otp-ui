@@ -31,8 +31,6 @@ export default function Chat() {
   const [match, setMatch] = useState();
   const [error, setError] = useState();
 
-  //TODO - send on enter
-
   useEffect(() => {
     // check if buddy ID and I are matched
 
@@ -111,6 +109,12 @@ export default function Chat() {
     }
   };
 
+  const handleKeyDown = (key) => {
+    if (key === 'enter') {
+      handleSendMsg();
+    }
+  };
+
   const renderChat = () => {
     console.log('convo rendering', convo);
     return convo.map((c, i) => {
@@ -181,8 +185,14 @@ export default function Chat() {
         alignItems="center"
         style={{ height: '100%' }}
       >
-        <Grid container direction="row" justify="center" alignItems="center" style={{padding:"5px 0 0 0"}}>
-        {match && (match.liker.displayName || match.liker.discordUsername)}
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          style={{ padding: '5px 0 0 0' }}
+        >
+          {match && (match.liker.displayName || match.liker.discordUsername)}
         </Grid>
         <Grid
           container
@@ -206,11 +216,11 @@ export default function Chat() {
             <TextField
               id="filled-multiline-static"
               label="Type here..."
-              multiline
               placeholder="Start Chatting"
               variant="filled"
               value={msg}
               onChange={(e) => setMsg(e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e.key)}
               fullWidth
             />
           </Grid>
