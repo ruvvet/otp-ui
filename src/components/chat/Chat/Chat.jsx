@@ -28,6 +28,7 @@ export default function Chat() {
   const [convo, setConvo] = useState([]);
   const [msg, setMsg] = useState('');
   const [loading, setLoading] = useState(true);
+  const [match, setMatch] = useState();
   const [error, setError] = useState();
 
   //TODO - send on enter
@@ -40,6 +41,7 @@ export default function Chat() {
     );
 
     if (checkMatch) {
+      setMatch(checkMatch[0])
       // if matched, get chat history
       const getChatHistory = async () => {
         const response = await OTPRequest(`/chat/${buddyId}`, {
@@ -130,12 +132,12 @@ export default function Chat() {
           >
             <Avatar
               src={discordAvatar(
-                checkMatch[0].liker.discordId,
-                checkMatch[0].liker.discordAvatar
+                match.liker.discordId,
+                match.liker.discordAvatar
               )}
               alt={
-                checkMatch[0].liker.displayName ||
-                checkMatch[0].liker.discordUsername
+                match.liker.displayName ||
+                match.liker.discordUsername
               }
             />
             <Box
