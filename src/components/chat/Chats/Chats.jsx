@@ -35,8 +35,10 @@ export default function Chats() {
   }, []);
 
   useEffect(() => {
-    console.log(onlineStatus, Object.keys(onlineStatus).length);
+    console.log('????', onlineStatus, Object.keys(onlineStatus).length);
+    if (chats){
     dispatch(setChatNotification(Object.keys(onlineStatus).length));
+    }
   }, [chats]);
 
   const renderChats = () => {
