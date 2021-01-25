@@ -32,22 +32,22 @@ export default function ChatButton({ chatBuddy, online }) {
           >
             <Avatar
               alt={
-                chatBuddy.receiver_displayName ||
-                chatBuddy.receiver_discordUsername
+                chatBuddy.displayName ||
+                chatBuddy.discordUsername
               }
               src={discordAvatar(
-                chatBuddy.receiver_discordId,
-                chatBuddy.receiver_discordAvatar
+                chatBuddy.discordId,
+                chatBuddy.discordAvatar
               )}
             />
           </Badge>
         </Grid>
         <Grid item xs>
-          {chatBuddy.receiver_displayName || chatBuddy.receiver_discordUsername}
+          {chatBuddy.displayName || chatBuddy.discordUsername}
         </Grid>
         <Grid item xs>
           <Tooltip title="Send a message!" style={{ padding: 0 }}>
-            <Link to={`/messages/${chatBuddy.receiver_discordId}`}>
+            <Link to={`/messages/${chatBuddy.discordId}`}>
               <IconButton
                 className="icon"
                 // href={`/messages/${match.name}`}
@@ -63,7 +63,7 @@ export default function ChatButton({ chatBuddy, online }) {
           <Tooltip title="Send Discord Friend Request!" style={{ padding: 0 }}>
             <IconButton
               className="icon"
-              href={`https://discordapp.com/users/${chatBuddy.receiver_discordId}`}
+              href={`https://discordapp.com/users/${chatBuddy.discordId}`}
               target="_blank"
             >
               <img

@@ -72,7 +72,7 @@ export default function Main() {
       if (chatResponse) {
         dispatch(setChats(chatResponse));
 
-        dispatch(setChatNotification(5));
+        // dispatch(setChatNotification(5));
       }
 
       setLoading(false);

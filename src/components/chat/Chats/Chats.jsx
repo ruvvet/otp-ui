@@ -1,12 +1,16 @@
 import { Container, Grid } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ChatButton from '../ChatButton';
 import './chats.css';
 import io from 'socket.io-client';
 import { API, getSocket } from '../../../utils';
+import { setChatNotification } from '../../../store/chatSlice';
 
 export default function Chats() {
+
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [onlineStatus, setOnlineStatus] = useState({});
@@ -29,6 +33,8 @@ export default function Chats() {
         }
       });
     });
+
+    dispatch(setChatNotification(onlineStatus.length))
   }, []);
 
   const renderChats = () => {
