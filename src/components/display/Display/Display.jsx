@@ -11,6 +11,15 @@ export default function Display() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
+  const shuffle = (profiles) => {
+    //shuffle the profiles
+    // with durstenfeld algo
+    for (let i = profiles.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [profiles[i], profiles[j]] = [profiles[j], profiles[i]];
+    }
+  };
+
   useEffect(() => {
     const getProfiles = async () => {
       const response = await OTPRequest('/swipe', {
@@ -22,7 +31,10 @@ export default function Display() {
       });
 
       if (response) {
-        setProfiles(response.profiles);
+        const profilesCopy = [...response.profiles];
+        const shuffledProfiles = shuffle (profilesCopy)
+
+        setProfiles(shuffledProfiles);
       }
       setLoading(false);
     };
@@ -40,11 +52,10 @@ export default function Display() {
     console.log(direction);
     // make api call to update database
     if (direction === 'right') {
-
       await OTPRequest('/swipe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({swipeId:id}),
+        body: JSON.stringify({ swipeId: id }),
       });
     }
   };
@@ -58,7 +69,7 @@ export default function Display() {
     await childRefs[profiles[index].id].current.swipe(direction);
   };
 
-//TODO - this button doesnt work
+  //TODO - this button doesnt work
 
   const renderCards = () => {
     if (profiles.length > 0) {
@@ -79,13 +90,13 @@ export default function Display() {
         ));
     }
 
-    return <>{':('}</>
+    return <>{':('}</>;
   };
 
   return (
     <Container className="card-container" maxWidth="sm">
       <Grid container direction="column" justify="center" alignItems="center">
-        {loading? <Spinner /> : renderCards()}
+        {loading ? <Spinner /> : renderCards()}
       </Grid>
     </Container>
   );
