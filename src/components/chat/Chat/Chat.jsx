@@ -10,8 +10,7 @@ import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import io from 'socket.io-client';
-import OTPRequest, { API, discordAvatar } from '../../../utils';
+import OTPRequest, { discordAvatar, getSocket } from '../../../utils';
 import Spinner from '../../utility/Spinner';
 import './chat.css';
 
@@ -24,7 +23,6 @@ export default function Chat() {
   const myDisplayName = useSelector((state) => state.profile.displayName);
   const matches = useSelector((state) => state.match.matches);
 
-  const [socket, setSocket] = useState();
   const [convo, setConvo] = useState([]);
   const [msg, setMsg] = useState('');
   const [loading, setLoading] = useState(true);
@@ -74,14 +72,7 @@ export default function Chat() {
   }, []);
 
   useEffect(() => {
-    // conect to socket
-    const socket = io(API);
-
-    // set the socket with the socket instance
-    setSocket(socket);
-
-    //socket instance.emit('event name', message being passed back)
-    socket.emit('sendMyId', myId);
+    const socket = getSocket();
 
     socket.on('incomingMsg', (senderId, msg) => {
       setConvo((prevConvo) => [
@@ -89,10 +80,6 @@ export default function Chat() {
         { user: senderId, msg, timestamp: new Date().toDateString() },
       ]);
     });
-
-    return () => {
-      socket.disconnect();
-    };
   }, []);
 
   const handleSendMsg = () => {
@@ -103,7 +90,7 @@ export default function Chat() {
       ]);
       setMsg('');
 
-      socket.emit('outgoingMsg', myId, buddyId, msg);
+      getSocket().emit('outgoingMsg', myId, buddyId, msg);
     } else {
       console.log('error sending message');
     }

@@ -1,11 +1,11 @@
 import { Container, Grid } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { initializeProfile } from '../../store/profileSlice';
 import { setChats, setChatNotification } from '../../store/chatSlice';
 import { setMatches, setMatchNotification } from '../../store/matchSlice';
-import OTPRequest from '../../utils';
+import OTPRequest, { setSocket } from '../../utils';
 import About from '../About/About';
 import Chat from '../chat/Chat';
 import Messages from '../chat/Chats';
@@ -20,6 +20,7 @@ import Spinner from '../utility/Spinner';
 
 export default function Main() {
   const dispatch = useDispatch();
+  const discordId = useSelector((state) => state.profile.discordId);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
@@ -77,6 +78,23 @@ export default function Main() {
 
     getData();
   }, []);
+
+  useEffect(() => {
+    if (discordId) {
+      // conect to socket
+      const socket = io(API);
+
+      // set the socket with the socket instance
+      setSocket(socket);
+
+      //socket instance.emit('event name', message being passed back)
+      socket.emit('sendMyId', discordId);
+
+      return () => {
+        socket.disconnect();
+      };
+    }
+  }, [discordId]);
 
   return (
     <Container className="main-container" maxWidth="sm">

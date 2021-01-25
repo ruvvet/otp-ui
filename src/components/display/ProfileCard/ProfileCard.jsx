@@ -19,6 +19,7 @@ import './profilecard.css';
 import { ranks, att, def, socialMedia } from '../../../lookup';
 import { setSocials } from '../../../store/profileSlice';
 import { checkPropTypes } from 'prop-types';
+import { discordAvatar } from '../../../utils';
 
 export default forwardRef(
   ({ profile, swiped, outOfFrame, swipeButton }, ref) => {
@@ -43,7 +44,11 @@ export default forwardRef(
       const defMain = def.find((op) => op.operator === profile.def);
       setDefIcon(defMain ? defMain.img : '');
 
-      setPics(profile.pictures.map((pic, i) => pic.url));
+      setPics(
+        profile.pictures.length
+          ? profile.pictures.map((pic, i) => pic.url)
+          : [discordAvatar(profile.discordId, profile.discordAvatar)]
+      );
 
       setSocials(
         socialMedia.reduce((final, s) => {
@@ -142,11 +147,10 @@ export default forwardRef(
                     color: '#FA4659',
                     backgroundColor: 'transparent',
                   }}
-
                 />
               </IconButton>
 
-              <IconButton  onClick={() => setIsVisible(!isVisible)}>
+              <IconButton onClick={() => setIsVisible(!isVisible)}>
                 <UnfoldMoreRoundedIcon
                   className="icon"
                   style={{
@@ -155,7 +159,6 @@ export default forwardRef(
                     color: '#20639B',
                     backgroundColor: 'transparent',
                   }}
-
                 />
               </IconButton>
               <IconButton onClick={() => swipeButton('right')}>
@@ -167,7 +170,6 @@ export default forwardRef(
                     color: '#2EB872',
                     backgroundColor: 'transparent',
                   }}
-
                 />
               </IconButton>
             </Grid>

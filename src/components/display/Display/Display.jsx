@@ -78,6 +78,8 @@ export default function Display() {
           </div>
         ));
     }
+
+    return <>{':('}</>
   };
 
   return (
