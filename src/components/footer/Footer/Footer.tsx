@@ -3,20 +3,21 @@ import ChatBubbleRoundedIcon from '@material-ui/icons/ChatBubbleRounded';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import ReplyAllRoundedIcon from '@material-ui/icons/ReplyAllRounded';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { RootState } from '../../../store';
 import Boop from '../../effects/Boop';
 import './footer.css';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../store';
 
 export default function Footer() {
   const location = useLocation();
 
   const [logout, setLogout] = useState(false);
 
-
-  const chatNotification = useSelector((state:RootState) => state.chat.chatNotification);
+  const chatNotification = useSelector(
+    (state: RootState) => state.chat.chatNotification
+  );
 
   useEffect(() => {
     setLogout(location.pathname === '/profile');
@@ -38,7 +39,7 @@ export default function Footer() {
                   badgeContent={chatNotification}
                   color="primary"
                   className="badge"
-                  showZero
+                  // showZero
                   max={99}
                   overlap="circle"
                 >

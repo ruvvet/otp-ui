@@ -2,23 +2,22 @@ import { Container, Grid } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import { initializeProfile } from '../../store/profileSlice';
-import { setChats, setChatNotification } from '../../store/chatSlice';
+import io from 'socket.io-client';
+import { setChats } from '../../store/chatSlice';
 import { setMatches, setMatchNotification } from '../../store/matchSlice';
+import { initializeProfile } from '../../store/profileSlice';
 import OTPRequest, { API, setSocket } from '../../utils';
 import About from '../About/About';
 import Chat from '../chat/Chat';
 import Messages from '../chat/Chats';
-import Matches from '../match/Matches';
 import Display from '../display/Display';
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
+import Matches from '../match/Matches';
 import Profile from '../profile/Profile';
 import Settings from '../settings/Settings';
-import './main.css';
 import Spinner from '../utility/Spinner';
-import io from 'socket.io-client';
-
+import './main.css';
 
 export default function Main() {
   const dispatch = useDispatch();
