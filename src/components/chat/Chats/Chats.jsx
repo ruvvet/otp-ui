@@ -23,7 +23,7 @@ export default function Chats() {
     const socket = getSocket();
 
     chats.map((buddy, i) => {
-      socket.emit('checkOnline', discordId, buddy.receiverId);
+      socket.emit('checkOnline', discordId, buddy.discordId);
 
       socket.on('confirmOnline', (buddyId, online) => {
         console.log('online?');
@@ -34,15 +34,19 @@ export default function Chats() {
       });
     });
 
-    dispatch(setChatNotification(onlineStatus.length))
+    console.log(onlineStatus, Object.keys(onlineStatus).length)
+    dispatch(setChatNotification(Object.keys(onlineStatus).length))
   }, []);
+
+
+
 
   const renderChats = () => {
     return chats.map((chat, i) => (
       <ChatButton
         key={`chatBuddy${i}`}
         chatBuddy={chat}
-        online={onlineStatus[chat.chat_senderId]}
+        online={onlineStatus[chat.discordId]}
       />
     ));
   };
