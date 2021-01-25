@@ -32,10 +32,10 @@ export default function Display() {
 
       if (response) {
         if (response.profiles.length){
-        const profilesCopy = [...response.profiles];
-        const shuffledProfiles = shuffle (profilesCopy)
+        const shuffleProfiles = [...response.profiles];
+        shuffle(shuffleProfiles)
 
-        setProfiles(shuffledProfiles);
+        setProfiles(shuffleProfiles);
         }
       }
       setLoading(false);
