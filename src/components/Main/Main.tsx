@@ -1,8 +1,11 @@
 import { Container, Grid } from '@material-ui/core';
+import { Socket } from 'net';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import io from 'socket.io-client';
+import { ChatResponse, MatchResponse } from '../../interfaces';
+import { RootState } from '../../store';
 import {
   setChats,
   setOnlineChats,
@@ -26,11 +29,11 @@ import './main.css';
 
 export default function Main() {
   const dispatch = useDispatch();
-  const discordId = useSelector((state) => state.profile.discordId);
-  const chats = useSelector((state) => state.chat.chats);
+  const discordId = useSelector((state:RootState) => state.profile.discordId);
+  const chats = useSelector((state:RootState) => state.chat.chats);
 
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -58,7 +61,7 @@ export default function Main() {
         dispatch(setMatches(matchResponse));
 
         const matchCounter = matchResponse.filter(
-          (match) =>
+          (match: MatchResponse) =>
             new Date(match.time).getTime() >
             Date.parse(profileResponse.lastActive)
         );
@@ -89,7 +92,7 @@ export default function Main() {
   useEffect(() => {
     if (discordId) {
       // conect to socket
-      const socket = io(API);
+      const socket = io(API!);
 
       // set the socket with the socket instance
       setSocket(socket);
@@ -108,15 +111,15 @@ export default function Main() {
     if (socket) {
       socket.emit('getOnline', chats);
 
-      socket.on('onlineChats', (onlineChats) => {
+      socket.on('onlineChats', (onlineChats: string[]) => {
         dispatch(setOnlineChats(onlineChats));
       });
 
-      socket.on('nowOnline', (onlineId) => {
+      socket.on('nowOnline', (onlineId:string) => {
         dispatch(setOnlineChat(onlineId));
       });
 
-      socket.on('nowOffline', (offlineId) => {
+      socket.on('nowOffline', (offlineId:string) => {
         dispatch(setOfflineChat(offlineId));
       });
     }

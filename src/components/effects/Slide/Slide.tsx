@@ -1,22 +1,22 @@
-import React, { useRef, useState } from 'react';
+import { SlideProps } from '@material-ui/core';
+import React, { ReactElement, useRef } from 'react';
 // import ReactDOM from 'react-dom';
 // import { bool, node } from 'prop-types';
 import { useTransition, animated } from 'react-spring';
-import { SlideProps } from '@material-ui/core';
 
 interface Props extends SlideProps {
   isVisible: boolean;
-  forceSlideIn: boolean;
+  forceSlideIn?: boolean;
 }
 
 const visibleStyle = { height: 'auto', opacity: 1, overflow: 'visible' };
 const hiddenStyle = { opacity: 0, height: 0, overflow: 'hidden' };
 
-function getElementHeight(ref:any) {
+function getElementHeight(ref: any) {
   return ref.current ? ref.current.getBoundingClientRect().height : 0;
 }
 
-export default function Slide({ isVisible, children, forceSlideIn }: Props) {
+export default function Slide({ isVisible, children, forceSlideIn }: Props):ReactElement {
   const isVisibleOnMount = useRef(isVisible && !forceSlideIn);
   const containerRef = useRef(null);
   const innerRef = useRef(null);
@@ -45,12 +45,15 @@ export default function Slide({ isVisible, children, forceSlideIn }: Props) {
     unique: true,
   });
 
+  /* @ts-ignore */
   return transitions.map(({ item: show, props: springProps, key }) => {
     if (show) {
       return (
-        <animated.div ref={containerRef} key={key} style={springProps}>
-          <div ref={innerRef}>{children}</div>
-        </animated.div>
+        <>
+          <animated.div ref={containerRef} key={key} style={springProps}>
+            <div ref={innerRef}>{children}</div>
+          </animated.div>
+        </>
       );
     }
 

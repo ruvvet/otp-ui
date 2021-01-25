@@ -13,19 +13,24 @@ import './matchbutton.css';
 import { att, def, ranks, socialMedia } from '../../../lookup';
 import { Link } from 'react-router-dom';
 import ChatRoundedIcon from '@material-ui/icons/ChatRounded';
+import { MatchResponse } from '../../../interfaces';
 
-export default function MatchButton({ match }) {
-  const renderRankIcon = (userrank) => {
+interface MatchProps {
+  match: MatchResponse;
+}
+
+export default function MatchButton({ match }: MatchProps) {
+  const renderRankIcon = (userrank: string) => {
     const rankIcon = ranks.find((r) => r.rank === userrank);
     return rankIcon ? <img src={rankIcon.img} /> : null;
   };
 
-  const renderAttIcon = (attacker) => {
+  const renderAttIcon = (attacker: string) => {
     const attIcon = att.find((op) => op.operator === attacker);
     return attIcon ? <img src={attIcon.img} /> : null;
   };
 
-  const renderDefIcon = (defender) => {
+  const renderDefIcon = (defender: string) => {
     const defIcon = def.find((op) => op.operator === defender);
     return defIcon ? <img src={defIcon.img} /> : null;
   };
@@ -55,7 +60,7 @@ export default function MatchButton({ match }) {
 
         <Grid item xs={3}>
           <Typography variant="h6">
-            {match.liker.displayName || match.liker.discordUserName}
+            {match.liker.displayName || match.liker.discordUsername}
           </Typography>
           <Typography variant="caption">
             Matched: {new Date(match.time).toDateString()}
@@ -91,7 +96,6 @@ export default function MatchButton({ match }) {
                 style={{
                   height: 40,
                   width: 40,
-                  padding: 5,
                   fontSize: '2rem',
                   color: '#dedede',
                   padding: 0,

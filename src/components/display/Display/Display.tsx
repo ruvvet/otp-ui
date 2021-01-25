@@ -4,14 +4,15 @@ import ProfileCard from '../ProfileCard';
 import './display.css';
 import OTPRequest from '../../../utils';
 import Spinner from '../../utility/Spinner';
+import { ProfileResponse } from '../../../interfaces';
 
 export default function Display() {
   const [profiles, setProfiles] = useState([]);
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
+  const [error, setError] = useState(false);
 
-  const shuffle = (profiles) => {
+  const shuffle = (profiles: ProfileResponse[] ) => {
     //shuffle the profiles
     // with durstenfeld algo
     for (let i = profiles.length - 1; i > 0; i--) {
@@ -32,7 +33,7 @@ export default function Display() {
 
       if (response) {
         if (response.profiles.length){
-        const shuffleProfiles = [...response.profiles];
+        const shuffleProfiles: ProfileResponse[] = [...response.profiles];
         shuffle(shuffleProfiles)
 
         setProfiles(shuffleProfiles);
@@ -49,7 +50,7 @@ export default function Display() {
     []
   );
 
-  const swiped = async (direction, id) => {
+  const swiped = async (direction: string, id:string) => {
     console.log('removing: ' + id);
     console.log(direction);
     // make api call to update database
@@ -62,12 +63,12 @@ export default function Display() {
     }
   };
 
-  const outOfFrame = (id) => {
+  const outOfFrame = (id:string) => {
     console.log(id, ' out of frame, removed from list');
     setIndex(index + 1);
   };
 
-  const swipeButton = async (direction) => {
+  const swipeButton = async (direction:string) => {
     await childRefs[profiles[index].id].current.swipe(direction);
   };
 

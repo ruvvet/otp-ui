@@ -1,19 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { MatchResponse } from '../interfaces';
 
 const initialState: {
   matchNotification: number;
-  matches: {
-    time: string;
-    liker: {
-      discordId: string;
-      discordUsername: string;
-      discordAvatar: string;
-      displayName: string;
-      rank: string;
-      att: string;
-      def: string;
-    };
-  }[];
+  matches: MatchResponse[];
 } = {
   matchNotification: 0,
   matches: [],

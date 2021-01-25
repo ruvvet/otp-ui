@@ -20,9 +20,17 @@ import { ranks, att, def, socialMedia } from '../../../lookup';
 import { setSocials } from '../../../store/profileSlice';
 import { checkPropTypes } from 'prop-types';
 import { discordAvatar } from '../../../utils';
+import { ProfileResponse } from '../../../interfaces';
+
+
+interface ProfileCardProps {
+profile: ProfileResponse;
+swiped:
+
+}
 
 export default forwardRef(
-  ({ profile, swiped, outOfFrame, swipeButton }, ref) => {
+  ({ profile, swiped, outOfFrame, swipeButton }: ProfileCardProps, ref)=> {
     const [viewDetails, setViewDetails] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
     const [activeStep, setActiveStep] = useState(0);
@@ -31,8 +39,8 @@ export default forwardRef(
 
     const [attIcon, setAttIcon] = useState('');
     const [defIcon, setDefIcon] = useState('');
-    const [pics, setPics] = useState([]);
-    const [socials, setSocials] = useState([]);
+    const [pics, setPics] = useState<string[]>([]);
+    const [socials, setSocials] = useState<{[k:string]:string}>({});
 
     useEffect(() => {
       const rankIcon = ranks.find((r) => r.rank === profile.rank);
@@ -75,7 +83,6 @@ export default forwardRef(
     return (
       <TinderCard
         className="profile-card"
-        id="profile-card"
         onSwipe={(dir) => swiped(dir, profile.discordId)}
         onCardLeftScreen={() => outOfFrame(profile.discordId)}
         preventSwipe={['up', 'down']}
@@ -108,10 +115,10 @@ export default forwardRef(
             component="img"
             image={pics[currentImgIndex]}
           />
-          <Grid container direction="columns" className="content">
+          <Grid container direction="column" className="content">
             <Slide isVisible={isVisible}>
               <Details
-                name={profile.displayName || profile.discordUserName}
+                name={profile.displayName || profile.discordUsername}
                 rank={profile.rank}
                 socials={socials}
                 rankIcon={rankIcon}

@@ -9,25 +9,26 @@ import {
 import ArrowLeftRoundedIcon from '@material-ui/icons/ArrowLeftRounded';
 import ArrowRightRoundedIcon from '@material-ui/icons/ArrowRightRounded';
 import UnfoldMoreRoundedIcon from '@material-ui/icons/UnfoldMoreRounded';
-import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import TinderCard from 'react-tinder-card';
+import { att, def, ranks } from '../../../lookup';
+import { RootState } from '../../../store';
 import Details from '../../display/Details';
 import Slide from '../../effects/Slide';
 import './profile.css';
-import { useSelector } from 'react-redux';
-import { ranks, att, def } from '../../../lookup';
+
 
 export default function Profile() {
-  const displayName = useSelector((state) => state.profile.displayName);
 
-  const rank = useSelector((state) => state.profile.rank);
-  const pics = useSelector((state) => state.profile.pics);
-  const socials = useSelector((state) => state.profile.socials);
-  const mainAtt = useSelector((state) => state.profile.mainAtt);
-  const mainDef = useSelector((state) => state.profile.mainDef);
+  const displayName = useSelector((state: RootState) => state.profile.displayName);
+  const rank = useSelector((state: RootState) => state.profile.rank);
+  const pics = useSelector((state: RootState) => state.profile.pics);
+  const socials = useSelector((state: RootState) => state.profile.socials);
+  const mainAtt = useSelector((state: RootState) => state.profile.mainAtt);
+  const mainDef = useSelector((state: RootState) => state.profile.mainDef);
 
-const [viewDetails, setViewDetails] = useState(false);
+  const [viewDetails, setViewDetails] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
@@ -61,9 +62,8 @@ const [viewDetails, setViewDetails] = useState(false);
   const numPics = Object.values(pics).filter(Boolean).length;
 
   return (
+    <div className="profile-card">
     <TinderCard
-      className="profile-card"
-      id="profile-card"
       preventSwipe={['up', 'down', 'left', 'right']}
     >
       <Card className="card">
@@ -92,15 +92,17 @@ const [viewDetails, setViewDetails] = useState(false);
           component="img"
           image={Object.values(pics)[currentImgIndex]}
         />
-        <Grid container direction="columns" className="content">
+        <Grid container direction="column" className="content">
+
           <Slide isVisible={isVisible}>
             <Details
-            name={displayName}
-                rank={rank}
-                socials={socials}
-                rankIcon={rankIcon}
-                attIcon={attIcon}
-                defIcon={defIcon}/>
+              name={displayName}
+              rank={rank}
+              socials={socials}
+              rankIcon={rankIcon}
+              attIcon={attIcon}
+              defIcon={defIcon}
+            />
           </Slide>
 
           <Box className="title">
@@ -143,5 +145,6 @@ const [viewDetails, setViewDetails] = useState(false);
         </Grid>
       </Card>
     </TinderCard>
+    </div>
   );
 }

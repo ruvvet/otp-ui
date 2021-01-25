@@ -1,12 +1,13 @@
 import { Container, Grid } from '@material-ui/core';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
 import ChatButton from '../ChatButton';
 import './chats.css';
 
 
 export default function Chats() {
-  const chats = useSelector((state) => state.chat.chats);
+  const chats = useSelector((state: RootState) => state.chat.chats);
 
   const renderChats = () => {
     return chats.map((chat, i) => (

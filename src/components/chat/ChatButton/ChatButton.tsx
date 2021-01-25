@@ -12,9 +12,15 @@ import { Link } from 'react-router-dom';
 import './chatbutton.css';
 import { discordAvatar } from '../../../utils';
 import { useSelector } from 'react-redux';
+import { ChatResponse } from '../../../interfaces';
+import { RootState } from '../../../store';
 
-export default function ChatButton({ chatBuddy }) {
-  const online = useSelector((state) =>
+interface ChatButtonProps {
+  chatBuddy: ChatResponse;
+}
+
+export default function ChatButton({ chatBuddy }: ChatButtonProps) {
+  const online = useSelector((state: RootState) =>
     state.chat.onlineChats.some((id) => chatBuddy.discordId === id)
   );
 
@@ -23,7 +29,6 @@ export default function ChatButton({ chatBuddy }) {
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs>
           <Badge
-            className="online-badge"
             badgeContent={100}
             color="primary"
             className="badge"

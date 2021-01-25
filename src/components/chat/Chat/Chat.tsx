@@ -10,6 +10,8 @@ import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import { ChatLog, MatchResponse } from '../../../interfaces';
+import { RootState } from '../../../store';
 import OTPRequest, { discordAvatar, getSocket } from '../../../utils';
 import Spinner from '../../utility/Spinner';
 import './chat.css';
@@ -17,17 +19,23 @@ import './chat.css';
 export default function Chat() {
   const history = useHistory();
 
-  const { id: buddyId } = useParams();
-  const myId = useSelector((state) => state.profile.discordId);
-  const myAvatar = useSelector((state) => state.profile.discordAvatar);
-  const myDisplayName = useSelector((state) => state.profile.displayName);
-  const matches = useSelector((state) => state.match.matches);
+  const { id: buddyId }: { id: string } = useParams();
+  const myId = useSelector((state: RootState) => state.profile.discordId);
+  const myAvatar = useSelector(
+    (state: RootState) => state.profile.discordAvatar
+  );
+  const myDisplayName = useSelector(
+    (state: RootState) => state.profile.displayName
+  );
+  const matches = useSelector((state: RootState) => state.match.matches);
 
-  const [convo, setConvo] = useState([]);
+  const [convo, setConvo] = useState<
+    { user: string; msg: string; timestamp: string }[]
+  >([]);
   const [msg, setMsg] = useState('');
   const [loading, setLoading] = useState(true);
-  const [match, setMatch] = useState();
-  const [error, setError] = useState();
+  const [match, setMatch] = useState<MatchResponse>();
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     // check if buddy ID and I are matched
@@ -37,7 +45,7 @@ export default function Chat() {
     );
 
     if (checkMatch.length) {
-      setMatch(checkMatch[0]);
+      setMatch(checkMatch[0] as MatchResponse);
       // if matched, get chat history
       const getChatHistory = async () => {
         const response = await OTPRequest(`/chat/${buddyId}`, {
@@ -48,10 +56,10 @@ export default function Chat() {
           return null;
         });
 
-        if (response) {
+        if (response as ChatLog[]) {
           console.log('response', response);
           setConvo(
-            response.map((chatlog, i) => {
+            response.map((chatlog: ChatLog) => {
               return {
                 user: chatlog.senderId,
                 msg: chatlog.msg,
@@ -74,7 +82,7 @@ export default function Chat() {
   useEffect(() => {
     const socket = getSocket();
 
-    socket.on('incomingMsg', (senderId, msg) => {
+    socket.on('incomingMsg', (senderId: string, msg: string) => {
       setConvo((prevConvo) => [
         ...prevConvo,
         { user: senderId, msg, timestamp: new Date().toDateString() },
@@ -96,14 +104,16 @@ export default function Chat() {
     }
   };
 
-  const handleKeyDown = (key) => {
+  const handleKeyDown = (key: string) => {
     if (key === 'Enter') {
       handleSendMsg();
     }
   };
 
   const renderChat = () => {
-    console.log('convo rendering', convo);
+    if (!match) {
+      return null;
+    }
     return convo.map((c, i) => {
       if (c.user !== myId) {
         return (
@@ -207,7 +217,9 @@ export default function Chat() {
               variant="filled"
               value={msg}
               onChange={(e) => setMsg(e.target.value)}
-              onKeyDown={(e) => handleKeyDown(e.key)}
+              onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
+                handleKeyDown(e.key)
+              }
               fullWidth
             />
           </Grid>

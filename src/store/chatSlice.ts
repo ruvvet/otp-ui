@@ -1,14 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ChatResponse } from '../interfaces';
 
 const initialState: {
-  chats: {
-    chat_senderId: string;
-    receiver_discordId: string;
-    receiver_discordUsername: string;
-    receiver_discordAvatar: string;
-    receiver_displayName: string;
-    receiverId: string;
-  }[];
+  chats: ChatResponse[];
   onlineChats: string[];
 } = {
   chats: [],

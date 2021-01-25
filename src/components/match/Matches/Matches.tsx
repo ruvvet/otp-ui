@@ -4,13 +4,14 @@ import {
 } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../store';
 import MatchButton from '../MatchButton';
 import './matches.css';
 
 export default function Matches() {
   const dispatch = useDispatch();
 
-  const matches = useSelector((state) => state.match.matches);
+  const matches = useSelector((state: RootState) => state.match.matches);
 
   const renderMatches = () => {
     return matches.map((match, i) => (
