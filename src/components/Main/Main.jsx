@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import { initializeProfile } from '../../store/profileSlice';
 import { setChats, setChatNotification } from '../../store/chatSlice';
 import { setMatches, setMatchNotification } from '../../store/matchSlice';
-import OTPRequest, { setSocket } from '../../utils';
+import OTPRequest, { API, setSocket } from '../../utils';
 import About from '../About/About';
 import Chat from '../chat/Chat';
 import Messages from '../chat/Chats';
@@ -17,6 +17,8 @@ import Profile from '../profile/Profile';
 import Settings from '../settings/Settings';
 import './main.css';
 import Spinner from '../utility/Spinner';
+import io from 'socket.io-client';
+
 
 export default function Main() {
   const dispatch = useDispatch();
