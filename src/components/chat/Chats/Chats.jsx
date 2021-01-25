@@ -8,7 +8,6 @@ import { API, getSocket } from '../../../utils';
 import { setChatNotification } from '../../../store/chatSlice';
 
 export default function Chats() {
-
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(true);
@@ -33,13 +32,12 @@ export default function Chats() {
         }
       });
     });
-
-    console.log(onlineStatus, Object.keys(onlineStatus).length)
-    dispatch(setChatNotification(Object.keys(onlineStatus).length))
   }, []);
 
-
-
+  useEffect(() => {
+    console.log(onlineStatus, Object.keys(onlineStatus).length);
+    dispatch(setChatNotification(Object.keys(onlineStatus).length));
+  }, [chats]);
 
   const renderChats = () => {
     return chats.map((chat, i) => (
