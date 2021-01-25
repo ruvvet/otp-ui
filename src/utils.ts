@@ -1,14 +1,15 @@
 import dotenv from 'dotenv';
+import {OTPRequestInit, OTPHeaders} from './interfaces'
 dotenv.config();
 
 export const API = process.env.REACT_APP_API_HOST;
 
-export default async function OTPRequest(url, options, returnRaw = false) {
+export default async function OTPRequest(url:string, options: OTPRequestInit, returnRaw = false) {
   // get the code from local storage via the key UWU_TOKEN
-  const userToken = localStorage.getItem('OTP_TOKEN');
+  const userToken = localStorage.getItem('OTP_TOKEN') || '';
 
-  const headers = {
-    ...options.headers,
+  const headers: OTPHeaders = {
+    ...options.headers as OTPHeaders,
     // 'Content-Type': 'application/json',
     'x-otp-user': userToken,
   };
@@ -32,7 +33,7 @@ export default async function OTPRequest(url, options, returnRaw = false) {
 
 
 
-export function discordAvatar (id, avatar){
+export function discordAvatar (id:string, avatar:string){
 
   return `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`
 

@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
 
 export interface OTPRequestInit extends RequestInit {
-  headers: HeadersInit | OTPHeaders;
+  headers?: HeadersInit | OTPHeaders;
+
 }
 
 export interface OTPHeaders {
