@@ -8,14 +8,15 @@ import { Link, useLocation } from 'react-router-dom';
 import Boop from '../../effects/Boop';
 import './footer.css';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
 
 export default function Footer() {
   const location = useLocation();
 
-  const [logout, setLogout] = useState();
+  const [logout, setLogout] = useState(false);
 
 
-  const chatNotification = useSelector((state) => state.chat.chatNotification);
+  const chatNotification = useSelector((state:RootState) => state.chat.chatNotification);
 
   useEffect(() => {
     setLogout(location.pathname === '/profile');

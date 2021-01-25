@@ -7,14 +7,15 @@ import { Link, useLocation } from 'react-router-dom';
 import Boop from '../../effects/Boop';
 import './header.css';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
 
 export default function Header() {
   const location = useLocation();
 
-  const [back, setBack] = useState();
+  const [back, setBack] = useState(false);
 
   const matchNotification = useSelector(
-    (state) => state.match.matchNotification
+    (state: RootState) => state.match.matchNotification
   );
 
   useEffect(() => {
