@@ -31,10 +31,12 @@ export default function Display() {
       });
 
       if (response) {
+        if (response.profiles.length){
         const profilesCopy = [...response.profiles];
         const shuffledProfiles = shuffle (profilesCopy)
 
         setProfiles(shuffledProfiles);
+        }
       }
       setLoading(false);
     };

@@ -15,8 +15,8 @@ export default function Footer() {
 
   const [logout, setLogout] = useState(false);
 
-  const chatNotification = useSelector(
-    (state: RootState) => state.chat.chatNotification
+  const chatNotifications = useSelector(
+    (state: RootState) => state.chat.onlineChats.length
   );
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function Footer() {
             <Link to="/messages">
               <IconButton>
                 <Badge
-                  badgeContent={chatNotification}
+                  badgeContent={chatNotifications}
                   color="primary"
                   className="badge"
                   // showZero

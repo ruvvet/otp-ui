@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: {
-  chatNotification: number;
   chats: {
     chat_senderId: string;
     receiver_discordId: string;
@@ -10,9 +9,10 @@ const initialState: {
     receiver_displayName: string;
     receiverId: string;
   }[];
+  onlineChats: string[];
 } = {
-  chatNotification: 0,
   chats: [],
+  onlineChats: [],
 };
 
 const chatSlice = createSlice({
@@ -22,11 +22,27 @@ const chatSlice = createSlice({
     setChats(state, action: PayloadAction<typeof initialState['chats']>) {
       state.chats = action.payload;
     },
-    setChatNotification(state, action: PayloadAction<number>) {
-      state.chatNotification = action.payload;
+
+    setOnlineChats(state, action: PayloadAction<string[]>) {
+      state.onlineChats = action.payload;
+    },
+
+    setOnlineChat(state, action: PayloadAction<string>) {
+      state.onlineChats = Array.from(
+        new Set([...state.onlineChats, action.payload])
+      );
+    },
+
+    setOfflineChat(state, action: PayloadAction<string>) {
+      state.onlineChats = state.onlineChats.filter((c) => c !== action.payload);
     },
   },
 });
 
-export const { setChats, setChatNotification } = chatSlice.actions;
+export const {
+  setChats,
+  setOnlineChats,
+  setOnlineChat,
+  setOfflineChat,
+} = chatSlice.actions;
 export default chatSlice.reducer;

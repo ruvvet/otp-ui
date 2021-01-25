@@ -3,10 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import io from 'socket.io-client';
-import { setChats } from '../../store/chatSlice';
+import {
+  setChats,
+  setOnlineChats,
+  setOnlineChat,
+  setOfflineChat,
+} from '../../store/chatSlice';
 import { setMatches, setMatchNotification } from '../../store/matchSlice';
 import { initializeProfile } from '../../store/profileSlice';
-import OTPRequest, { API, setSocket } from '../../utils';
+import OTPRequest, { API, getSocket, setSocket } from '../../utils';
 import About from '../About/About';
 import Chat from '../chat/Chat';
 import Messages from '../chat/Chats';
@@ -22,6 +27,7 @@ import './main.css';
 export default function Main() {
   const dispatch = useDispatch();
   const discordId = useSelector((state) => state.profile.discordId);
+  const chats = useSelector((state) => state.chat.chats);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
@@ -96,6 +102,25 @@ export default function Main() {
       };
     }
   }, [discordId]);
+
+  useEffect(() => {
+    const socket = getSocket();
+    if (socket) {
+      socket.emit('getOnline', chats);
+
+      socket.on('onlineChats', (onlineChats) => {
+        dispatch(setOnlineChats(onlineChats));
+      });
+
+      socket.on('nowOnline', (onlineId) => {
+        dispatch(setOnlineChat(onlineId));
+      });
+
+      socket.on('nowOffline', (offlineId) => {
+        dispatch(setOfflineChat(offlineId));
+      });
+    }
+  }, [chats]);
 
   return (
     <Container className="main-container" maxWidth="sm">

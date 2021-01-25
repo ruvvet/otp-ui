@@ -34,8 +34,8 @@ export default function Details({
         {name.toUpperCase()}, {rank}
       </div>
       <div className="mains">
-        <img src={attIcon} />
-        <img src={defIcon} />
+        {attIcon && <img src={attIcon} />}
+        {defIcon && <img src={defIcon} />}
       </div>
       <div className="social">{renderSocials()}</div>
     </Box>

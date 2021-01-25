@@ -11,8 +11,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './chatbutton.css';
 import { discordAvatar } from '../../../utils';
+import { useSelector } from 'react-redux';
 
-export default function ChatButton({ chatBuddy, online }) {
+export default function ChatButton({ chatBuddy }) {
+  const online = useSelector((state) =>
+    state.chat.onlineChats.some((id) => chatBuddy.discordId === id)
+  );
+
   return (
     <Paper elevation={0} className="message-match">
       <Grid container direction="row" justify="center" alignItems="center">
@@ -31,14 +36,8 @@ export default function ChatButton({ chatBuddy, online }) {
             invisible={!online}
           >
             <Avatar
-              alt={
-                chatBuddy.displayName ||
-                chatBuddy.discordUsername
-              }
-              src={discordAvatar(
-                chatBuddy.discordId,
-                chatBuddy.discordAvatar
-              )}
+              alt={chatBuddy.displayName || chatBuddy.discordUsername}
+              src={discordAvatar(chatBuddy.discordId, chatBuddy.discordAvatar)}
             />
           </Badge>
         </Grid>
