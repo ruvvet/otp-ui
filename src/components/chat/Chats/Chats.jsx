@@ -36,10 +36,9 @@ export default function Chats() {
 
   useEffect(() => {
     console.log('????', onlineStatus, Object.keys(onlineStatus).length);
-    if (chats){
+
     dispatch(setChatNotification(Object.keys(onlineStatus).length));
-    }
-  }, [chats]);
+  }, [chats, onlineStatus]);
 
   const renderChats = () => {
     return chats.map((chat, i) => (
