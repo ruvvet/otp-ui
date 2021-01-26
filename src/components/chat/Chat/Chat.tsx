@@ -13,7 +13,11 @@ import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { ChatLog, MatchResponse } from '../../../interfaces';
 import { RootState } from '../../../store';
-import OTPRequest, { createTimeStamp, discordAvatar, getSocket } from '../../../utils';
+import OTPRequest, {
+  createTimeStamp,
+  discordAvatar,
+  getSocket,
+} from '../../../utils';
 import Spinner from '../../utility/Spinner';
 import './chat.css';
 
@@ -61,18 +65,16 @@ export default function Chat() {
         });
 
         if (response as ChatLog[]) {
-
           setConvo(
             response.map((chatlog: ChatLog) => {
               return {
                 user: chatlog.senderId,
                 msg: chatlog.msg,
                 // timestamp: new Date(chatlog.date).toDateString(),
-                timestamp: createTimeStamp(new Date(chatlog.date))
+                timestamp: createTimeStamp(new Date(chatlog.date)),
               };
             })
           );
-
 
           setLoading(false);
         }
@@ -88,10 +90,12 @@ export default function Chat() {
     const socket = getSocket();
 
     socket.on('incomingMsg', (senderId: string, msg: string) => {
-      setConvo((prevConvo) => [
-        ...prevConvo,
-        { user: senderId, msg, timestamp: createTimeStamp(new Date()) },
-      ]);
+      if (senderId === buddyId) {
+        setConvo((prevConvo) => [
+          ...prevConvo,
+          { user: senderId, msg, timestamp: createTimeStamp(new Date()) },
+        ]);
+      }
     });
   }, []);
 
@@ -202,7 +206,9 @@ export default function Chat() {
           alignItems="center"
           style={{ padding: '10px 0' }}
         >
-          <Typography variant="h5" style={{textTransform:"uppercase"}}>{match && (match.liker.displayName || match.liker.discordUsername)}</Typography>
+          <Typography variant="h5" style={{ textTransform: 'uppercase' }}>
+            {match && (match.liker.displayName || match.liker.discordUsername)}
+          </Typography>
         </Grid>
         <Grid
           container
@@ -210,9 +216,9 @@ export default function Chat() {
           alignItems="flex-start"
           className="chat-box scrollbar2"
         >
-<div className="chat-alignment">
-          {loading ? <Spinner /> : renderChat()}
-          <div id="bottom-ref" ref={bottomRef} />
+          <div className="chat-alignment">
+            {loading ? <Spinner /> : renderChat()}
+            <div id="bottom-ref" ref={bottomRef} />
           </div>
         </Grid>
 
@@ -255,6 +261,5 @@ export default function Chat() {
     </Container>
   );
 }
-
 
 //TODO: fix chat spacing
