@@ -1,4 +1,4 @@
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid, Typography } from '@material-ui/core';
 import React, {
   createRef,
   useMemo,
@@ -93,7 +93,7 @@ export default function Display() {
     await (profileRef.current as any).swipe(direction);
   };
 
-  //TODO - this button doesnt work
+  //TODO - this button doesnt work as intended
 
   const renderCards = () => {
     if (profiles.length > 0) {
@@ -114,12 +114,27 @@ export default function Display() {
         ));
     }
 
-    return <>{':('}</>;
+    return (
+      <>
+        <div>{`:(`}</div>
+
+        <Typography variant="caption">
+          Waiting on more people to join...
+        </Typography>
+        <Typography variant="caption">It's ok to be lonely...</Typography>
+      </>
+    );
   };
 
   return (
     <Container className="card-container" maxWidth="sm">
-      <Grid container direction="column" justify="center" alignItems="center" className="card-container">
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+        className="card-container"
+      >
         {loading ? <Spinner /> : renderCards()}
       </Grid>
     </Container>

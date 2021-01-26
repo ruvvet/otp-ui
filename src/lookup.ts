@@ -16,7 +16,7 @@ export const socialMedia: {
   { site: 'instagram', url: 'instagram.com/', img: './img/instagram.png' },
   { site: 'snapchat', url: 'snapchat.com/add/', img: './img/snapchat.png' },
   { site: 'tiktok', url: 'tiktok.com/@', img: './img/tiktok.png' },
-  { site: 'spotify', url: 'open.spotify.com/', img: './img/spotify.png' },
+  { site: 'spotify', url: 'open.spotify.com/user/', img: './img/spotify.png' },
   { site: 'facebook', url: 'facebook.com/', img: './img/facebook.png' },
   { site: 'reddit', url: 'reddit.com/user/', img: './img/reddit.png' },
 ];

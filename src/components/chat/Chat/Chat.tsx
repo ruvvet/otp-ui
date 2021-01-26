@@ -210,8 +210,10 @@ export default function Chat() {
           alignItems="flex-start"
           className="chat-box scrollbar2"
         >
+<div className="chat-alignment">
           {loading ? <Spinner /> : renderChat()}
           <div id="bottom-ref" ref={bottomRef} />
+          </div>
         </Grid>
 
         <Grid
