@@ -1,8 +1,8 @@
 .matches-container {
-  max-height: 75%;
+  max-height: 905%;
   position: relative;
   overflow: auto;
-  padding: 7% 0;
+  margin: 7% 0;
 }
 
 .matches-grid {
