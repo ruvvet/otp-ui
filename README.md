@@ -38,7 +38,8 @@ In OTP, Redux is used to store things such as the user's profile information upo
 
 ```typescript
 const rootReducer = combineReducers({
-// the 3 main reducers, each reducer holds data at a global level and is organized by what type of data it holds
+// the 3 main reducers, each reducer holds data
+// at a global level and is organized by what type of data it holds
   profile: profileReducer,
   match: matchReducer,
   chat: chatReducer,
