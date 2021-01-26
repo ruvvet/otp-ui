@@ -1,70 +1,137 @@
-# Getting Started with Create React App
+# OTP
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Test it out at [otp-siege.herokuapp.com](https://otp-siege.herokuapp.com/)
+#### An app that helps 🌈 Six Siege players find other 🌈 Six Siege players who are also looking for 🌈 Six Siege players...to play 🌈 Six Siege. And make friends.
 
-## Available Scripts
+### How it works:
+ - ✔ `Login` via Discord OAuth
+ - ⚙ In the `settings` page, setup your profile w/ your rank, your favorite attacker + defender, as well as images, links to your social media accounts, etc.
+ - 👀 Save and go check out other people who have created profiles on the site!
+ - 👋 Swipe right on a profile to wait for a connection, or swipe left to pass.
+ - 😍 If the other person swipes right, its a match!
+ - 💗 Once you've matched, they'll show up in your `matches` tab.
+ - 😏 Send them a discord friend request, or chat with them directly through the `chat` tab.
 
-In the project directory, you can run:
+# Screenshots
 
-### `npm start`
+...coming soon
+### Tech
+> - React
+> - Express
+> - TypeORM
+> - Typescript
+> - Postgres
+> - Node
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### APIs
+> - 🎮 Discord OAuth
+> - ☁️ Cloudinary
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# FUNCTIONAL HIGHLIGHTS
 
-### `npm test`
+### Redux
+To help manage state on a global level, and provide components on nonlinear branches with access to data without passing props around like a hot 🥔, we used Redux (specifically, Redux Toolkit). This meant that we could store data in our central Redux store and access that data from any component without the need to pass that data in as props.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To oversimplify, like with state, we initialize any variables (like `stuff=0`) we want in Redux and create a action for it (like `setStuff`). When we want to update the state, we use the `dispatch()` function and dispatch the data we want to set inside the set action we want to call. Dispatch will then go to the store where it compares the action we want against all the available actions, and will update the initial data with the dispatched data once a matching set action is found. Then we can call that updated data from the store using `useSelector()`
 
-### `npm run build`
+In OTP, Redux is used to store things such as the user's profile information upon loading the page, as well as the matches and chats they currently have. **This frees us from making multiple similar api calls in different components.** Saving information passed back from the socket in the store also allows for **automatic responsiveness** without having to reload when recording other user's sockets logging on/off when it comes to chat functionality.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```typescript
+const rootReducer = combineReducers({
+// the 3 main reducers, each reducer holds data at a global level and is organized by what type of data it holds
+  profile: profileReducer,
+  match: matchReducer,
+  chat: chatReducer,
+});
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+const store = configureStore({
+// combines all the reducers into one
+  reducer: rootReducer,
+});
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+// ...
+// disptching
+dispatch(initializeProfile(profileResponse));
 
-### `npm run eject`
+// selecting
+const rank = useSelector((state: RootState) => state.profile.rank);
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Sockets
+`WebSockets` allow for a persistent and open two-way communication channel between the client and the server. Servers can push information to clients, and so we don't need to constantly ping the API to check if there is any new information. This is especially useful for real-time functionality, like `chat`. However, since websockets keep a constantly open connection, it can consume large amounts of your server's resources. And too many open connections to your database can ☠ it.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`socket.io` is a JS library that uses the WebSocket protocol and allows for real-time, bi-directional connection between clients and the server.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+OTP uses socket.io to create open WebSocket connections during while the client is interacting with the page. Each user has their own open socket which we track and identify.
+with this, we can `send chat messages from one user to another specific user`, and `broadcast online/offline status'`.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```typescript
+import io from 'socket.io-client';
 
-### Code Splitting
+// client visits the page and their socket is sent to the server to be logged
+    //...
+    // conect to socket
+      const socket = io(API!);
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    // set the socket with the socket instance
+      setSocket(socket);
 
-### Analyzing the Bundle Size
+    //socket instance.emit('event name', message being passed back)
+      socket.emit('sendMyId', discordId);
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+// getting the online/offline status of all the sockets that are online
+// this is then mapped to a user's chats to see who is online or not
+    //...
 
-### Making a Progressive Web App
+      socket.on('onlineChats', (onlineChats: string[]) => {
+        dispatch(setOnlineChats(onlineChats));
+      });
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+      socket.on('nowOnline', (onlineId: string) => {
+        dispatch(setOnlineChat(onlineId));
+      });
 
-### Advanced Configuration
+      socket.on('nowOffline', (offlineId: string) => {
+        dispatch(setOfflineChat(offlineId));
+      });
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
+### Typescript
+😠💢 Typescript when you try to write bad code.
+🥴🙃 Javascript when you write bad code.
+OTP was first written in JS and then converted to TS. TS is mean but it protect you from yourself and your own bad code.
 
-### Deployment
+```typescript
+// from interfaces.ts
+export interface OTPRequestInit extends RequestInit {
+  headers?: HeadersInit | OTPHeaders;
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+# SOME CUTE FEATURE HIGHLIGHTS
 
-### `npm run build` fails to minify
+### Chat Protection 🦙
+You can only enter chats where you have matched 💕 with the other person. Otherwise you get the 👢.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```typescript
+const checkMatch = matches.filter(
+      (match, i) => buddyId === match.liker.discordId
+    );
+```
+
+### Dynamic buttons based on location 🧨
+The buttons wiggle and changed based on where you are. I think its fun. 🤗
+```typescript
+useEffect(() => {
+    setBack(window.location.pathname === '/');
+  }, [location]);
+```
+
+### Privacy Please 🛑✋
+ If you're not logged in, you can't access any of the protected pages.
+
+### 🔎Lookup tables🔍
+Lookup tables for all the att/def operators, and social media sites so we could save ourselves from some typing.
