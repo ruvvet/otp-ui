@@ -101,9 +101,9 @@ import io from 'socket.io-client';
 
 ```
 ### Typescript
-😠💢 Typescript when you try to write bad code.
-🥴🙃 Javascript when you write bad code.
-OTP was first written in JS and then converted to TS. TS is mean but it protect you from yourself and your own bad code.
+- 😠💢 Typescript when you try to write bad code.
+ - 🥴🙃 Javascript when you write bad code.
+OTP was first written in JS and then converted to TS. TS is mean but it protects you from yourself and your own bad code.
 
 ```typescript
 // from interfaces.ts
