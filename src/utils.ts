@@ -49,13 +49,13 @@ export function discordAvatar(id: string, avatar: string) {
   return `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`;
 }
 
+export function createTimeStamp(timestamp: Date) {
+  const m = timestamp.getMinutes();
+  const h = timestamp.getHours();
 
-export function createTimeStamp(timestamp:Date){
+  const min = m < 10 ? `0${m}` : `${m}`;
+  const hr = h > 12 ? `${h - 12}` : `${h}`;
+  const ampm = h < 12 ? 'am' : 'pm';
 
-console.log('creating new time stamp')
-
-const m = timestamp.getMinutes();
-const h = timestamp.getHours();
-
-
+  return `${timestamp.toDateString().slice(0, 10)} @ ${hr}:${min} ${ampm}`;
 }

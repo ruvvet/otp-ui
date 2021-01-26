@@ -21,7 +21,7 @@ export default function Matches() {
 
   return (
     <Container maxWidth="sm" className="matches-container scrollbar2">
-      <Grid container direction="column" justify="center" alignItems="center">
+      <Grid container direction="column" justify="center" alignItems="center" className="matches-grid">
         {renderMatches()}
       </Grid>
     </Container>

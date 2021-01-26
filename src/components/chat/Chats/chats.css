@@ -1,11 +1,8 @@
 .messages-container {
-  /* width: 45% !important;
-
-  position: absolute !important; */
-
   max-height: 75%;
   position: relative;
   overflow: auto;
+  padding: 7% 0;
 }
 
 .messages-wrapper {

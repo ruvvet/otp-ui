@@ -5,6 +5,7 @@ import {
   Grid,
   IconButton,
   TextField,
+  Typography,
 } from '@material-ui/core';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import React, { useEffect, useRef, useState } from 'react';
@@ -12,7 +13,7 @@ import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { ChatLog, MatchResponse } from '../../../interfaces';
 import { RootState } from '../../../store';
-import OTPRequest, { discordAvatar, getSocket } from '../../../utils';
+import OTPRequest, { createTimeStamp, discordAvatar, getSocket } from '../../../utils';
 import Spinner from '../../utility/Spinner';
 import './chat.css';
 
@@ -60,18 +61,19 @@ export default function Chat() {
         });
 
         if (response as ChatLog[]) {
-          console.log('response', response);
+
           setConvo(
             response.map((chatlog: ChatLog) => {
               return {
                 user: chatlog.senderId,
                 msg: chatlog.msg,
-                timestamp: new Date(chatlog.date).toDateString(),
+                // timestamp: new Date(chatlog.date).toDateString(),
+                timestamp: createTimeStamp(new Date(chatlog.date))
               };
             })
           );
 
-         
+
           setLoading(false);
         }
       };
@@ -88,7 +90,7 @@ export default function Chat() {
     socket.on('incomingMsg', (senderId: string, msg: string) => {
       setConvo((prevConvo) => [
         ...prevConvo,
-        { user: senderId, msg, timestamp: new Date().toDateString() },
+        { user: senderId, msg, timestamp: createTimeStamp(new Date()) },
       ]);
     });
   }, []);
@@ -96,7 +98,6 @@ export default function Chat() {
   useEffect(() => {
     setTimeout(() => {
       if (bottomRef.current) {
-        console.log('bottomref scrolling?');
         bottomRef.current.scrollIntoView({ behavior: 'smooth' });
       }
     }, 100);
@@ -106,7 +107,7 @@ export default function Chat() {
     if (msg) {
       setConvo([
         ...convo,
-        { user: myId, msg, timestamp: new Date().toDateString() },
+        { user: myId, msg, timestamp: createTimeStamp(new Date()) },
       ]);
       setMsg('');
 
@@ -199,9 +200,9 @@ export default function Chat() {
           direction="row"
           justify="center"
           alignItems="center"
-          style={{ padding: '5px 0 0 0' }}
+          style={{ padding: '10px 0' }}
         >
-          {match && (match.liker.displayName || match.liker.discordUsername)}
+          <Typography variant="h5" style={{textTransform:"uppercase"}}>{match && (match.liker.displayName || match.liker.discordUsername)}</Typography>
         </Grid>
         <Grid
           container
