@@ -1,10 +1,11 @@
 .profile-card {
   height: 80vh;
-  max-height: 900px;
+  max-height: 80vh;
   width: 80vw;
   max-width: 500px;
   position: relative;
   z-index: 1;
+  margin: 0 auto;
 }
 
 .profile-card .card {

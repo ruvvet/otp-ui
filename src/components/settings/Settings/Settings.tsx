@@ -113,7 +113,7 @@ export default function Settings() {
   };
 
   return (
-    <Container maxWidth="sm" className="settings-container">
+    <Container maxWidth="sm" className="settings-container scrollbar2">
       {/* <Grid container direction="column" justify="center" alignItems="center"> */}
       <Grid item xs={12} className="settings-section profile">
         <TextField

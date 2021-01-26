@@ -1,4 +1,9 @@
 
+.header-container{
+  height: 86px;
+  
+}
+
 .header-container img {
   height: 80px;
   object-fit: contain;

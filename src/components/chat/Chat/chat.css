@@ -1,6 +1,6 @@
 .chat-container {
   background-color: #ffffff70;
-  height: 80%;
+  height: 100%;
   color: black;
   border-radius: 1rem !important;
 }
@@ -25,6 +25,7 @@
   overflow: auto;
   height: 80%;
   padding: 5% 2%;
+  flex: 1;
 }
 
 .scrollbar2::-webkit-scrollbar-track {

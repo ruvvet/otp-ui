@@ -3,5 +3,5 @@ import './spinner.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function Spinner() {
-  return <CircularProgress />;
+  return <div className = "spinner-div" ><CircularProgress /></div>;
 }

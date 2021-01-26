@@ -29,8 +29,8 @@ import './main.css';
 
 export default function Main() {
   const dispatch = useDispatch();
-  const discordId = useSelector((state:RootState) => state.profile.discordId);
-  const chats = useSelector((state:RootState) => state.chat.chats);
+  const discordId = useSelector((state: RootState) => state.profile.discordId);
+  const chats = useSelector((state: RootState) => state.chat.chats);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -115,11 +115,11 @@ export default function Main() {
         dispatch(setOnlineChats(onlineChats));
       });
 
-      socket.on('nowOnline', (onlineId:string) => {
+      socket.on('nowOnline', (onlineId: string) => {
         dispatch(setOnlineChat(onlineId));
       });
 
-      socket.on('nowOffline', (offlineId:string) => {
+      socket.on('nowOffline', (offlineId: string) => {
         dispatch(setOfflineChat(offlineId));
       });
     }
@@ -127,16 +127,12 @@ export default function Main() {
 
   return (
     <Container className="main-container" maxWidth="sm">
-      <Grid
-        container
-        direction="column"
-        justify="space-between"
-        alignItems="center"
-        className="main-grid"
-      >
-        <Header />
+      <Header />
+      <div className="main-body">
         {loading ? (
+          <div className = "main-spinner">
           <Spinner />
+          </div>
         ) : (
           <Switch>
             <Route path="/profile">
@@ -162,8 +158,8 @@ export default function Main() {
             </Route>
           </Switch>
         )}
-        <Footer />
-      </Grid>
+      </div>
+      <Footer />
     </Container>
   );
 }

@@ -7,7 +7,7 @@ import {
   TextField,
 } from '@material-ui/core';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { ChatLog, MatchResponse } from '../../../interfaces';
@@ -18,8 +18,10 @@ import './chat.css';
 
 export default function Chat() {
   const history = useHistory();
-
+  const bottomRef = useRef<HTMLDivElement>(null);
   const { id: buddyId }: { id: string } = useParams();
+
+  //selectors
   const myId = useSelector((state: RootState) => state.profile.discordId);
   const myAvatar = useSelector(
     (state: RootState) => state.profile.discordAvatar
@@ -29,6 +31,7 @@ export default function Chat() {
   );
   const matches = useSelector((state: RootState) => state.match.matches);
 
+  //state
   const [convo, setConvo] = useState<
     { user: string; msg: string; timestamp: string }[]
   >([]);
@@ -68,7 +71,7 @@ export default function Chat() {
             })
           );
 
-          // setConvoHistory(response);
+         
           setLoading(false);
         }
       };
@@ -89,6 +92,15 @@ export default function Chat() {
       ]);
     });
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (bottomRef.current) {
+        console.log('bottomref scrolling?');
+        bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  }, [convo]);
 
   const handleSendMsg = () => {
     if (msg) {
@@ -198,12 +210,12 @@ export default function Chat() {
           className="chat-box scrollbar2"
         >
           {loading ? <Spinner /> : renderChat()}
+          <div id="bottom-ref" ref={bottomRef} />
         </Grid>
 
         <Grid
           container
           direction="row"
-          justify="space-between"
           alignItems="center"
           className="chat-send"
         >

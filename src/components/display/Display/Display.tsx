@@ -1,5 +1,12 @@
 import { Container, Grid } from '@material-ui/core';
-import React, { createRef, useMemo, useState, useEffect } from 'react';
+import React, {
+  createRef,
+  useMemo,
+  useState,
+  useEffect,
+  Ref,
+  RefObject,
+} from 'react';
 import ProfileCard from '../ProfileCard';
 import './display.css';
 import OTPRequest from '../../../utils';
@@ -7,12 +14,15 @@ import Spinner from '../../utility/Spinner';
 import { ProfileResponse } from '../../../interfaces';
 
 export default function Display() {
-  const [profiles, setProfiles] = useState([]);
+  const [profiles, setProfiles] = useState<ProfileResponse[]>([]);
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [refs, setRefs] = useState<{ [k: string]: RefObject<HTMLDivElement> }>(
+    {}
+  );
 
-  const shuffle = (profiles: ProfileResponse[] ) => {
+  const shuffle = (profiles: ProfileResponse[]) => {
     //shuffle the profiles
     // with durstenfeld algo
     for (let i = profiles.length - 1; i > 0; i--) {
@@ -32,11 +42,22 @@ export default function Display() {
       });
 
       if (response) {
-        if (response.profiles.length){
-        const shuffleProfiles: ProfileResponse[] = [...response.profiles];
-        shuffle(shuffleProfiles)
+        if (response.profiles.length) {
+          const shuffleProfiles: ProfileResponse[] = [...response.profiles];
+          shuffle(shuffleProfiles);
 
-        setProfiles(shuffleProfiles);
+          setProfiles(shuffleProfiles);
+
+          setRefs(
+            shuffleProfiles.reduce<{ [k: string]: RefObject<HTMLDivElement> }>(
+              (result, profile) => {
+                result[profile.discordId] = createRef<HTMLDivElement>();
+
+                return result;
+              },
+              {}
+            )
+          );
         }
       }
       setLoading(false);
@@ -45,12 +66,7 @@ export default function Display() {
     getProfiles();
   }, []);
 
-  const childRefs = useMemo(
-    () => ({ 1: createRef(), 2: createRef(), 3: createRef() }),
-    []
-  );
-
-  const swiped = async (direction: string, id:string) => {
+  const swiped = async (direction: string, id: string) => {
     console.log('removing: ' + id);
     console.log(direction);
     // make api call to update database
@@ -63,13 +79,18 @@ export default function Display() {
     }
   };
 
-  const outOfFrame = (id:string) => {
+  const outOfFrame = (id: string) => {
     console.log(id, ' out of frame, removed from list');
     setIndex(index + 1);
   };
 
-  const swipeButton = async (direction:string) => {
-    await childRefs[profiles[index].id].current.swipe(direction);
+  const swipeButton = async (direction: string) => {
+    const profileRef = refs[profiles[index].discordId];
+
+    if (!profileRef || !profileRef.current) {
+      return;
+    }
+    await (profileRef.current as any).swipe(direction);
   };
 
   //TODO - this button doesnt work
@@ -82,7 +103,7 @@ export default function Display() {
         .map((profile, i) => (
           <div className="swipe">
             <ProfileCard
-              ref={childRefs[profile.id]}
+              ref={refs[profile.discordId]}
               key={profile.discordId}
               profile={profile}
               swiped={swiped}
@@ -98,7 +119,7 @@ export default function Display() {
 
   return (
     <Container className="card-container" maxWidth="sm">
-      <Grid container direction="column" justify="center" alignItems="center">
+      <Grid container direction="column" justify="center" alignItems="center" className="card-container">
         {loading ? <Spinner /> : renderCards()}
       </Grid>
     </Container>

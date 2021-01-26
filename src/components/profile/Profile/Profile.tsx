@@ -18,10 +18,10 @@ import Details from '../../display/Details';
 import Slide from '../../effects/Slide';
 import './profile.css';
 
-
 export default function Profile() {
-
-  const displayName = useSelector((state: RootState) => state.profile.displayName);
+  const displayName = useSelector(
+    (state: RootState) => state.profile.displayName
+  );
   const rank = useSelector((state: RootState) => state.profile.rank);
   const pics = useSelector((state: RootState) => state.profile.pics);
   const socials = useSelector((state: RootState) => state.profile.socials);
@@ -62,8 +62,9 @@ export default function Profile() {
   const numPics = Object.values(pics).filter(Boolean).length;
 
   return (
-    <div className="profile-card">
     <TinderCard
+      // @ts-ignore
+      className="profile-card"
       preventSwipe={['up', 'down', 'left', 'right']}
     >
       <Card className="card">
@@ -93,7 +94,6 @@ export default function Profile() {
           image={Object.values(pics)[currentImgIndex]}
         />
         <Grid container direction="column" className="content">
-
           <Slide isVisible={isVisible}>
             <Details
               name={displayName}
@@ -145,6 +145,5 @@ export default function Profile() {
         </Grid>
       </Card>
     </TinderCard>
-    </div>
   );
 }

@@ -8,6 +8,16 @@ export interface OTPHeaders {
   [key: string]: string;
 }
 
+export type Socials =
+  | 'twitch'
+  | 'twitter'
+  | 'instagram'
+  | 'snapchat'
+  | 'tiktok'
+  | 'spotify'
+  | 'reddit'
+  | 'facebook';
+
 export interface ProfileResponse {
   att: string;
   def: string;

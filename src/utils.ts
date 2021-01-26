@@ -48,3 +48,14 @@ export default async function OTPRequest(
 export function discordAvatar(id: string, avatar: string) {
   return `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`;
 }
+
+
+export function createTimeStamp(timestamp:Date){
+
+console.log('creating new time stamp')
+
+const m = timestamp.getMinutes();
+const h = timestamp.getHours();
+
+
+}

@@ -20,17 +20,17 @@ import { ranks, att, def, socialMedia } from '../../../lookup';
 import { setSocials } from '../../../store/profileSlice';
 import { checkPropTypes } from 'prop-types';
 import { discordAvatar } from '../../../utils';
-import { ProfileResponse } from '../../../interfaces';
-
+import { ProfileResponse, Socials } from '../../../interfaces';
 
 interface ProfileCardProps {
-profile: ProfileResponse;
-swiped:
-
+  profile: ProfileResponse;
+  swiped: any;
+  outOfFrame: any;
+  swipeButton: any;
 }
 
-export default forwardRef(
-  ({ profile, swiped, outOfFrame, swipeButton }: ProfileCardProps, ref)=> {
+export default forwardRef<any, ProfileCardProps>(
+  ({ profile, swiped, outOfFrame, swipeButton }, ref) => {
     const [viewDetails, setViewDetails] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
     const [activeStep, setActiveStep] = useState(0);
@@ -40,7 +40,7 @@ export default forwardRef(
     const [attIcon, setAttIcon] = useState('');
     const [defIcon, setDefIcon] = useState('');
     const [pics, setPics] = useState<string[]>([]);
-    const [socials, setSocials] = useState<{[k:string]:string}>({});
+    const [socials, setSocials] = useState<{ [K in Socials]?: string }>({});
 
     useEffect(() => {
       const rankIcon = ranks.find((r) => r.rank === profile.rank);
@@ -59,7 +59,7 @@ export default forwardRef(
       );
 
       setSocials(
-        socialMedia.reduce((final, s) => {
+        socialMedia.reduce<typeof socials>((final, s) => {
           if (profile[s.site]) {
             final[s.site] = profile[s.site];
           }
@@ -82,106 +82,109 @@ export default forwardRef(
 
     return (
       <TinderCard
+      // @ts-ignore
         className="profile-card"
         onSwipe={(dir) => swiped(dir, profile.discordId)}
         onCardLeftScreen={() => outOfFrame(profile.discordId)}
         preventSwipe={['up', 'down']}
         ref={ref}
       >
-        <Card className="card">
-          <MobileStepper
-            className="profile-stepper"
-            variant="dots"
-            steps={3}
-            position="static"
-            activeStep={activeStep}
-            nextButton={
-              <IconButton
-                onClick={handleNext}
-                disabled={activeStep === pics.length - 1}
+
+          <Card className="card">
+            <MobileStepper
+              className="profile-stepper"
+              variant="dots"
+              steps={3}
+              position="static"
+              activeStep={activeStep}
+              nextButton={
+                <IconButton
+                  onClick={handleNext}
+                  disabled={activeStep === pics.length - 1}
+                >
+                  <ArrowRightRoundedIcon className="icon" fontSize="large" />
+                </IconButton>
+              }
+              backButton={
+                <IconButton onClick={handleBack} disabled={activeStep === 0}>
+                  <ArrowLeftRoundedIcon className="icon" fontSize="large" />
+                </IconButton>
+              }
+            />
+
+            <CardMedia
+              className="profile-img"
+              component="img"
+              image={pics[currentImgIndex]}
+            />
+            <Grid container direction="column" className="content">
+              <Slide isVisible={isVisible}>
+                <Details
+                  name={profile.displayName || profile.discordUsername}
+                  rank={profile.rank}
+                  socials={socials}
+                  rankIcon={rankIcon}
+                  attIcon={attIcon}
+                  defIcon={defIcon}
+                />
+              </Slide>
+
+              <Box className="title">
+                <div>
+                  {isVisible || (
+                    <>
+                      <img className="rank-profile-icon" src={rankIcon} />
+                      {profile.displayName.toUpperCase()}, {profile.rank}
+                    </>
+                  )}
+                </div>
+              </Box>
+
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+                className="buttons"
               >
-                <ArrowRightRoundedIcon className="icon" fontSize="large" />
-              </IconButton>
-            }
-            backButton={
-              <IconButton onClick={handleBack} disabled={activeStep === 0}>
-                <ArrowLeftRoundedIcon className="icon" fontSize="large" />
-              </IconButton>
-            }
-          />
+                <IconButton onClick={() => swipeButton('left')}>
+                  <HighlightOffRoundedIcon
+                    className="icon"
+                    style={{
+                      padding: 1,
+                      fontSize: '2rem',
+                      color: '#FA4659',
+                      backgroundColor: 'transparent',
+                    }}
+                  />
+                </IconButton>
 
-          <CardMedia
-            className="profile-img"
-            component="img"
-            image={pics[currentImgIndex]}
-          />
-          <Grid container direction="column" className="content">
-            <Slide isVisible={isVisible}>
-              <Details
-                name={profile.displayName || profile.discordUsername}
-                rank={profile.rank}
-                socials={socials}
-                rankIcon={rankIcon}
-                attIcon={attIcon}
-                defIcon={defIcon}
-              />
-            </Slide>
-
-            <Box className="title">
-              <div>
-                {isVisible || (
-                  <>
-                    <img className="rank-profile-icon" src={rankIcon} />
-                    {profile.displayName.toUpperCase()}, {profile.rank}
-                  </>
-                )}
-              </div>
-            </Box>
-
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              alignItems="center"
-              className="buttons"
-            >
-              <IconButton onClick={() => swipeButton('left')}>
-                <HighlightOffRoundedIcon
-                  className="icon"
-                  style={{
-                    padding: 1,
-                    fontSize: '2rem',
-                    color: '#FA4659',
-                    backgroundColor: 'transparent',
-                  }}
-                />
-              </IconButton>
-
-              <IconButton onClick={() => setIsVisible(!isVisible)}>
-                <UnfoldMoreRoundedIcon
-                  className="icon"
-                  style={{
-                    padding: 5,
-                    fontSize: '3rem',
-                    color: '#20639B',
-                    backgroundColor: 'transparent',
-                  }}
-                />
-              </IconButton>
-              <IconButton onClick={() => swipeButton('right')}>
-                <CheckCircleOutlineRoundedIcon
-                  className="icon"
-                  style={{
-                    padding: 1,
-                    fontSize: '2rem',
-                    color: '#2EB872',
-                    backgroundColor: 'transparent',
-                  }}
-                />
-              </IconButton>
+                <IconButton onClick={() => setIsVisible(!isVisible)}>
+                  <UnfoldMoreRoundedIcon
+                    className="icon"
+                    style={{
+                      padding: 5,
+                      fontSize: '3rem',
+                      color: '#20639B',
+                      backgroundColor: 'transparent',
+                    }}
+                  />
+                </IconButton>
+                <IconButton onClick={() => swipeButton('right')}>
+                  <CheckCircleOutlineRoundedIcon
+                    className="icon"
+                    style={{
+                      padding: 1,
+                      fontSize: '2rem',
+                      color: '#2EB872',
+                      backgroundColor: 'transparent',
+                    }}
+                  />
+                </IconButton>
+              </Grid>
             </Grid>
-          </Grid>
-        </Card>
+          </Card>
+
       </TinderCard>
     );
   }
