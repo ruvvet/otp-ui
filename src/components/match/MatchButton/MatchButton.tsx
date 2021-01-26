@@ -1,19 +1,18 @@
 import {
   Avatar,
-  Box,
   Grid,
   IconButton,
   Paper,
   Tooltip,
   Typography,
 } from '@material-ui/core';
+import ChatRoundedIcon from '@material-ui/icons/ChatRounded';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { MatchResponse } from '../../../interfaces';
+import { att, def, ranks } from '../../../lookup';
 import { discordAvatar } from '../../../utils';
 import './matchbutton.css';
-import { att, def, ranks, socialMedia } from '../../../lookup';
-import { Link } from 'react-router-dom';
-import ChatRoundedIcon from '@material-ui/icons/ChatRounded';
-import { MatchResponse } from '../../../interfaces';
 
 interface MatchProps {
   match: MatchResponse;

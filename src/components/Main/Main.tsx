@@ -1,16 +1,15 @@
-import { Container, Grid } from '@material-ui/core';
-import { Socket } from 'net';
+import { Container } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import io from 'socket.io-client';
-import { ChatResponse, MatchResponse } from '../../interfaces';
+import { MatchResponse } from '../../interfaces';
 import { RootState } from '../../store';
 import {
   setChats,
-  setOnlineChats,
-  setOnlineChat,
   setOfflineChat,
+  setOnlineChat,
+  setOnlineChats,
 } from '../../store/chatSlice';
 import { setMatches, setMatchNotification } from '../../store/matchSlice';
 import { initializeProfile } from '../../store/profileSlice';
@@ -130,8 +129,8 @@ export default function Main() {
       <Header />
       <div className="main-body">
         {loading ? (
-          <div className = "main-spinner">
-          <Spinner />
+          <div className="main-spinner">
+            <Spinner />
           </div>
         ) : (
           <Switch>

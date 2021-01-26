@@ -1,17 +1,10 @@
 import { Container, Grid, Typography } from '@material-ui/core';
-import React, {
-  createRef,
-  useMemo,
-  useState,
-  useEffect,
-  Ref,
-  RefObject,
-} from 'react';
-import ProfileCard from '../ProfileCard';
-import './display.css';
+import React, { createRef, RefObject, useEffect, useState } from 'react';
+import { ProfileResponse } from '../../../interfaces';
 import OTPRequest from '../../../utils';
 import Spinner from '../../utility/Spinner';
-import { ProfileResponse } from '../../../interfaces';
+import ProfileCard from '../ProfileCard';
+import './display.css';
 
 export default function Display() {
   const [profiles, setProfiles] = useState<ProfileResponse[]>([]);

@@ -261,5 +261,3 @@ export default function Chat() {
     </Container>
   );
 }
-
-//TODO: fix chat spacing
