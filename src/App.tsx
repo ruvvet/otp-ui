@@ -5,10 +5,8 @@ import Callback from './components/Callback';
 import Login from './components/Login';
 import Logout from './components/Logout/Logout';
 import Main from './components/Main';
-import Spinner from './components/utility/Spinner';
-import io from 'socket.io-client';
-import OTPRequest from './utils';
 import PrivateRoute from './components/utility/PrivateRoute';
+import OTPRequest from './utils';
 
 function App() {
   const history = useHistory();
@@ -49,9 +47,7 @@ function App() {
   }, []);
 
   return (
-    <div
-      className="app"
-    >
+    <div className="app">
       <Switch>
         <Route path="/callback">
           <Callback />

@@ -254,5 +254,5 @@ export default function Chat() {
   );
 }
 
-//TODO: anchor to bottom of scrollbar https://stackoverflow.com/questions/37620694/how-to-scroll-to-bottom-in-react
+
 //TODO: fix chat spacing

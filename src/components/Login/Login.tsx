@@ -1,6 +1,10 @@
 import {
   Button,
+  Checkbox,
   Container,
+  Dialog,
+  DialogActions,
+  FormControlLabel,
   Grid,
   List,
   ListItem,
@@ -8,20 +12,14 @@ import {
   ListItemText,
   Paper,
   Typography,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  DialogContentText,
-  FormControlLabel,
-  Checkbox,
-  StepButton,
 } from '@material-ui/core';
-import React, { useState } from 'react';
-import OTPRequest, { API } from '../../utils';
-import './login.css';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import React, { useState } from 'react';
+import { API } from '../../utils';
+import Disclaimer from '../disclaimer/Disclaimer';
+
+import './login.css';
 
 export default function Login() {
   const [dialog, setDialog] = useState(false);
@@ -73,7 +71,7 @@ export default function Login() {
             You're not thirsty, you're just lonely.
           </Typography>
         </Grid>
-        <Grid item xs style={{width: "100%"}}>
+        <Grid item xs style={{ width: '100%' }}>
           <Button
             variant="contained"
             className="login-btn"
@@ -94,23 +92,7 @@ export default function Login() {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                <Typography variant="body2">
-                  Please read the terms of service carefully before using the
-                  OTP web-app operated by ruvvet.com.
-                </Typography>
-                <Typography variant="h6">Conditions of use </Typography>
-                <Typography variant="body2">
-                  By using this website, you certify that you have read and
-                  reviewed this Agreement and that you agree to comply with its
-                  terms. If you do not want to be bound by the terms of this
-                  Agreement, you are advised to leave the website accordingly.
-                  OTP only grants use and access of this website, its products,
-                  and its services to those who have accepted its terms.
-                </Typography>
-              </DialogContentText>
-            </DialogContent>
+            <Disclaimer />
 
             <DialogActions>
               <FormControlLabel
@@ -172,3 +154,5 @@ export default function Login() {
     </Container>
   );
 }
+
+//todo: fix TOS
