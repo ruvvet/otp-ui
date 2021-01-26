@@ -13,6 +13,20 @@
  - 😏 Send them a discord friend request, or chat with them directly through the `chat` tab.
 
 # Screenshots
+##### Login
+![Login](https://github.com/ruvvet/otp-ui/blob/main/public/img/ss/otp-login.gif)
+
+##### Main - where you can swipe profiles
+![Main](https://github.com/ruvvet/otp-ui/blob/main/public/img/ss/otp-swipe.gif)
+
+##### Settings - set your name, rank, operators, social media...etc
+![Settings](https://github.com/ruvvet/otp-ui/blob/main/public/img/ss/otp-settings.gif)
+
+##### Match + Chat - displays list of matches and open chats
+![Chat](https://github.com/ruvvet/otp-ui/blob/main/public/img/ss/otp-chatmatch.gif)
+
+##### Profile, About...etc
+![Etc](https://github.com/ruvvet/otp-ui/blob/main/public/img/ss/otp-other.gif)
 
 ...coming soon
 ### Tech
@@ -122,6 +136,9 @@ const checkMatch = matches.filter(
       (match, i) => buddyId === match.liker.discordId
     );
 ```
+
+### Who's Online? 🟢
+Sockets are leveraged to check who is online and who is offline.
 
 ### Dynamic buttons based on location 🧨
 The buttons wiggle and changed based on where you are. I think its fun. 🤗
