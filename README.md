@@ -1,7 +1,23 @@
 # OTP
 
-## Test it out at [otp-siege.herokuapp.com](https://otp-siege.herokuapp.com/)
-#### An app that helps 🌈 Six Siege players find other 🌈 Six Siege players who are also looking for 🌈 Six Siege players...to play 🌈 Six Siege. And make friends.
+## Test it out at [otp-siege.herokuapp.com](https://otp-siege.herokuapp.com/)<!-- omit in toc -->
+#### An app that helps 🌈 Six Siege players find other 🌈 Six Siege players who are also looking for 🌈 Six Siege players...to play 🌈 Six Siege. And make friends.<!-- omit in toc -->
+
+- [OTP](#otp)
+    - [How it works:](#how-it-works)
+    - [Screenshots](#screenshots)
+    - [Tech](#tech)
+    - [APIs](#apis)
+- [FUNCTIONAL HIGHLIGHTS](#functional-highlights)
+    - [♻ Redux](#-redux)
+    - [🔌 Sockets](#-sockets)
+    - [💢Typescript](#typescript)
+- [SOME CUTE FEATURE HIGHLIGHTS](#some-cute-feature-highlights)
+    - [Chat Protection 🦙](#chat-protection-)
+    - [Who's Online? 🟢](#whos-online-)
+    - [Dynamic buttons based on location 🧨](#dynamic-buttons-based-on-location-)
+    - [Privacy Please 🛑✋](#privacy-please-)
+    - [🔎Lookup tables🔍](#lookup-tables)
 
 ### How it works:
  - ✔ `Login` via Discord OAuth
@@ -12,23 +28,20 @@
  - 💗 Once you've matched, they'll show up in your `matches` tab.
  - 😏 Send them a discord friend request, or chat with them directly through the `chat` tab.
 
-# Screenshots
-##### Login
+### Screenshots
+##### Login<!-- omit in toc -->
 ![Login](https://github.com/ruvvet/otp-ui/blob/main/public/img/ss/otp-login.gif)
 
-##### Main - where you can swipe profiles
+##### Main - where you can swipe profiles<!-- omit in toc -->
 ![Main](https://github.com/ruvvet/otp-ui/blob/main/public/img/ss/otp-swipe.gif)
 
-##### Settings - set your name, rank, operators, social media...etc
+##### Settings - set your name, rank, operators, social media...etc<!-- omit in toc -->
 ![Settings](https://github.com/ruvvet/otp-ui/blob/main/public/img/ss/otp-settings.gif)
 
-##### Match + Chat - displays list of matches and open chats
-![Chat](https://github.com/ruvvet/otp-ui/blob/main/public/img/ss/otp-chatmatch.gif)
-
-##### Profile, About...etc
+##### Match + Chat - displays list of matches and open chats<!-- omit in toc -->
+##### Profile, About...etc<!-- omit in toc -->
 ![Etc](https://github.com/ruvvet/otp-ui/blob/main/public/img/ss/otp-other.gif)
 
-...coming soon
 ### Tech
 > - React
 > - Express
@@ -43,7 +56,7 @@
 
 # FUNCTIONAL HIGHLIGHTS
 
-### Redux
+### ♻ Redux
 To help manage state on a global level, and provide components on nonlinear branches with access to data without passing props around like a hot 🥔, we used Redux (specifically, Redux Toolkit). This meant that we could store data in our central Redux store and access that data from any component without the need to pass that data in as props.
 
 To oversimplify, like with state, we initialize any variables (like `stuff=0`) we want in Redux and create a action for it (like `setStuff`). When we want to update the state, we use the `dispatch()` function and dispatch the data we want to set inside the set action we want to call. Dispatch will then go to the store where it compares the action we want against all the available actions, and will update the initial data with the dispatched data once a matching set action is found. Then we can call that updated data from the store using `useSelector()`
@@ -73,15 +86,13 @@ const rank = useSelector((state: RootState) => state.profile.rank);
 
 ```
 
-### Sockets
+### 🔌 Sockets
 `WebSockets` allow for a persistent and open two-way communication channel between the client and the server. Servers can push information to clients, and so we don't need to constantly ping the API to check if there is any new information. This is especially useful for real-time functionality, like `chat`. However, since websockets keep a constantly open connection, it can consume large amounts of your server's resources. And too many open connections to your database can ☠ it.
 
 `socket.io` is a JS library that uses the WebSocket protocol and allows for real-time, bi-directional connection between clients and the server.
 
 OTP uses socket.io to create open WebSocket connections during while the client is interacting with the page. Each user has their own open socket which we track and identify.
 with this, we can `send chat messages from one user to another specific user`, and `broadcast online/offline status'`.
-
-
 
 ```typescript
 import io from 'socket.io-client';
@@ -114,9 +125,9 @@ import io from 'socket.io-client';
       });
 
 ```
-### Typescript
-- 😠💢 Typescript when you try to write bad code.
- - 🥴🙃 Javascript when you write bad code.
+### 💢Typescript
+- 😠 Typescript when you try to write bad code.
+- 🥴 Javascript when you write bad code.
 OTP was first written in JS and then converted to TS. TS is mean but it protects you from yourself and your own bad code.
 
 ```typescript
