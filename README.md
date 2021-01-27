@@ -43,10 +43,10 @@
 ![Etc](https://github.com/ruvvet/otp-ui/blob/main/public/img/ss/otp-other.gif)
 
 ### Tech
-> - React
+> - ⭐ React
+> > - ⭐ Typescript
 > - Express
 > - TypeORM
-> - Typescript
 > - Postgres
 > - Node
 
